@@ -69,14 +69,18 @@ if ~isempty(hhrnvmsettings)
     ectopicBeats = dhrnvmsettings.ectopicBeats;
     percentClean = dhrnvmsettings.percentClean;
     
-    %%Close HRnVmCal window once parameters transferred
-    close(hhrnvmsettings);
-    
+   
     %%Display PatientID
     set(handles.txtpatientid,'String',patientid);
     
     %%Display calculated HRnVm name
     set(handles.txthrnvm,'String',hrnvmname);
+    
+    %%Display Frequency Analysis Method
+    set(handles.txtfreqmethod,'String',dhrnvmsettings.HRVParams.freq.method);
+    
+    %%Close HRnVmCal window once parameters transferred
+    %close(hhrnvmsettings);
     
     hrnvibi = dhrnvmsettings.prohrnvmibi;
     
@@ -182,7 +186,12 @@ iLF = find( (F>=LF(1)) & (F<LF(2)) );
 iHF = find( (F>=HF(1)) & (F<HF(2)) );
 
 %plot area under PSD curve
-area(aH,F(:),PSD(:),'FaceColor',[.8 .8 .8]);        
+if F(end)<=0.5 %%Lomb
+    area(aH,F(:),PSD(:),'FaceColor',[.8 .8 .8]); 
+else %%Welch,FFT,Burg,resampling frequency is 7Hz - > F to 3.5Hz
+    xindex = find(F<=0.5);
+    area(aH,F(xindex),PSD(xindex),'FaceColor',[.8 .8 .8]);
+end
 hold(aH);
 area(aH,F(iVLF(1):iVLF(end)+1),PSD(iVLF(1):iVLF(end)+1), ...
     'FaceColor',color.vlf);
@@ -193,10 +202,12 @@ area(aH,F(iHF(1):iHF(end)+1),PSD(iHF(1):iHF(end)+1), ...
 
 if ~isempty(limX)
     set(aH,'xlim',limX)
+    %xlim(limX);
 else
     limX=[min(F) max(F)];
 end
 if ~isempty(limY)
+    %ylim(limY);
     set(aH,'ylim',limY)
 else
     limY=[min(PSD) max(PSD)];

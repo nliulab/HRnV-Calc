@@ -91,6 +91,14 @@ try
             dTminus = fs;  
         end
 
+        %%Add for the segment before last segment,in case stop+dTplus
+        %%exceed ECG length --- Duke-NUS team
+        if stop + dTplus > length(ecg)
+            segend = length(ecg);
+        else
+            segend = stop + dTplus;
+        end
+            
         % lowering the threshold in case not enough beats are
         % detected. Also changed the refractory period to be different between
         % mother and foetus. sign of peaks is determined by the sign on the
@@ -98,11 +106,11 @@ try
         if strcmp(ecgType,'FECG')
             thresTrans = thres;
             while length(QRStemp)<20 && thresTrans>0.1
-                [QRStemp,signForce] = jqrs(ecg(start-dTminus:stop+dTplus),HRVparams);
+                [QRStemp,signForce] = jqrs(ecg(start-dTminus:segend),HRVparams);
                 thresTrans = thresTrans-0.1;
             end
         else
-            [QRStemp,signForce] = jqrs(ecg(start-dTminus:stop+dTplus),HRVparams);
+            [QRStemp,signForce] = jqrs(ecg(start-dTminus:segend),HRVparams);
         end
 
         NewQRS = (start-1)-dTminus+QRStemp;

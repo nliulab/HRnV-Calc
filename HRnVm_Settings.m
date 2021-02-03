@@ -52,9 +52,6 @@ function HRnVm_Settings_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to HRnVm_Settings (see VARARGIN)
 
-% Choose default command line output for HRnVm_Settings
-handles.output = hObject;
-
 
 %%Get Info from HRnVmCal
 % get the handle of HRnVmCal
@@ -106,11 +103,15 @@ if ~isempty(hhrnvpreprocess)
     close(hhrnvpreprocess);
 end
 
+% Choose default command line output for HRnVm_Settings
+handles.output = hObject;
+
 % Update handles structure
 guidata(hObject, handles);
 
 % UIWAIT makes HRnVm_Settings wait for user response (see UIRESUME)
 % uiwait(handles.HRnVmSettings);
+
 
 
 % --- Outputs from this function are returned to the command line.
