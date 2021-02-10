@@ -1173,14 +1173,12 @@ if get(hObject,'Value') == 1
     [e,f]=wavedec(ecg,10,'db6');% Wavelet implementation
     g=wrcoef('a',e,f,'db6',8); 
     ecg_wave=ecg-g; % subtracting 10th level aproximation signal
-                   %from original signal                  
-    denoiseecg_1=smooth(ecg_wave); % using average filter to remove glitches
-                                 %to increase the performance of peak detection
-    denoiseecg = wdenoise(denoiseecg_1,8, ...
-    'Wavelet', 'db5', ...
-    'DenoisingMethod', 'Bayes', ...
-    'ThresholdRule', 'Median', ...
-    'NoiseEstimate', 'LevelDependent'); 
+                   %from original signal 
+                   
+  
+    %For KKH signal,change to >0
+    denoiseecg = ecg_wave + abs(min(ecg_wave));
+
     if ~isempty(handles.data.ecgsegment)
         handles.data.ecgsegment = denoiseecg;
     else

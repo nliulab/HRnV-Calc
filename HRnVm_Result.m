@@ -80,7 +80,7 @@ if ~isempty(hhrnvmsettings)
     set(handles.txtfreqmethod,'String',dhrnvmsettings.HRVParams.freq.method);
     
     %%Close HRnVmCal window once parameters transferred
-    %close(hhrnvmsettings);
+    close(hhrnvmsettings);
     
     hrnvibi = dhrnvmsettings.prohrnvmibi;
     
@@ -201,14 +201,14 @@ area(aH,F(iHF(1):iHF(end)+1),PSD(iHF(1):iHF(end)+1), ...
     'FaceColor',color.hf);
 
 if ~isempty(limX)
-    set(aH,'xlim',limX)
+    set(aH,'xlim',limX);
     %xlim(limX);
 else
     limX=[min(F) max(F)];
 end
 if ~isempty(limY)
     %ylim(limY);
-    set(aH,'ylim',limY)
+    set(aH,'ylim',limY);
 else
     limY=[min(PSD) max(PSD)];
 end
@@ -221,7 +221,7 @@ set(line2,'color',[1 0 0],'parent',aH);
 line3=line([HF(2) HF(2)],[limY(1) limY(2)]);
 set(line3,'color',[1 0 0],'parent',aH);
    
-hold(aH)
+hold(aH);
 
 ax = ancestor(aH,'axes');
 ax.XAxis.FontSize = 8;

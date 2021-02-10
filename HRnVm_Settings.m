@@ -53,32 +53,32 @@ function HRnVm_Settings_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to HRnVm_Settings (see VARARGIN)
 
 
-%%Get Info from HRnVmCal
-% get the handle of HRnVmCal
-hhrnvmcal = findobj('Tag','HRnVmCal');
+%%Get Info from HRnVm_IniSetConfirm
+% get the handle of HRnVm_IniSetConfirm
+hhrnvminitset = findobj('Tag','HRnVm_IniSetConfirm');
 % if exists (not empty)
-if ~isempty(hhrnvmcal)
-    dhhrnvmcal = guidata(hhrnvmcal);
-    handles.filetype = dhhrnvmcal.filetype;
-    handles.datatype = dhhrnvmcal.datatype;
-    handles.fs = dhhrnvmcal.fs;
-    handles.postfix = dhhrnvmcal.postfix;
-    handles.prefix = dhhrnvmcal.prefix;
-    handles.HRVParams = dhhrnvmcal.HRVParams;
+if ~isempty(hhrnvminitset)
+    dhhrnvminitset = guidata(hhrnvminitset);
+    handles.filetype = dhhrnvminitset.filetype;
+    handles.datatype = dhhrnvminitset.datatype;
+    handles.fs = dhhrnvminitset.fs;
+    handles.postfix = dhhrnvminitset.postfix;
+    handles.prefix = dhhrnvminitset.prefix;
+    handles.HRVParams = dhhrnvminitset.HRVParams;
     
     if handles.filetype == 1 %Single File
         set(handles.btsingle,'Enable','on');
-        handles.patientID = dhhrnvmcal.patientID;
+        handles.patientID = dhhrnvminitset.patientID;
         if (handles.datatype == 2) || (handles.datatype == 4) %%Single IBI
-            handles.ibidata = dhhrnvmcal.data;
+            handles.ibidata = dhhrnvminitset.data;
         end
     else %Batch Files
         set(handles.btbatch,'Enable','on');
-        handles.foldername = dhhrnvmcal.foldername;
+        handles.foldername = dhhrnvminitset.foldername;
     end
     
     %%Close HRnVmCal window once parameters transferred
-    close(hhrnvmcal);
+    close(hhrnvminitset);
 end
 
 %%Get Info from Preprocess
@@ -153,7 +153,9 @@ handles.HRVParams.windowlength = cleanibi(size(cleanibi,1),1) + 1;%%Extra 1 seco
 percentClean = round(10000*(length(cleanibi(:,2))/((length(cleanibi(:,2))+ectopicBeats))))/100;
 
 if percentClean < 80
-    fprintf('Too noisy record %s of \n',handles.patientID+' has only '+num2str(percentClean)+'% non-ectopic beats!');
+    %%Create messagebox
+    msg = cat(2,'Record ',handles.patientID,' has only ',num2str(percentClean),'% non-ectopic beats!');
+    warndlg(msg,'Too many ectopic beats!');
 end
 
 %Save to handles
@@ -238,8 +240,21 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
             end
         end
     end
+
+    if isstring(fullSingleAllName)
+        fullSingleAllName = convertStringsToChars(fullSingleAllName);
+    end
     xlswrite(fullSingleAllName,header,1);
-    xlsappend(convertStringsToChars(fullSingleAllName),hrnvmoutput);
+    xlsappend(fullSingleAllName,hrnvmoutput);
+    
+    %%Create messagebox
+    uiwait(msgbox('Calculation finished!'));
+
+    hhrnvmsettings = findobj('Tag','HRnVmSettings');
+    % if exists (not empty)
+    if ~isempty(hhrnvmsettings)
+        close(hhrnvmsettings);
+    end
 end
 
 %%%To process new IBI based on HRnVm concept
@@ -640,8 +655,19 @@ for fileindex=1:length(fnames)
             fileID = extractBetween(fpaths(fileindex),handles.prefix,handles.postfix);
         end
     end
+    if isempty(fileID) %%Wrong input of prefix and postfix lead to fail extraction
+        fileID = fpaths(fileindex);
+    else
+        if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
+            fileID = fileID{1};
+        end
+    end
     
-    record_id = fileID{1};    
+    if isstring(fileID)
+        record_id = cellstr(fileID);
+    else
+        record_id = fileID;
+    end
     
     handles.ecothreshold = str2double(get(handles.edecothre,'String'));
 
@@ -654,8 +680,10 @@ for fileindex=1:length(fnames)
     percentClean = round(10000*(length(cleanibi(:,2))/((length(cleanibi(:,2))+ectopicBeats))))/100;
 
     if percentClean < 80
-        fprintf('Too noisy record %s of \n',handles.patientID+' has only '+num2str(percentClean)+'% non-ectopic beats!');
+        msg = cat(2,'Record ',record_id{1},' has only ',num2str(percentClean),'% non-ectopic beats!');
+        warndlg(msg,'Too many ectopic beats!');
     end
+    
     %%Save the percentage of removed ecotopic beat 
     handles.HRVParams.windowlength = cleanibi(size(cleanibi,1),1) + 1;%%Extra 1 second to smooth Physionet-toolbox calculation
     % Update handles structure if necessary
@@ -663,6 +691,11 @@ for fileindex=1:length(fnames)
     
     %%
     if get(handles.rbsingle,'Value') == 1 %Single HRnVm
+        
+        if isstring(fullFileName)
+            fullFileName = convertStringsToChars(fullFileName);
+        end
+    
         if fileindex == 1 %%Only write header the fist time
             header = constructheader(handles.hrnv,handles.hrnvm);
             header = cat(2,'patient_id',header);%%Add patient_id as first column
@@ -681,6 +714,7 @@ for fileindex=1:length(fnames)
             hrnvmibi = hrnvoverlap (cleanibi,handles.hrnv,hrnvmoverlap);
         end
         [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvmibi,handles.HRVParams,handles.hrnv);
+
         hrnvmoutput = cat(2,record_id,hrnvmoutput);
         xlsappend(convertStringsToChars(fullFileName),hrnvmoutput); 
         
@@ -714,14 +748,25 @@ for fileindex=1:length(fnames)
                 end
             end
         end
+        if isstring(fullFileName)
+            fullFileName = convertStringsToChars(fullFileName);
+        end
         if fileindex == 1 %Only write header the fist time
             xlswrite(fullFileName,header,1);
         end
-        xlsappend(convertStringsToChars(fullFileName),hrnvmoutput);
+        xlsappend(fullFileName,hrnvmoutput);
     end
 end
 fprintf('All calculation finished! \n');
 
+%%Create messagebox
+uiwait(msgbox('All Calculation finished!'));
+
+hhrnvmsettings = findobj('Tag','HRnVmSettings');
+% if exists (not empty)
+if ~isempty(hhrnvmsettings)
+    close(hhrnvmsettings);
+end
 
 % --- Executes on button press in rbsingle.
 function rbsingle_Callback(hObject, eventdata, handles)

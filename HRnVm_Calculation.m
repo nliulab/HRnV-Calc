@@ -58,6 +58,7 @@ handles.output = hObject;
 
 %%Initialize some handles parameters
 handles.fs = 125; %Initialize sampling rate
+handles.infant = 2; %1?Infant,2: Adult
 handles.filetype = 1;%File type: 1-Single; 2-Batch
 handles.datatype = 1;%Data type: 1-ECG Raw; 2-IBI; 3-Kubios ECG; 4-Kubios IBI?5-ECG Peak Check (PC)
 handles.prefix = "";
@@ -141,14 +142,56 @@ end
 handles.prefix = get(handles.edprefix,'String');
 handles.postfix = get(handles.edpostfix,'String');
  
+%%Read Input for single file
+    
+if handles.filetype == 1
+    PathName = handles.pathname;
+    FileName = handles.filename;
+    filename = strcat(PathName,FileName);
+    [filepath,name,ext] = fileparts(filename);
+
+    if (handles.datatype == 1)||(handles.datatype == 2) %%Raw ECG or IBI
+        if ext == '.txt'
+           fileID = fopen([PathName '/' FileName],'r');
+           signal = textscan(fileID,'%f');
+           data = signal{1};
+        else
+            if ext == '.csv'
+                data = xlsread([PathName '/' FileName]);
+            end
+        end
+        %if (handles.datatype == 1)
+        %    handles.data = double(1000*data); %%raw ECG, change to mv
+        %else
+            handles.data = double(data); %%IBI/ECG
+        %end
+    else
+        if (handles.datatype == 5)%%ECG PC data
+            ecgpc = xlsread([PathName '/' FileName]);
+            handles.data = ecgpc(:,1); %ECG raw
+            peakposcol = ecgpc(:,2); %Peak Pos
+            handles.peakpos = find(peakposcol == 1);
+        else %Kubios MAT file for ECG Raw/IBI
+            result = load([PathName '/' FileName]);
+            if (handles.datatype == 4)%%Kubios IBI data              
+                handles.data = result.Res.HRV.Data.RR;
+            else %%Kubios ECG
+                handles.data = result.Res.CNT.EKG;%%change to mv
+            end
+        end
+    end
+end
 
 %Update HRVParams for Physionet Toolbox
 %%Initialization of some basic HRV params using Physionet-Tool-Box function
 HRVParams = InitializeHRVparams('');
 if get(handles.rbinfant,'Value') == 1
+    handles.infant = 1;
     HRVParams.PeakDetect.REF_PERIOD = 0.150; %For fetal ECG
     HRVParams.PeakDetect.ecgType = 'fECG'; %For fetal ECG
     HRVParams.preprocess.lowerphysiolim = 60/300;       % Default: 60/160 for adult (160bpm)
+else
+    handles.infant = 2;
 end
 
 handles.HRVParams = HRVParams;
@@ -156,7 +199,8 @@ handles.HRVParams = HRVParams;
 guidata(hObject, handles);
 
 if handles.filetype == 2 %Batch file
-    HRnVm_Settings;
+    %HRnVm_Settings;
+    HRnVm_IniSetConfirm;
 else %Single file
     %%Extract patientid from prefix and postfix
     if handles.prefix == ""
@@ -185,11 +229,12 @@ else %Single file
     % Update handles structure
     guidata(hObject, handles);
 
-    if (handles.datatype == 2)||(handles.datatype == 4) %%IBI file
-        HRnVm_Settings;
-    else %%ECG Raw
-        PreProcess;
-    end
+%     if (handles.datatype == 2)||(handles.datatype == 4) %%IBI file
+%         HRnVm_Settings;
+%     else %%ECG Raw
+%         PreProcess;
+%     end
+    HRnVm_IniSetConfirm;
 end
 
 
@@ -241,42 +286,10 @@ if (handles.filetype == 1) %%Single File
     end
 
     handles.filename = FileName; %%Save filename to handle
+    handles.pathname = PathName; %%Save pathname to handle
     
     filename = strcat(PathName,FileName);
-    [filepath,name,ext] = fileparts(filename);
-
     set(handles.edpos,'String',filename);
-    
-    if (handles.datatype == 1)||(handles.datatype == 2) %%Raw ECG or IBI
-        if ext == '.txt'
-           fileID = fopen([PathName '/' FileName],'r');
-           signal = textscan(fileID,'%f');
-           data = signal{1};
-        else
-            if ext == '.csv'
-                data = xlsread([PathName '/' FileName]);
-            end
-        end
-        %if (handles.datatype == 1)
-        %    handles.data = double(1000*data); %%raw ECG, change to mv
-        %else
-            handles.data = double(data); %%IBI/ECG
-        %end
-    else
-        if (handles.datatype == 5)%%ECG PC data
-            ecgpc = xlsread([PathName '/' FileName]);
-            handles.data = ecgpc(:,1); %ECG raw
-            peakposcol = ecgpc(:,2); %Peak Pos
-            handles.peakpos = find(peakposcol == 1);
-        else %Kubios MAT file for ECG Raw/IBI
-            result = load([PathName '/' FileName]);
-            if (handles.settings.datatype == 4)%%Kubios IBI data              
-                handles.data = result.Res.HRV.Data.RR;
-            else %%Kubios ECG
-                handles.data = result.Res.CNT.EKG * 1000;%%change to mv
-            end
-        end
-    end
 else
     foldername = uigetdir('D:\');
     set(handles.edpos,'String',foldername);
