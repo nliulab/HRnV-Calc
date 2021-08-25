@@ -179,10 +179,10 @@ function btconfirm_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 if handles.filetype == 2 %Batch file
-    HRnVm_Settings;
+    HRnVm_Params_Settings;
 else
     if (handles.datatype == 2)||(handles.datatype == 4) %%IBI file
-        HRnVm_Settings;
+        HRnVm_Params_Settings;
     else %%ECG Raw
         PreProcess;
     end

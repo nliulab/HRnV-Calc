@@ -57,7 +57,14 @@ handles.output = hObject;
 
 
 %%Initialize some handles parameters
-handles.fs = 125; %Initialize sampling rate
+%%Temp setting
+handles.fs = 250;
+set(handles.rb250,'Value',1);
+set(handles.edprefix,'String','CP');
+set(handles.edpostfix,'String','.');
+
+
+%handles.fs = 125; %Initialize sampling rate
 handles.infant = 2; %1?Infant,2: Adult
 handles.filetype = 1;%File type: 1-Single; 2-Batch
 handles.datatype = 1;%Data type: 1-ECG Raw; 2-IBI; 3-Kubios ECG; 4-Kubios IBI?5-ECG Peak Check (PC)
@@ -378,6 +385,8 @@ function rbbatch_Callback(hObject, eventdata, handles)
 if get(handles.rbbatch,'Value') == 1
     set(handles.rbecgpc,'Enable','off');
     set(handles.rbecg,'Enable','off');
+    %%Temporary
+    %%set(handles.rbecg,'Enable','on');  
     set(handles.rbkecg,'Enable','off');
     set(handles.rbibi,'Value',1);
     set(handles.edpos,'String','');

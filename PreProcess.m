@@ -233,9 +233,14 @@ for i = 1:length(jqrs_ann)
     end
 end
 
-peakpos = jqrs_ann; 
+peakpos = jqrs_ann;
+
+%%Remove minus value for peakpos for some case
+peakpos (find(peakpos<0))=[];
+
 %Plot first QRS detection segment with 10 x ticks
 peakseg = peakpos(find((peakpos<=seg*fs))); %%Get the corresponding indices in this figure
+
 
 plotspecial(handles,handles.figecgpeak,origecgforpro,handles.settings.bfull,1,seg*fs,0,peakseg);
 
@@ -618,7 +623,9 @@ while bcycle==1
                     if sliderpos == get(handles.plotslider, 'max') %means last overall QRS peak
                         peakpos = cat(1,peakpos,pointpos);
                     else
-                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)),pointpos,peakpos(prepeaknums+length(peakseg)+1:length(peakpos)));
+                        %%peakseg already add 1, therefore the position
+                        %%need to minus one
+                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)-1),pointpos,peakpos(prepeaknums+length(peakseg)+1:length(peakpos)));
                     end
                 else %Insert to middle
                     peakseg = cat(1,peakseg(1:insertpos),pointpos-seg*(sliderpos-1)*fs,peakseg(insertpos+1:length(peakseg)));
@@ -1094,6 +1101,7 @@ switch nargin
     case 7
         plot(hfig,startindex:endplotindex,ecg(startindex:endplotindex));
     case 8
+        %%in some cases, marker index < 0;
         plot(hfig,startindex:endplotindex,ecg(startindex:endplotindex),'-o','MarkerIndices',markerindex,...
     'MarkerFaceColor','red','MarkerSize',6);
 end
@@ -1130,7 +1138,7 @@ if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
 
-ecglength = floor(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
+ecglength = round(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
 
 %%IBI File Saving
 defibiname = cat(2,char(handles.patientID),'_',num2str(ecglength),'mins_ibi');
@@ -1151,7 +1159,7 @@ csvwrite(fullpcFileName,ecgpc);
 
 guidata(hObject,handles);
 %%Call HRnVm Parameters Setting
-HRnVm_Settings;
+HRnVm_Params_Settings;
 
 % --- Executes on button press in cbwavelet.
 function cbwavelet_Callback(hObject, eventdata, handles)
@@ -1401,7 +1409,7 @@ if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
 
-ecglength = floor(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
+ecglength = round(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
 
 %%IBI File Saving
 defibiname = cat(2,char(handles.patientID),'_',num2str(ecglength),'mins_ibi');
