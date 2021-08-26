@@ -118,7 +118,9 @@ if ~isempty(hhrnvmcal)
             if handles.postfix ~= ""
                 fileID = extractBefore(fpaths(1),handles.postfix);
             else
-                fileID = fpaths(fileindex); %%No prefix and postfix
+                %% Chenglin mod
+                fileID = fpaths(1);%fpaths(fileindex); %%No prefix and postfix
+                %%
             end
         else
             if handles.postfix == ""
@@ -140,6 +142,11 @@ if ~isempty(hhrnvmcal)
 end
 
 
+%% Chenglin mod
+% resize font for gui
+txtHand = findall(handles.HRnVm_IniSetConfirm, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 % Choose default command line output for hrnvm_inisetconfirm
 handles.output = hObject;
 

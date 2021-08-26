@@ -22,7 +22,7 @@ function varargout = PreProcess(varargin)
 
 % Edit the above text to modify the response to help hrnvmpreprocess
 
-% Last Modified by GUIDE v2.5 03-Feb-2021 15:02:21
+% Last Modified by GUIDE v2.5 25-Aug-2021 23:00:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -55,6 +55,10 @@ function PreProcess_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for hrnvmpreprocess
 handles.output = hObject;
 
+%% Chenglin mod, resize fonts when window resizes
+txtHand = findall(handles.HRnVmPreprocess, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 %%%Many places needs to set and update peakpos, therefore set to global
 global peakpos;
 
@@ -97,6 +101,7 @@ if ~isempty(hhrnvmcal)
     handles.filetype = dhhrv.filetype;
     
     if handles.settings.datatype == 5 %%For ECG QC Check
+        set(handles.btnewqrs,'Enable','on');
         set(handles.btprocess,'Enable','off');
         peakpos = dhhrv.peakpos;     
     end
@@ -190,7 +195,7 @@ if get(handles.cbrsr,'Value') == 1
 end
 
 seg = handles.settings.qrslength;
-sbp = 10; %%Search back and forward 5 samples to check if it is real sample
+sbp = 10;%%Search back and forward 5 samples to check if it is real sample
 
 %%%
 %%Peak detection%%
@@ -211,6 +216,7 @@ jqrs_ann = run_qrsdet_by_seg_revised(ecgforpro,HRVParams);
 
 %Search back and forward to see if this is real peak, if not,
 %change
+if get(handles.localcheck, 'Value')==1 || get(handles.localcheck, 'Value')==1 %%Chenglin mod, check on users' demand
 for i = 1:length(jqrs_ann)
     startcheckpos = jqrs_ann(i)-sbp;
     endcheckpos = jqrs_ann(i)+sbp;
@@ -229,8 +235,9 @@ for i = 1:length(jqrs_ann)
         else
             maxindex = maxindexr;
         end
-        jqrs_ann(i) = maxindex+jqrs_ann(i)-sbp-1;
+        jqrs_ann(i) = maxindex+startcheckpos-1;%%Chenglin mode
     end
+end
 end
 
 peakpos = jqrs_ann;
@@ -1431,3 +1438,18 @@ csvwrite(fullpcFileName,ecgpc);
 guidata(hObject,handles);
 %%Call HRnVm_Calculation main
 HRnVm_Calculation;
+
+
+% --- Executes on button press in localcheck.
+function localcheck_Callback(hObject, eventdata, handles)
+% hObject    handle to localcheck (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of localcheck
+if get(handles.localcheck, 'Value') == 1
+    set(handles.cbrsr, 'Enable', 'on');
+else
+    set(handles.cbrsr, 'Enable', 'off');
+    set(handles.cbrsr, 'Value', 0);
+end

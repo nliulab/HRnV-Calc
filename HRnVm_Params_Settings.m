@@ -22,7 +22,7 @@ function varargout = HRnVm_Params_Settings(varargin)
 
 % Edit the above text to modify the response to help HRnVm_Params_Settings
 
-% Last Modified by GUIDE v2.5 16-Apr-2021 22:48:36
+% Last Modified by GUIDE v2.5 25-Aug-2021 18:50:22
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -104,6 +104,11 @@ end
 
 % Choose default command line output for HRnVm_Params_Settings
 handles.output = hObject;
+%% Chenglin mod
+% resize font for gui
+txtHand = findall(handles.HRnVmSettings, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 
 % Update handles structure
 guidata(hObject, handles);
@@ -137,19 +142,45 @@ function btsingle_Callback(hObject, eventdata, handles)
 % hObject    handle to btsingle (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+%% Chenglin mod, use new ui design
 if get(handles.rbsingle,'Value') == 1
     handles.hrnv = str2double(get(handles.ednsingle,'String'));
-    handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+    if get(handles.samem, 'Value') == 1
+        handles.hrnvm = handles.hrnv;
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', get(handles.ednsingle,'String'));
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+        handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+    end
 else
+    set(handles.ednall, 'Enable', 'on');
+    set(handles.edmsingle, 'Enable', 'off');
+    set(handles.ednsingle, 'Enable', 'off');
+    set(handles.samem, 'Enable', 'off');
     handles.hrnv = str2double(get(handles.ednall,'String'));
     handles.hrnvm = handles.hrnv; %%Set hrnvm = hrnv to indicate all HRnVm based on hrnv value 
 end
 
+if handles.hrnvm > handles.hrnv
+    warndlg('Invalid m value!', 'm value too high');
+    return;
+end
+if handles.hrnvm<1 || handles.hrnv<1
+    warndlg('Invalid value! Only positive integer m or n allowed', 'm or n invalid');
+    return;
+end
+%%
 handles.ecothreshold = str2double(get(handles.edecothre,'String'));
 
 %%Initialization of some basic HRV params using Physionet-Tool-Box function
 
 handles.HRVParams = ChangeSettings(handles,handles.HRVParams,handles.ecothreshold);
+%% Chenglin mod
+if get(handles.use_kb, 'Value') == 1
+    handles.HRVParams = Modify_params_kb(handles.HRVParams);
+end
+%%
 
 %%ecotopic beats Removal and change HRVparameters windowlength here 
 [cleanibi,ectopicBeats] = ibitimegeneration(handles.ibidata,handles.HRVParams);
@@ -190,11 +221,12 @@ if get(handles.rbsingle,'Value') == 1 %Single HRnVm
         xlswrite(fullparamFileName,paramheader,1);
     end
     
-    hrnvmoverlap = handles.hrnv - handles.hrnvm;
+    %hrnvmoverlap = handles.hrnv - handles.hrnvm;%% Chenglin mod, don't
+    %need this under new HRnVm interpretation
     if handles.hrnv == 1
         hrnvmibi = cleanibi;
     else
-        hrnvmibi = hrnvoverlap (cleanibi,handles.hrnv,hrnvmoverlap);
+        hrnvmibi = hrnvoverlap (cleanibi,handles.hrnv,handles.hrnvm);%% Chenglin mod, put hrnvm directly into function
     end
     [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvmibi,handles.HRVParams,handles.hrnv);
     hrnvmoutput = cat(2,handles.patientID,hrnvmoutput);
@@ -210,7 +242,7 @@ if get(handles.rbsingle,'Value') == 1 %Single HRnVm
     if handles.hrnv == 1 %%HRV
        handles.hrnvmname = 'HRV'; 
     else
-        if handles.hrnvm == 0
+        if handles.hrnvm == handles.hrnv %% Chenglin mod
             handles.hrnvmname = cat(2,'HR',num2str(handles.hrnv),'V');
         else
             handles.hrnvmname = cat(2,'HR',num2str(handles.hrnv),'V',num2str(handles.hrnvm));
@@ -264,15 +296,17 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
         
     if handles.hrnv>=2
         for n=2:handles.hrnv
-            for m = 0:n-1
-                if m == 0
-                    hrvoverlap = 0;
-                else
-                    hrvoverlap = n - m;
-                end
+            for m = 1:n
+                %% Chenglin mod, delete the following lines
+                %if m == 0
+                %    hrvoverlap = 0;
+                %else
+                %    hrvoverlap = n - m;
+                %end
+                %%
                 
                 %Calculate HRnVm ibi
-                hrnvmibi = hrnvoverlap (cleanibi,n,hrvoverlap);
+                hrnvmibi = hrnvoverlap (cleanibi,n,m);%% Chenglin mod, use m 
                 
                 %Construct header for HRnVm and append
                 subheader = constructheader(n,m);
@@ -325,14 +359,34 @@ function btbatch_Callback(hObject, eventdata, handles)
 % hObject    handle to btbatch (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+%% Chenglin mod, use new ui design
 if get(handles.rbsingle,'Value') == 1
     handles.hrnv = str2double(get(handles.ednsingle,'String'));
-    handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+    if get(handles.samem, 'Value') == 1
+        handles.hrnvm = handles.hrnv;
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', get(handles.ednsingle,'String'));
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+        handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+    end
 else
+    set(handles.ednall, 'Enable', 'on');
+    set(handles.edmsingle, 'Enable', 'off');
+    set(handles.ednsingle, 'Enable', 'off');
+    set(handles.samem, 'Enable', 'off');
     handles.hrnv = str2double(get(handles.ednall,'String'));
     handles.hrnvm = handles.hrnv; %%Set hrnvm = hrnv to indicate all HRnVm based on hrnv value 
 end
+if handles.hrnvm > handles.hrnv
+    warndlg('Invalid m value!', 'm value too high');
+    return;
+end
+if handles.hrnvm<1 || handles.hrnv<1
+    warndlg('Invalid value! Only positive interger m or n allowed', 'm or n invalid');
+    return;
+end
+%%
 
 %%Do batch process for a folder with IBI or Kubios MAT IBI
 %%Set default name
@@ -465,6 +519,12 @@ for fileindex=1:length(fnames)
 
     %%Initialization of some basic HRV params using Physionet-Tool-Box function
     handles.HRVParams = ChangeSettings(handles,handles.HRVParams,handles.ecothreshold);
+    %% Chenglin mod; modify parames according to Kubios preset
+    if get(handles.use_kb, 'Value') == 1
+        handles.HRVParams = Modify_params_kb(handles.HRVParams);
+    end
+    %%
+    
 
     %%ecotopic beats Removal
     [cleanibi,ectopicBeats] = ibitimegeneration(ibidata,handles.HRVParams);
@@ -473,7 +533,8 @@ for fileindex=1:length(fnames)
 
     if percentClean < 80
         msg = cat(2,'Record ',record_id{1},' has only ',num2str(percentClean),'% non-ectopic beats!');
-        warndlg(msg,'Too many ectopic beats!');
+        warndlg(msg,'Too many ectopic beats!', 'non-modal');
+        continue; %% Chenglin mod, let the process continue for other files
     end
     
     %%Save the percentage of removed ecotopic beat 
@@ -506,17 +567,18 @@ for fileindex=1:length(fnames)
             end
             
         end
-        
-        if handles.hrnvm == 0 %%HRV HR2V HR3V
-            hrnvmoverlap = 0;
-        else
-            hrnvmoverlap = handles.hrnv - handles.hrnvm;
-        end
+        %% Chenglin mod, delete following lines
+        %if handles.hrnvm == 0 %%HRV HR2V HR3V
+        %    hrnvmoverlap = 0;
+        %else
+        %    hrnvmoverlap = handles.hrnv - handles.hrnvm;
+        %end
+        %%
         
         if handles.hrnv == 1
             hrnvmibi = cleanibi;
         else
-            hrnvmibi = hrnvoverlap (cleanibi,handles.hrnv,hrnvmoverlap);
+            hrnvmibi = hrnvoverlap (cleanibi,handles.hrnv,handles.hrnvm); %% Chenglin mod, use hrnvm directly
         end
         [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvmibi,handles.HRVParams,handles.hrnv);
 
@@ -550,15 +612,17 @@ for fileindex=1:length(fnames)
         
         if handles.hrnv>=2
             for n=2:handles.hrnv
-                for m = 0:n-1
-                    if m == 0
-                        hrvoverlap = 0;
-                    else
-                        hrvoverlap = n - m;
-                    end
+                for m = 1:n
+                    %% Chenglin mod, delete the following lines
+                    %if m == 0
+                    %    hrvoverlap = 0;
+                    %else
+                    %    hrvoverlap = n - m;
+                    %end
+                    %%
 
                     %Calculate HRnVm ibi
-                    hrnvmibi = hrnvoverlap (cleanibi,n,hrvoverlap);
+                    hrnvmibi = hrnvoverlap (cleanibi,n,m);%% Chenglin mod, use m instead
 
                     %Construct header for HRnVm and append
                     subheader = constructheader(n,m);
@@ -651,6 +715,13 @@ function ednsingle_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of ednsingle as text
 %        str2double(get(hObject,'String')) returns contents of ednsingle as a double
+if get(handles.samem, 'Value') == 1
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', get(handles.ednsingle,'String'));
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+end
+
 
 
 % --- Executes during object creation, after setting all properties.
@@ -712,8 +783,11 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 %%%To process new IBI based on HRnVm concept
- function processedibi = hrnvoverlap (ibi,hrnv,hrvoverlap)
-    processedibilen = floor((length(ibi(:,2))-hrnv+1)/(hrnv-hrvoverlap));
+%% Chenglin mod
+% modify hrnvoverlap using new interpretation of HRnVm and samem
+% hrnv - hrvoverlap = hrnvm; according to the original notation
+ function processedibi = hrnvoverlap (ibi,hrnv,hrnvm)
+    processedibilen = floor((length(ibi(:,2))-hrnv+1)/hrnvm);
     %Calculate first processed ibi, further will have overlap
     processedibi = zeros(processedibilen,2);
     for j = 1:hrnv
@@ -723,10 +797,11 @@ end
     
     for i=2:processedibilen
         for j = 1:hrnv
-            processedibi(i,2) = processedibi(i,2)+ibi(i+hrnv+j-hrvoverlap-2,2);
+            processedibi(i,2) = processedibi(i,2)+ibi((i-1)*hrnvm+j,2);
         end
-        processedibi(i,1) = ibi((i-1)*(hrnv-hrvoverlap)+1,1);
+        processedibi(i,1) = ibi((i-1)*hrnvm+1,1);
     end
+%%
     
 %%%HRnVm calculation 
 function [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvibi,HRVparams,hrnv)
@@ -809,7 +884,7 @@ if hrnv == 1 %%HRV
 'hrv_hf_peak','hrv_hf_ms','hrv_hf_per','hrv_hf_nu','hrv_tp_ms','hrv_lf_hf_ratio',...
 'hrv_poincare_sd1','hrv_poincare_sd2','hrv_app_ent','hrv_sam_ent','hrv_dfa_a1','hrv_dfa_a2'}; 
 else
-    if hrnvm == 0
+    if hrnvm == hrnv %% Chenglin mod
         header = {cat(2,'hr',num2str(hrnv),'v_arr'),...
                 cat(2,'hr',num2str(hrnv),'v_sdrr'),...
                 cat(2,'hr',num2str(hrnv),'v_avhr'),...
@@ -887,7 +962,7 @@ if n == 1 %%HRV
         header =  cat(2,header,cat(2,'hrv_HFD_',num2str(kmax(i))));
     end
 else
-    if m == 0
+    if m == n %% Chenglin mod, let m = n
         header = {cat(2,'hr',num2str(n),'v_MAD'),...
             cat(2,'hr',num2str(n),'v_KFD'),...
             cat(2,'hr',num2str(n),'v_Zug'),...
@@ -920,7 +995,7 @@ if filetype == 2 %%Batch files
         if hrnv == 1 %%HRV
             filename = 'HRV-BatchResults';
         else
-            if hrnvm == 0
+            if hrnvm == hrnv %% Chenglin mod 
                 filename = cat(2,'HR',num2str(hrnv),'V-BatchResults');
             else
                 filename = cat(2,'HR',num2str(hrnv),'V',num2str(hrnvm),'-BatchResults');
@@ -938,7 +1013,7 @@ else %Single file
         if hrnv == 1 %%HRV
            filename = cat(2,patientid,'-HRV'); 
         else
-            if hrnvm == 0
+            if hrnvm == hrnv %% chenglin mod 
                 filename = cat(2,patientid,'-HR',num2str(hrnv),'V');
             else
                 filename = cat(2,patientid,'-HR',num2str(hrnv),'V',num2str(hrnvm));
@@ -1021,29 +1096,74 @@ end
 HRVParams.freq.method = fdmethod;
 
 
-% --- Executes on button press in rbsingle.
-function rbsingle_Callback(hObject, eventdata, handles)
-% hObject    handle to rbsingle (see GCBO)
+% --- Executes on button press in samem.
+function samem_Callback(hObject, eventdata, handles)
+% hObject    handle to samem (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if get(handles.samem, 'Value') == 1
+        %handles.hrnvm = handles.hrnv;
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', get(handles.ednsingle,'String'));
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+        handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+end
+
+function use_kb_Callback(hObject, eventdata, handles)
+% hObject    handle to samem (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of rbsingle
-if get(handles.rbsingle,'Value') == 1
-    set(handles.ednall,'Enable','off');
-    set(handles.ednsingle,'Enable','on');
-    set(handles.edmsingle,'Enable','on');
-end
-
-
-% --- Executes on button press in rball.
 function rball_Callback(hObject, eventdata, handles)
-% hObject    handle to rball (see GCBO)
+% hObject    handle to samem (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rball
-if get(handles.rball,'Value') == 1
-    set(handles.ednall,'Enable','on');
-    set(handles.ednsingle,'Enable','off');
-    set(handles.edmsingle,'Enable','off');
+if get(handles.rball, 'Value') == 1
+    set(handles.edmsingle, 'Enable', 'off');
+    set(handles.ednsingle, 'Enable', 'off');
+    set(handles.samem, 'Enable', 'off');
+    set(handles.ednall, 'Enable', 'on');
 end
+
+function rbsingle_Callback(hObject, eventdata, handles)
+% hObject    handle to samem (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if get(handles.rbsingle, 'Value') == 1
+    set(handles.edmsingle, 'Enable', 'on');
+    set(handles.ednsingle, 'Enable', 'on');
+    set(handles.samem, 'Enable', 'on');
+    set(handles.ednall, 'Enable', 'off');
+end
+nv = get(handles.ednsingle,'String');
+if get(handles.samem, 'Value') == 1
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', nv);
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+end
+
+
+
+% --- Executes on key press with focus on ednsingle and none of its controls.
+function ednsingle_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to ednsingle (see GCBO)
+% eventdata  structure with the following fields (see MATLAB.UI.CONTROL.UICONTROL)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)
+nv = get(handles.ednsingle,'String');
+if get(handles.samem, 'Value') == 1
+        %handles.hrnvm = handles.hrnv;
+        set(handles.edmsingle, 'Enable', 'off');
+        set(handles.edmsingle, 'String', nv);
+    else
+        set(handles.edmsingle, 'Enable', 'on');
+        %handles.hrnvm = str2double(get(handles.edmsingle,'String'));
+end
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over ednsingle.
