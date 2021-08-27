@@ -57,6 +57,7 @@ function HRnVm_Result_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for hrnvmpreprocess
 handles.output = hObject;
 
+
 %%Get Info from HRnVmCal
 % get the handle of HRnVmCal
 hhrnvmsettings = findobj('Tag','HRnVmSettings');
@@ -119,14 +120,16 @@ if ~isempty(hhrnvmsettings)
     set (handles.tblfd,'ColumnWidth', {60,80,20});
     set (handles.tblnld,'ColumnWidth', {60,80,20});
 
-    set(handles.tbltd1,'data',timetb1rv','RowName',timetb1rn,'ColumnName',cn);
-    set(handles.tbltd2,'data',timetb2rv','RowName',timetb2rn,'ColumnName',cn);
-    set(handles.tblfd,'data',freqtbrv','RowName',freqtbrn,'ColumnName',cn);
-    set(handles.tblnld,'data',nltbrv','RowName',nltbrn,'ColumnName',cn);
+    set(handles.tbltd1,'data',timetb1rv','RowName',timetb1rn,'ColumnName',cn, 'ColumnWidth','auto', 'FontUnits', 'normalized');
+    set(handles.tbltd2,'data',timetb2rv','RowName',timetb2rn,'ColumnName',cn, 'ColumnWidth','auto', 'FontUnits', 'normalized');
+    set(handles.tblfd,'data',freqtbrv','RowName',freqtbrn,'ColumnName',cn, 'ColumnWidth','auto', 'FontUnits', 'normalized');
+    set(handles.tblnld,'data',nltbrv','RowName',nltbrn,'ColumnName',cn, 'ColumnWidth','auto', 'FontUnits', 'normalized');
 end
 
-
-
+%% Chenglin mod, resize fonts for ui
+txtHand = findall(handles.hrnvmresult, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 
 % Update handles structure
 guidata(hObject, handles);

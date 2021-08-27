@@ -15,14 +15,29 @@ function varargout = HRnVm_Calculation(varargin)
 %      unrecognized property name or invalid value makes property application
 %      stop.  All inputs are passed to HRnVm_Calculation_OpeningFcn via varargin.
 %
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
+%   DEPENDENCIES & LIBRARIES:
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
 %
-% See also: GUIDE, GUIDATA, GUIHANDLES
+%   REFERENCE: 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu, Chenglin Niu
+%
+%	REPO:       
+%       https://github.com/nliulab/HRnV-Calc
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       Written by Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu,
+%       Chenglin Niu on 2021
+%   
+%	COPYRIGHT (C) 2021 
 
-% Edit the above text to modify the response to help HRnVm_Calculation
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 
-% Last Modified by GUIDE v2.5 22-Jan-2021 15:43:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -55,9 +70,32 @@ function HRnVm_Calculation_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for HRnVm_Calculation
 handles.output = hObject;
 
+%% Chenglin mod 
+% Include current working directory and its sub-directories to PATH
+HRnV_path = fileparts(which('HRnVm_Calculation.m'));
+cd(HRnV_path)
+if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 
+    msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
+    warndlg(msg,"Denpendencies Not Found")
+    return;
+end
+addpath(genpath(HRnV_path));
+% resize font for gui
+hhrnvmresult = findobj('Tag','hrnvmresult');
+txtHand = findall(handles.HRnVmCal, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
+
 
 %%Initialize some handles parameters
-handles.fs = 125; %Initialize sampling rate
+%%Temp setting
+handles.fs = 250;
+set(handles.rb250,'Value',1);
+set(handles.edprefix,'String','');
+set(handles.edpostfix,'String','');
+
+
+%handles.fs = 125; %Initialize sampling rate
 handles.infant = 2; %1?Infant,2: Adult
 handles.filetype = 1;%File type: 1-Single; 2-Batch
 handles.datatype = 1;%Data type: 1-ECG Raw; 2-IBI; 3-Kubios ECG; 4-Kubios IBI?5-ECG Peak Check (PC)
@@ -158,6 +196,10 @@ if handles.filetype == 1
         else
             if ext == '.csv'
                 data = xlsread([PathName '/' FileName]);
+                %%%If user open ECG&Peakpos file here
+                if size(data,2)==2
+                    data = data(:,1);
+                end
             end
         end
         %if (handles.datatype == 1)
@@ -378,9 +420,17 @@ function rbbatch_Callback(hObject, eventdata, handles)
 if get(handles.rbbatch,'Value') == 1
     set(handles.rbecgpc,'Enable','off');
     set(handles.rbecg,'Enable','off');
+    %%Temporary
+    %%set(handles.rbecg,'Enable','on');  
     set(handles.rbkecg,'Enable','off');
     set(handles.rbibi,'Value',1);
     set(handles.edpos,'String','');
+%% chenglin mod, disable fs for RRIs
+    set(handles.rb125,'Enable','off');
+    set(handles.rb250,'Enable','off');
+    set(handles.rbothers,'Enable','off');
+    set(handles.edfs,'Enable','off');
+%%
 end
 
 
@@ -397,6 +447,10 @@ if get(handles.rbsingle,'Value') == 1
     set(handles.rbkecg,'Enable','on');
     set(handles.rbecg,'Value',1);
     set(handles.edpos,'String','');
+    set(handles.rb125,'Enable','on');
+    set(handles.rb250,'Enable','on');
+    set(handles.rbothers,'Enable','on');
+    set(handles.edfs,'Enable','on');
 end
 
 
@@ -456,4 +510,83 @@ function rb250_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of rb250
 if get(handles.rb250,'Value') == 1
     set(handles.edfs,'Enable','off');
+end
+
+
+% --- Executes on button press in rbibi.
+function rbibi_Callback(hObject, eventdata, handles)
+% hObject    handle to rbibi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rbibi
+%% Chenglin mod, don't need fs for RRI input
+if get(handles.rbibi,'Value')==1
+    set(handles.rb125,'Enable','off');
+    set(handles.rb250,'Enable','off');
+    set(handles.rbothers,'Enable','off');
+    set(handles.edfs,'Enable','off');
+end
+    
+
+
+% --- Executes on button press in rbkibi.
+function rbkibi_Callback(hObject, eventdata, handles)
+% hObject    handle to rbkibi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rbkibi
+%% Chenglin mod, don't need fs for RRI input
+if get(handles.rbkibi,'Value')==1
+    set(handles.rb125,'Enable','off');
+    set(handles.rb250,'Enable','off');
+    set(handles.rbothers,'Enable','off');
+    set(handles.edfs,'Enable','off');
+end
+    
+
+
+% --- Executes on button press in rbecg.
+function rbecg_Callback(hObject, eventdata, handles)
+% hObject    handle to rbecg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rbecg
+if get(handles.rbecg,'Value')==1
+    set(handles.rb125,'Enable','on');
+    set(handles.rb250,'Enable','on');
+    set(handles.rbothers,'Enable','on');
+    set(handles.edfs,'Enable','on');
+end
+
+
+% --- Executes on button press in rbkecg.
+function rbkecg_Callback(hObject, eventdata, handles)
+% hObject    handle to rbkecg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rbkecg
+if get(handles.rbkecg,'Value')==1
+    set(handles.rb125,'Enable','on');
+    set(handles.rb250,'Enable','on');
+    set(handles.rbothers,'Enable','on');
+    set(handles.edfs,'Enable','on');
+end
+
+
+% --- Executes on button press in rbecgpc.
+function rbecgpc_Callback(hObject, eventdata, handles)
+% hObject    handle to rbecgpc (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of rbecgpc
+if get(handles.rbecgpc,'Value')==1
+    set(handles.rb125,'Enable','on');
+    set(handles.rb250,'Enable','on');
+    set(handles.rbothers,'Enable','on');
+    set(handles.edfs,'Enable','on');
 end

@@ -22,7 +22,7 @@ function varargout = PreProcess(varargin)
 
 % Edit the above text to modify the response to help hrnvmpreprocess
 
-% Last Modified by GUIDE v2.5 03-Feb-2021 15:02:21
+% Last Modified by GUIDE v2.5 25-Aug-2021 23:00:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -55,6 +55,10 @@ function PreProcess_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for hrnvmpreprocess
 handles.output = hObject;
 
+%% Chenglin mod, resize fonts when window resizes
+txtHand = findall(handles.HRnVmPreprocess, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 %%%Many places needs to set and update peakpos, therefore set to global
 global peakpos;
 
@@ -63,9 +67,12 @@ handles.settings.bfull = 1;%Full file (1) or Segment (0)
 handles.popseglen.String = [5 10 15];
 handles.popecglen.String = [6 8 10 12 14 16 18 20];
 handles.popecgoverlay.String = [1 2 3 4];
-handles.popqrslen.String = [10 20 30 40];
+handles.popqrslen.String = [5 10 20 30];
 
 %%Initialization
+%%set Initial QRS peak display window as 10 seconds 
+set(handles.popqrslen,'Value',2);
+
 handles.data.ecgsegment = [];
 %%%%Save ECG display length%%%
 contentslen = get(handles.popecglen,'String'); 
@@ -97,6 +104,7 @@ if ~isempty(hhrnvmcal)
     handles.filetype = dhhrv.filetype;
     
     if handles.settings.datatype == 5 %%For ECG QC Check
+        set(handles.btnewqrs,'Enable','on');
         set(handles.btprocess,'Enable','off');
         peakpos = dhhrv.peakpos;     
     end
@@ -134,7 +142,8 @@ if handles.settings.datatype == 5 %%For ECG QC Check
     %Disable other checkboxs and radiobutton and only can change peaks
     set(handles.rbsegment,'Enable','off');
     set(handles.cbwavelet,'Enable','off');
-    set(handles.cbsharpnoise,'Enable','off');
+    set(handles.btnewqrs,'Enable','on');
+    set(handles.btfinishqrs,'Enable','on');
 
     set(handles.plotslider,'Max',qrsslidecountmax);
     set(handles.plotslider,'Min',1);
@@ -190,7 +199,7 @@ if get(handles.cbrsr,'Value') == 1
 end
 
 seg = handles.settings.qrslength;
-sbp = 10; %%Search back and forward 5 samples to check if it is real sample
+sbp = 10;%%Search back and forward 5 samples to check if it is real sample
 
 %%%
 %%Peak detection%%
@@ -211,6 +220,7 @@ jqrs_ann = run_qrsdet_by_seg_revised(ecgforpro,HRVParams);
 
 %Search back and forward to see if this is real peak, if not,
 %change
+if get(handles.localcheck, 'Value')==1 || get(handles.localcheck, 'Value')==1 %%Chenglin mod, check on users' demand
 for i = 1:length(jqrs_ann)
     startcheckpos = jqrs_ann(i)-sbp;
     endcheckpos = jqrs_ann(i)+sbp;
@@ -229,13 +239,19 @@ for i = 1:length(jqrs_ann)
         else
             maxindex = maxindexr;
         end
-        jqrs_ann(i) = maxindex+jqrs_ann(i)-sbp-1;
+        jqrs_ann(i) = maxindex+startcheckpos-1;%%Chenglin mode
     end
 end
+end
 
-peakpos = jqrs_ann; 
+peakpos = jqrs_ann;
+
+%%Remove minus value for peakpos for some case
+peakpos (find(peakpos<0))=[];
+
 %Plot first QRS detection segment with 10 x ticks
 peakseg = peakpos(find((peakpos<=seg*fs))); %%Get the corresponding indices in this figure
+
 
 plotspecial(handles,handles.figecgpeak,origecgforpro,handles.settings.bfull,1,seg*fs,0,peakseg);
 
@@ -618,7 +634,9 @@ while bcycle==1
                     if sliderpos == get(handles.plotslider, 'max') %means last overall QRS peak
                         peakpos = cat(1,peakpos,pointpos);
                     else
-                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)),pointpos,peakpos(prepeaknums+length(peakseg)+1:length(peakpos)));
+                        %%peakseg already add 1, therefore the position
+                        %%need to minus one
+                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)-1),pointpos,peakpos(prepeaknums+length(peakseg)+1:length(peakpos)));
                     end
                 else %Insert to middle
                     peakseg = cat(1,peakseg(1:insertpos),pointpos-seg*(sliderpos-1)*fs,peakseg(insertpos+1:length(peakseg)));
@@ -1094,6 +1112,7 @@ switch nargin
     case 7
         plot(hfig,startindex:endplotindex,ecg(startindex:endplotindex));
     case 8
+        %%in some cases, marker index < 0;
         plot(hfig,startindex:endplotindex,ecg(startindex:endplotindex),'-o','MarkerIndices',markerindex,...
     'MarkerFaceColor','red','MarkerSize',6);
 end
@@ -1125,12 +1144,17 @@ end
 %%Save ibi as vector
 handles.ibi = diff(peakpos/handles.settings.fs);
 
-handles.ecgdata = handles.data.ecgraw;
+if handles.settings.bfull == 0
+    handles.ecgdata = handles.data.ecgsegment;
+else
+    handles.ecgdata = handles.data.ecgraw;
+end
+
 if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
 
-ecglength = floor(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
+ecglength = round(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
 
 %%IBI File Saving
 defibiname = cat(2,char(handles.patientID),'_',num2str(ecglength),'mins_ibi');
@@ -1151,7 +1175,7 @@ csvwrite(fullpcFileName,ecgpc);
 
 guidata(hObject,handles);
 %%Call HRnVm Parameters Setting
-HRnVm_Settings;
+HRnVm_Params_Settings;
 
 % --- Executes on button press in cbwavelet.
 function cbwavelet_Callback(hObject, eventdata, handles)
@@ -1204,153 +1228,6 @@ end
 
 guidata(hObject,handles);
 
-
-% --- Executes on button press in cbsharpnoise.
-function cbsharpnoise_Callback(hObject, eventdata, handles)
-% hObject    handle to cbsharpnoise (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of cbsharpnoise
-fs = handles.settings.fs;
-%%This is to remove sharp noise and large baseline drift for KKH ECG signal
-if get(hObject,'Value') == 1
-    if ~isempty(handles.data.ecgsegment)
-        ECG = handles.data.ecgsegment;
-    else
-        ECG = handles.data.ecgraw;
-    end
-    %w=50/(250/2);
-    %bw=w;
-    %[num,den]=iirnotch(w,bw); % notch filter implementation 
-    %ecg_notch=filter(num,den,ecg);
-    
-    %ECG = medfilt1(ECG,3);
-    %Remove baseline drift first
-    [e,f]=wavedec(ECG,10,'db6');% Wavelet implementation
-    g=wrcoef('a',e,f,'db6',8); 
-    ECG=ECG-g; % subtracting 10th level aproximation signal
-                   %from original signal   
-    
-    %For KKH signal,change to >0
-    ECG = ECG + abs(min(ECG));
-
-    %ECG data in 0.5 seconds for infant, 1 second for adult
-    %%In order to keep as much useful information
-    tremlen = 0.4;
-    timelen = floor(length(ECG)/(tremlen*fs));
-
-    %%Initialize ecgdiff?however, since some noise start from scratch,it
-    %%would be safe to choose 10, 20, 30, 40, 50,...etc., until find 5
-    %%approximate ECG difference
-    ecgsegdiff = [];
-    for j = 1:floor(timelen/10)
-        iniecgseg = ECG((10*j-1)*fs+1:10*j*fs);
-        ecgsegdiff = cat(2,ecgsegdiff,max(iniecgseg)-min(iniecgseg));
-        if length(ecgsegdiff)==5
-            ecgsegdiff(find(ecgsegdiff>2*median(ecgsegdiff)))=[];
-            if length(ecgsegdiff)==5
-                break;
-            end
-        end
-    end
-
-    removei=[];
-    
-    for i=1:timelen
-        ecgsegstindex = round((i-1)*tremlen*fs)+1;
-        ecgsegendindex = round(i*tremlen*fs);
-        ecgseg = ECG(ecgsegstindex:ecgsegendindex);
-        newecgsegdiff = max(ecgseg)-min(ecgseg);
-
-        if newecgsegdiff > 3*median(ecgsegdiff)%noise second and remove all ecg in this second
-            %Save i
-            removei = cat(2,removei,i);
-        else
-            ecgsegdiff(1)=[];
-            ecgsegdiff(5) = newecgsegdiff;
-        end
-    end    
-    
-    denoiseecg = ECG;
-    %%remove noise seconds
-    
-    for k=1:length(removei)
-        ecgsegstindex = round((removei(k)-k)*tremlen*fs)+1;
-        ecgsegendindex = round((removei(k)-k+1)*tremlen*fs);
-        denoiseecg(ecgsegstindex:ecgsegendindex)=[];
-    end
-%     denoiseecg_1=smooth(ecg_wave); % using average filter to remove glitches
-%                                  %to increase the performance of peak detection
-%     denoiseecg = wdenoise(denoiseecg_1,8, ...
-%     'Wavelet', 'db5', ...
-%     'DenoisingMethod', 'Bayes', ...
-%     'ThresholdRule', 'Median', ...
-%     'NoiseEstimate', 'LevelDependent'); 
-              
-% 
-%     %For KKH signal,change to >0
-%     ECG = ECG + abs(min(ECG));
-%     ecgmean = mean(ECG);
-    
-%     for i=2:length(ECG)-1
-%         %%Get previous 5 and following 5 ECG value discrepancy to judge if
-%         %%this point is a sharp noise or baseline drift
-%         if i>length(ECG)
-%             %%ECG length is auto-changed during the cycle
-%             break;
-%         end
-%         prei = i - 5;
-%         if prei < 1
-%             prei = 1;
-%         end
-%         afti = i + 5;
-%         if afti > length(ECG)
-%             afti = length(ECG);
-%         end
-%         
-%         ecgdiffpremean = mean(abs(diff(ECG(prei:i))));
-%         ecgdiffaftmean = mean(abs(diff(ECG(i:afti))));
-%         
-%         if ECG(i)>6000
-%             test = 1;
-%         end
-%         
-%         if (abs(ECG(i)-ecgmean)>20*ecgdiffpremean)||(abs(ECG(i)-ecgmean)>20*ecgdiffaftmean)
-%             %shartp noise and do a simple interpolation
-%              ECG(i)=[];
-%              i = i-1;
-%         end
-%     end
-    
-
-    if ~isempty(handles.data.ecgsegment)
-        handles.data.ecgsegment = denoiseecg;
-    else
-        handles.data.ecgraw = denoiseecg;
-    end
-else
-    if ~isempty(handles.data.ecgsegment)
-        handles.data.ecgsegment = handles.data.origecgsegment;
-    else
-        handles.data.ecgraw = handles.data.origecgraw;
-    end
-end
-
-
-if ~isempty(handles.data.ecgsegment)
-    plotspecial(handles,handles.figecg,handles.data.ecgsegment,1,1,length(handles.data.ecgsegment),1); %Here is special, to plot as full signal
-else
-    if handles.settings.bfull == 1%Full signal
-        plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,length(handles.data.ecgraw),1);
-    else
-        plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,handles.settings.ecglength * handles.settings.fs * 60,1);
-    end
-end
-
-guidata(hObject,handles);
-
-
 % --- Executes on button press in btclear.
 function btclear_Callback(hObject, eventdata, handles)
 % hObject    handle to btclear (see GCBO)
@@ -1396,12 +1273,17 @@ end
 %%Save ibi as vector
 handles.ibi = diff(peakpos/handles.settings.fs);
 
-handles.ecgdata = handles.data.ecgraw;
+if handles.settings.bfull == 0
+    handles.ecgdata = handles.data.ecgsegment;
+else
+    handles.ecgdata = handles.data.ecgraw;
+end
+
 if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
 
-ecglength = floor(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
+ecglength = round(length(handles.ecgdata)/(60*handles.settings.fs));%%In minutes
 
 %%IBI File Saving
 defibiname = cat(2,char(handles.patientID),'_',num2str(ecglength),'mins_ibi');
@@ -1423,3 +1305,18 @@ csvwrite(fullpcFileName,ecgpc);
 guidata(hObject,handles);
 %%Call HRnVm_Calculation main
 HRnVm_Calculation;
+
+
+% --- Executes on button press in localcheck.
+function localcheck_Callback(hObject, eventdata, handles)
+% hObject    handle to localcheck (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of localcheck
+if get(handles.localcheck, 'Value') == 1
+    set(handles.cbrsr, 'Enable', 'on');
+else
+    set(handles.cbrsr, 'Enable', 'off');
+    set(handles.cbrsr, 'Value', 0);
+end

@@ -95,7 +95,7 @@ if ~isempty(hhrnvmcal)
         case 4
             set(handles.txtdatatype,'String','Kubios IBI');
         otherwise
-            set(handles.txtfiletype,'String','ECG PC(with Peak Position');
+            set(handles.txtdatatype,'String','ECG PC (with Peak Positions)');
     end
 
     if handles.filetype == 1 %Single File
@@ -118,7 +118,9 @@ if ~isempty(hhrnvmcal)
             if handles.postfix ~= ""
                 fileID = extractBefore(fpaths(1),handles.postfix);
             else
-                fileID = fpaths(fileindex); %%No prefix and postfix
+                %% Chenglin mod
+                fileID = fpaths(1);%fpaths(fileindex); %%No prefix and postfix
+                %%
             end
         else
             if handles.postfix == ""
@@ -140,6 +142,11 @@ if ~isempty(hhrnvmcal)
 end
 
 
+%% Chenglin mod
+% resize font for gui
+txtHand = findall(handles.HRnVm_IniSetConfirm, '-property', 'FontUnits'); 
+set(txtHand, 'FontUnits', 'normalized')
+%%
 % Choose default command line output for hrnvm_inisetconfirm
 handles.output = hObject;
 
@@ -179,10 +186,10 @@ function btconfirm_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 if handles.filetype == 2 %Batch file
-    HRnVm_Settings;
+    HRnVm_Params_Settings;
 else
     if (handles.datatype == 2)||(handles.datatype == 4) %%IBI file
-        HRnVm_Settings;
+        HRnVm_Params_Settings;
     else %%ECG Raw
         PreProcess;
     end
