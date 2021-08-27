@@ -15,14 +15,29 @@ function varargout = HRnVm_Calculation(varargin)
 %      unrecognized property name or invalid value makes property application
 %      stop.  All inputs are passed to HRnVm_Calculation_OpeningFcn via varargin.
 %
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
+%   DEPENDENCIES & LIBRARIES:
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
 %
-% See also: GUIDE, GUIDATA, GUIHANDLES
+%   REFERENCE: 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu, Chenglin Niu
+%
+%	REPO:       
+%       https://github.com/nliulab/HRnV-Calc
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       Written by Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu,
+%       Chenglin Niu on 2021
+%   
+%	COPYRIGHT (C) 2021 
 
-% Edit the above text to modify the response to help HRnVm_Calculation
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 
-% Last Modified by GUIDE v2.5 26-Aug-2021 12:37:38
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -76,8 +91,8 @@ set(txtHand, 'FontUnits', 'normalized')
 %%Temp setting
 handles.fs = 250;
 set(handles.rb250,'Value',1);
-set(handles.edprefix,'String','CP');
-set(handles.edpostfix,'String','.');
+set(handles.edprefix,'String','');
+set(handles.edpostfix,'String','');
 
 
 %handles.fs = 125; %Initialize sampling rate
@@ -181,6 +196,10 @@ if handles.filetype == 1
         else
             if ext == '.csv'
                 data = xlsread([PathName '/' FileName]);
+                %%%If user open ECG&Peakpos file here
+                if size(data,2)==2
+                    data = data(:,1);
+                end
             end
         end
         %if (handles.datatype == 1)

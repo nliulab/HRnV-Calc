@@ -95,7 +95,7 @@ if ~isempty(hhrnvmcal)
         case 4
             set(handles.txtdatatype,'String','Kubios IBI');
         otherwise
-            set(handles.txtfiletype,'String','ECG PC(with Peak Position');
+            set(handles.txtdatatype,'String','ECG PC (with Peak Positions)');
     end
 
     if handles.filetype == 1 %Single File
