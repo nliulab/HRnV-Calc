@@ -67,7 +67,7 @@ handles.settings.bfull = 1;%Full file (1) or Segment (0)
 handles.popseglen.String = [5 10 15];
 handles.popecglen.String = [6 8 10 12 14 16 18 20];
 handles.popecgoverlay.String = [1 2 3 4];
-handles.popqrslen.String = [10 20 30 40];
+handles.popqrslen.String = [5 10 20 30];
 
 %%Initialization
 handles.data.ecgsegment = [];
@@ -140,6 +140,8 @@ if handles.settings.datatype == 5 %%For ECG QC Check
     set(handles.rbsegment,'Enable','off');
     set(handles.cbwavelet,'Enable','off');
     set(handles.cbsharpnoise,'Enable','off');
+    set(handles.btnewqrs,'Enable','on');
+    set(handles.btfinishqrs,'Enable','on');
 
     set(handles.plotslider,'Max',qrsslidecountmax);
     set(handles.plotslider,'Min',1);
@@ -1140,7 +1142,12 @@ end
 %%Save ibi as vector
 handles.ibi = diff(peakpos/handles.settings.fs);
 
-handles.ecgdata = handles.data.ecgraw;
+if handles.settings.bfull == 0
+    handles.ecgdata = handles.data.ecgsegment;
+else
+    handles.ecgdata = handles.data.ecgraw;
+end
+
 if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
@@ -1411,7 +1418,12 @@ end
 %%Save ibi as vector
 handles.ibi = diff(peakpos/handles.settings.fs);
 
-handles.ecgdata = handles.data.ecgraw;
+if handles.settings.bfull == 0
+    handles.ecgdata = handles.data.ecgsegment;
+else
+    handles.ecgdata = handles.data.ecgraw;
+end
+
 if size(handles.ecgdata,2)>size(handles.ecgdata,1)
     handles.ecgdata = handles.ecgdata';
 end
