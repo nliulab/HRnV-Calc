@@ -62,6 +62,9 @@ set(txtHand, 'FontUnits', 'normalized')
 %%%Many places needs to set and update peakpos, therefore set to global
 global peakpos;
 
+%%Initialization
+peakpos = [];
+
 handles.settings.segment = 20; %Segment set as 20 second for display and plot
 handles.settings.bfull = 1;%Full file (1) or Segment (0)
 handles.popseglen.String = [5 10 15];
@@ -70,7 +73,7 @@ handles.popecgoverlay.String = [1 2 3 4];
 handles.popqrslen.String = [5 10 20 30];
 
 %%Initialization
-%%set Initial QRS peak display window as 10 seconds 
+%%set Initial QRS peak display window 
 set(handles.popqrslen,'Value',2);
 
 handles.data.ecgsegment = [];
@@ -120,9 +123,8 @@ if ~isempty(hhrnvmcal)
     close(hhrnvmcal);
 end
  
-% Update handles structure
-guidata(hObject, handles);
 plotspecial(handles,handles.figecg,handles.data.ecgraw,1,1,length(handles.data.ecgraw),1);
+
 if handles.settings.datatype == 5 %%For ECG QC Check
     %Plot first QRS detection segment with 10 x ticks
     peakseg = peakpos(find((peakpos<=handles.settings.qrslength*handles.settings.fs))); %%Get the corresponding indices in this figure
@@ -151,7 +153,8 @@ if handles.settings.datatype == 5 %%For ECG QC Check
     set(handles.plotslider,'Value',1);
 end
 
-guidata(hObject,handles);
+% Update handles structure
+guidata(hObject, handles);
 
 
 % UIWAIT makes hrnvmpreprocess wait for user response (see UIRESUME)
@@ -717,8 +720,14 @@ function popecglen_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from popecglen
 contentslen = get(handles.popecglen,'String');
 handles.settings.ecglength = str2num(contentslen(get(handles.popecglen,'Value'),:));
+
+if length(handles.data.ecgraw)< handles.settings.ecglength * handles.settings.fs * 60
+    plotecgendindex = length(handles.data.ecgraw);
+else
+    plotecgendindex = handles.settings.ecglength * handles.settings.fs * 60;
+end
      
-plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,handles.settings.ecglength * handles.settings.fs * 60,1);
+plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,plotecgendindex,1);
 %%Update slider
 slidecountmaxr = length(handles.data.ecgraw)/(handles.settings.fs * 60 * handles.settings.ecgoverlay);
 
@@ -758,8 +767,15 @@ function popecgoverlay_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from popecgoverlay
 contentsoverlay = get(handles.popecgoverlay,'String'); 
 handles.settings.ecgoverlay = str2num(contentsoverlay(get(handles.popecgoverlay,'Value'),:));
-     
-plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,handles.settings.ecglength * handles.settings.fs * 60,1);
+
+if length(handles.data.ecgraw)< handles.settings.ecglength * handles.settings.fs * 60
+    plotecgendindex = length(handles.data.ecgraw);
+else
+    plotecgendindex = handles.settings.ecglength * handles.settings.fs * 60;
+end
+
+%Replot
+plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,plotecgendindex,1);
 
 %%Update slider
 slidecountmaxr = length(handles.data.ecgraw)/(handles.settings.fs * 60 * handles.settings.ecgoverlay);
@@ -843,21 +859,22 @@ if get(hObject,'Value') == 1
     contentslen = get(handles.popecglen,'String');
     handles.settings.ecglength = str2num(contentslen(get(handles.popecglen,'Value'),:));
     
-    if length(handles.data.ecgraw)< handles.settings.ecglength * handles.settings.fs
-        warndlg('ECG signal length is shorter than display duration!','Display Duration Setting Error!');
+    if length(handles.data.ecgraw)< handles.settings.ecglength * handles.settings.fs * 60
+        %warndlg('ECG signal length is shorter than display duration!','Display Duration Setting Error!');
+        plotendindex = length(handles.data.ecgraw);
     else
- 
-        
-        plotecg = handles.data.ecgraw(1:handles.settings.ecglength * handles.settings.fs * 60);
 %         plot(handles.figecg,1:length(plotecg),plotecg);
         
 %         plotspecial(handles.figecg,plotecg,handles.settings.ecglength/10,0,...
 %             handles.settings.ecglength * handles.settings.fs * 60,1);
-        
-        plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,handles.settings.ecglength * handles.settings.fs * 60,1);
-        
-        handles.data.ecgseg = plotecg;
+        plotendindex = handles.settings.ecglength * handles.settings.fs * 60;
     end
+    
+    plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,plotendindex,1);
+    
+    plotecg = handles.data.ecgraw(1:plotendindex);
+    handles.data.ecgseg = plotecg;
+
 end
 
 %%%%Save ECG segment length for analysis%%%
@@ -890,10 +907,17 @@ function popseglen_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns popseglen contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from popseglen
+
+if length(handles.data.ecgraw)< handles.settings.ecgseglen * handles.settings.fs * 60
+    %%Set back to 5 minutes
+    set(handles.popseglen,'Value',1);
+    warndlg('ECG signal length is shorter than segment duration!','Setting Error!')
+end
+
 %%%%Save ECG segment length for analysis%%%
 contentsseglen = get(handles.popseglen,'String'); 
 handles.settings.ecgseglen = str2num(contentsseglen(get(handles.popseglen,'Value'),:));
-plotspecial(handles,handles.figecg,handles.data.ecgraw,handles.settings.bfull,1,handles.settings.ecglength * handles.settings.fs * 60,1);
+
 guidata(hObject,handles);
 
 % --- Executes during object creation, after setting all properties.
@@ -923,7 +947,11 @@ ecgraw = handles.data.ecgraw;
 bcycle = 1;
 pos = get(handles.ecgslider,'Value');
 startpos = (overlay*(pos-1))*60*fs+1;
-endpos = ((overlay*(pos-1))+displayseg)*60*fs;
+
+%%display end pos
+enddisplaypos = ((overlay*(pos-1))+displayseg)*60*fs;
+%%Signal end pos
+endpos = length(handles.data.ecgraw);
 
 
 
@@ -957,8 +985,13 @@ while bcycle==1
             endpointpos = selpos- startpos + seg*fs*60;
             
             if endpointpos + startpos > endpos
-                warndlg('The rest ECG is less then required segment duration!','Wrong selection of start point');
+                warndlg('The rest ECG is less then required segment duration!','Wrong display duration!');
                 break;
+            else
+                if endpointpos + startpos > enddisplaypos
+                    warndlg('Please revise display duration first!','Wrong selection!');
+                    break;
+                end
             end
             %Replot for add in new peak pos
 %             reset(handles.figecg);
@@ -1022,10 +1055,11 @@ else
     ecgseg = handles.data.ecgraw;
 end
 
-peakseg = peakpos(find((peakpos<=handles.settings.qrslength*handles.settings.fs))); %%Get the corresponding indices in this figure
-plotspecial(handles,handles.figecgpeak,ecgseg,handles.settings.bfull,1,handles.settings.qrslength*handles.settings.fs,0,peakseg); 
+if ~isempty(peakpos)
+    peakseg = peakpos(find((peakpos<=handles.settings.qrslength*handles.settings.fs))); %%Get the corresponding indices in this figure
+    plotspecial(handles,handles.figecgpeak,ecgseg,handles.settings.bfull,1,handles.settings.qrslength*handles.settings.fs,0,peakseg); 
 
-   %Enable slider if not enabled and 
+    %Enable slider if not enabled
     set(handles.plotslider,'Enable','on');
     qrsslidecountmaxr = length(ecgseg)/(handles.settings.qrslength*handles.settings.fs);
 
@@ -1039,7 +1073,8 @@ plotspecial(handles,handles.figecgpeak,ecgseg,handles.settings.bfull,1,handles.s
     set(handles.plotslider,'Min',1);
     set(handles.plotslider,'SliderStep',[1/(qrsslidecountmax-1) 1]);
     set(handles.plotslider,'Value',1);
-%end
+end
+
 guidata(hObject,handles);
 
 
