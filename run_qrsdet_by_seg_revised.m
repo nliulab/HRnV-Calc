@@ -1,5 +1,5 @@
 function QRS = run_qrsdet_by_seg_revised(ecg,HRVparams)
-
+% Modified by DUKE-NUS Team
 % This function is modified by Duke-NUS team to detect the QRS peak in the
 % last window segment, which is less than window length (e.g., 15 second)
 

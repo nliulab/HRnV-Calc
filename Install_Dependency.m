@@ -1,9 +1,9 @@
 %% Installation script of PhysioNet Cardiovascular Signal Toolbox (PCST)
 %   To use HRnV-Calc, PCST is required. 
-%   To cite HRnV-Calc, please also cite the toolbox:
-%   Vest A, Da Poian G, Li Q, Liu C, Nemati S, Shah A, Clifford GD, 
-%   "An Open Source Benchmarked Toolbox for Cardiovascular Waveform and Interval Analysis" 
-%   Physiological Measurement (In Press) DOI:10.5281/zenodo.1243111; 2018.
+%   To cite HRnV-Calc, please also cite PCST:
+%   Vest, A. N., Da Poian, G., Li, Q., Liu, C., Nemati, S., Shah, A. J., & Clifford, G. D. (2018). 
+%   An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
+%   Physiological measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
 %
 %   DEPENDENCIES & LIBRARIES:
 %       PhysioNet Cardiovascular Signal Toolbox
