@@ -22,7 +22,7 @@
 %       Written by: 
 %       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
 %       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
-%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
+%       Nan Liu (liu.nan@duke-nus.edu.sg) in 2021
 %   
 %	COPYRIGHT (C) 2021 
 
