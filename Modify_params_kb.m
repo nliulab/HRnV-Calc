@@ -1,5 +1,30 @@
 function HRVparams_kb = Modify_params_kb(HRVparams)
 %% Modify the software profile according to the default settings of Kubios
+%   DEPENDENCIES & LIBRARIES:
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%
+%   REFERENCE: 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
+%   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
+%
+%	REPO:       
+%       https://github.com/nliulab/HRnV-Calc
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       Written by: 
+%       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
+%       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
+%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
+%   
+%	COPYRIGHT (C) 2021 
+
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 HRVparams_kb = HRVparams;
 
 

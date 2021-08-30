@@ -1,5 +1,5 @@
 function varargout = PreProcess(varargin)
-% HRNVMPREPROCESS MATLAB code for hrnvmpreprocess.fig
+%   HRNVMPREPROCESS MATLAB code for hrnvmpreprocess.fig
 %      HRNVMPREPROCESS, by itself, creates a new HRNVMPREPROCESS or raises the existing
 %      singleton*.
 %
@@ -18,9 +18,35 @@ function varargout = PreProcess(varargin)
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
-% See also: GUIDE, GUIDATA, GUIHANDLES
+%   See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help hrnvmpreprocess
+%   Edit the above text to modify the response to help hrnvmpreprocess
+
+%   DEPENDENCIES & LIBRARIES:
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%
+%   REFERENCE: 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
+%   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
+%
+%	REPO:       
+%       https://github.com/nliulab/HRnV-Calc
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       Written by: 
+%       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
+%       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
+%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
+%   
+%	COPYRIGHT (C) 2021 
+
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 
 % Last Modified by GUIDE v2.5 25-Aug-2021 23:00:04
 

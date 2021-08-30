@@ -20,6 +20,25 @@ function HRnVOutput = Main_HRnVm_Analysis(NN,tNN,sqi,HRVparams,WinIdxs,hrnv)
 %       hrnv - HRnV
 %       subID       - subject ID, string to identify current subject
 
+%   DEPENDENCIES & LIBRARIES:
+%       HRV Toolbox for PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%
+%   REFERENCE: 
+%   Vest et al. "An Open Source Benchmarked HRV Toolbox for Cardiovascular 
+%   Waveform and Interval Analysis" Physiological Measurement (In Press), 2018. 
+%
+%	REPO:       
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       This script written by Giulia Da Poian
+%       Dependent scripts written by various authors 
+%       (see functions for details)       
+%	COPYRIGHT (C) 2018 
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 
 % 2. Calculate time domain HRV metrics - Using HRV Toolbox for PhysioNet 
 %    Cardiovascular Signal Toolbox Toolbox Functions        

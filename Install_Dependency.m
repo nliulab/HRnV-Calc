@@ -1,17 +1,42 @@
-%% This is a installation script of PhysioNet Cardiovascular Signal Toolbox.
-%% To use HRnV-Calc, the above toolbox is required. 
-%% To cite HRnV-Calc, please also cite the toolbox.
-%% Add citation below--
-%%Vest A, Da Poian G, Li Q, Liu C, Nemati S, Shah A, Clifford GD, 
-%%"An Open Source Benchmarked Toolbox for Cardiovascular Waveform and Interval Analysis" 
-%%Physiological Measurement (In Press) DOI:10.5281/zenodo.1243111; 2018.
+%% Installation script of PhysioNet Cardiovascular Signal Toolbox (PCST)
+%   To use HRnV-Calc, PCST is required. 
+%   To cite HRnV-Calc, please also cite the toolbox:
+%   Vest A, Da Poian G, Li Q, Liu C, Nemati S, Shah A, Clifford GD, 
+%   "An Open Source Benchmarked Toolbox for Cardiovascular Waveform and Interval Analysis" 
+%   Physiological Measurement (In Press) DOI:10.5281/zenodo.1243111; 2018.
+%
+%   DEPENDENCIES & LIBRARIES:
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%
+%   REFERENCE: 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
+%   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
+%
+%	REPO:       
+%       https://github.com/nliulab/HRnV-Calc
+%   ORIGINAL SOURCE AND AUTHORS:     
+%       Written by: 
+%       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
+%       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
+%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
+%   
+%	COPYRIGHT (C) 2021 
+
+%   LICENSE:    
+%       This software is offered freely and without warranty under 
+%       the GNU (v3 or later) public license. See license file for
+%       more information
 
 % Image Processing Toolbox is needed for ECG segment selection
 
 % By default, this script will install the toolbox under the HRnV-Calc directory
 HRnV_path = fileparts(which('HRnVm_Calculation.m'));
 cd(HRnV_path)
-if exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') == 7 
+if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') == 7 || exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') == 7
     disp('PhysioNet Toolbox Directory Already Exists');
     disp('To Reinstall, Remove the Directory');
     return

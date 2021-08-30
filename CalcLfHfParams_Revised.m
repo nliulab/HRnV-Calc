@@ -1,3 +1,4 @@
+% Modified by DUKE-NUS Team
 function [ulf, vlf, lf, hf, lfhf, ttlpwr,peakvlf, peaklf, peakhf] = CalcLfHfParams_revised(PSD, F, limits,plot_on)
 % [ulf, vlf, lf, hf, lfhf, ttlpwr, peakvlf, peaklf, peakhf] = CalcLfHfParams(PSD, F, limits,plot_on)
 %

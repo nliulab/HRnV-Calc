@@ -1,5 +1,5 @@
 function varargout = HRnVm_Calculation(varargin)
-% HRNVM_CALCULATION MATLAB code for HRnVm_Calculation.fig
+%   HRNVM_CALCULATION MATLAB code for HRnVm_Calculation.fig
 %      HRNVM_CALCULATION, by itself, creates a new HRNVM_CALCULATION or raises the existing
 %      singleton*.
 %
@@ -23,13 +23,16 @@ function varargout = HRnVm_Calculation(varargin)
 %   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
 %   and heart rate variability analysis
 %
-%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu, Chenglin Niu
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
+%   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
 %
 %	REPO:       
 %       https://github.com/nliulab/HRnV-Calc
 %   ORIGINAL SOURCE AND AUTHORS:     
-%       Written by Dagang Guo(guo.dagang@duke-nus.edu.sg), Nan Liu,
-%       Chenglin Niu on 2021
+%       Written by 
+%       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
+%       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
+%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
 %   
 %	COPYRIGHT (C) 2021 
 
@@ -74,7 +77,7 @@ handles.output = hObject;
 % Include current working directory and its sub-directories to PATH
 HRnV_path = fileparts(which('HRnVm_Calculation.m'));
 cd(HRnV_path)
-if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 
+if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 || exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
     msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
     warndlg(msg,"Denpendencies Not Found")
     return;
