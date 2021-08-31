@@ -52,7 +52,7 @@ end
 if windows_all == 0
     %windowlength = length(NN);
     %%----Modified by Duke-NUS team------%%
-    windowlength = tNN(end);
+    windowlength = round(tNN(end))+1; 
 else
     windowlength = HRVparams.DFA.windowlength;
 end
