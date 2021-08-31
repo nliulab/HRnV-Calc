@@ -124,7 +124,7 @@ if HRVparams.DFA.on
     %[alpha1, alpha2] = EvalDFA(out.NN_gapFilled,out.tNN_gapFilled,sqi,HRVparams,out.WinIdxsDFA); 
     
     %%%%---Duke-NUS---%%%%
-    [alpha1, alpha2] = EvalDFA(NN,tNN,sqi,HRVparams,WinIdxs);
+    [alpha1, alpha2] = EvalDFA_Revised(NN,tNN,sqi,HRVparams,WinIdxs);
     
     HRnVOutput.nl.DFA = round(1000*[0 alpha1 alpha2])/1000;
 end

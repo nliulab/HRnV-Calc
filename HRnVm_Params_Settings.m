@@ -322,7 +322,8 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
         
     if handles.hrnv>=2
         for n=2:handles.hrnv
-            for m = 1:n
+            for j = 0:n-1
+                m = n-j;
                 %% Chenglin mod, delete the following lines
                 %if m == 0
                 %    hrvoverlap = 0;
@@ -638,7 +639,8 @@ for fileindex=1:length(fnames)
         
         if handles.hrnv>=2
             for n=2:handles.hrnv
-                for m = 1:n
+                for j = 0:n-1
+                    m = n-j;
                     %% Chenglin mod, delete the following lines
                     %if m == 0
                     %    hrvoverlap = 0;
