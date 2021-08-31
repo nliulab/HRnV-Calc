@@ -1,5 +1,10 @@
 function HRVparams_kb = Modify_params_kb(HRVparams)
 %% Modify the software profile according to the default settings of Kubios
+%   Cite Kubios HRV:
+%       Tarvainen, M. P., Niskanen, J. P., Lipponen, J. A., Ranta-Aho, P. O., & Karjalainen, P. A. (2014). 
+%       Kubios HRV--heart rate variability analysis software. 
+%       Computer methods and programs in biomedicine, 113(1), 210–220. https://doi.org/10.1016/j.cmpb.2013.07.024
+%
 %   DEPENDENCIES & LIBRARIES:
 %       PhysioNet Cardiovascular Signal Toolbox
 %       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
@@ -17,7 +22,7 @@ function HRVparams_kb = Modify_params_kb(HRVparams)
 %       Written by: 
 %       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
 %       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
-%       Nan Liu (chenglin.niu@u.duke.nus.edu) in 2021
+%       Nan Liu (liu.nan@duke-nus.edu.sg) in 2021
 %   
 %	COPYRIGHT (C) 2021 
 
@@ -25,6 +30,7 @@ function HRVparams_kb = Modify_params_kb(HRVparams)
 %       This software is offered freely and without warranty under 
 %       the GNU (v3 or later) public license. See license file for
 %       more information
+
 HRVparams_kb = HRVparams;
 
 
