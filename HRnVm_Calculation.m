@@ -75,6 +75,8 @@ handles.output = hObject;
 
 %% Chenglin mod 
 % Include current working directory and its sub-directories to PATH
+%% --Need to comment when generate installable .exe file using Application
+%% Compiler
 HRnV_path = fileparts(which('HRnVm_Calculation.m'));
 cd(HRnV_path)
 if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 || exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
@@ -84,7 +86,6 @@ if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 || exist(
 end
 addpath(genpath(HRnV_path));
 % resize font for gui
-hhrnvmresult = findobj('Tag','hrnvmresult');
 txtHand = findall(handles.HRnVmCal, '-property', 'FontUnits'); 
 set(txtHand, 'FontUnits', 'normalized')
 %%
