@@ -11,6 +11,9 @@
   - [Methods and Metrics Documentation](#methods-and-metrics-documentations) 
 - **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
   - [Data Loader](#data-loader)
+  - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
+  - [$HR_nV_m$  Setting viewer](#hr_nv_m-setting-viewer)
+  - $HR_nV_m$ Results Display
 
 
 ## HRnV-Calc Introduction
@@ -57,7 +60,7 @@ HRnV-Calc is primarily operated using its step-by-step GUIs, which include four 
 The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
 <figure class="image" align="center">
-  <img src="../HRnV-Calc/figs/Data_loader.png" >
+  <img src="./figs/Data_loader.png" >
   <figcaption>Data Loader</figcaption>
 </figure>
 
@@ -92,7 +95,7 @@ By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of t
 Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the QRS Detection and Edits (QDE) Viewer for ECG inputs or $HR_nV_m$  Setting viewer for RRI inputs. 
 
 <figure class="image" align="center">
-  <img src="../HRnV-Calc/figs/Confirmation.png" >
+  <img src="./figs/Confirmation.png" >
   <figcaption>Setting Confirmation</figcaption>
 </figure>
 
@@ -100,7 +103,7 @@ Once the input files and all settings in the Data Loader are properly configured
 The QDE viewer is designed to configure and inspect QRS detection on **ECG signals**. All settings and tools for QRS detection and inspection can be found in the setting section at the top. 
 
 <figure class="image" align="center">
-  <img src="../HRnV-Calc/figs/QDE_full.png" >
+  <img src="./figs/QDE_full.png" >
   <figcaption>QDE Viewer</figcaption>
 </figure>
 
@@ -114,7 +117,7 @@ There are three choices of segment length can be selected in the segmentation su
 As shown in the figure below, to select the starting point of the segment, click the ‘Select start point’ button, and then choose the starting point by clicking on the ECG plot displayed in the middle of the QDE viewer. Single clicks will be plotted on the ECG plot as crossing marks for reference. To avoid unintended inputs, such clicks are not stored as the actual starting points. Users may **finalize the choice of the starting point by double clicking** on the desired point in the ECG plot. Alternatively, right clicking will also finalize the starting point as the last single click position.  It is worth noting that only the horizontal position (i.e., the X-axis coordinate) of the click will be used to locate the starting point of the segment. Once the starting point is finalized, the **end point of the segment with specified length will be automatically displayed** on the ECG plot as a green dot. Users may finalize the choice of the end point by clicking the ‘Confirm End Point’ button and thus confirm the segmentation of the ECG signal.
 
 <figure class="image" align="center">
-  <img src="../HRnV-Calc/figs/QDE_seg_select.png" >
+  <img src="./figs/QDE_seg_select.png" >
   <figcaption>Segmentation of ECG</figcaption>
 </figure>
 
@@ -138,7 +141,7 @@ Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual E
 $HR_nV_m$ analyses are configured in the $HR_nV_m$ Setting viewer. In the '$HR_nV_m$' section, users may choose to perform a single $HR_nV_m$ analysis by choosing the option **‘Single’** and specifying the desired $n$ and $m$ values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform $HR_nV$ (or $HR_nV_n$) analysis on the input depending on the specified $n$. By default, HRnV-Calc will perform the conventional HRV analysis with $n = 1$ and $m = 1$. 
 
 <figure class="image" align="center">
-  <img src="../HRnV-Calc/figs/HRnVm_setting.png" >
+  <img src="./figs/HRnVm_setting.png" >
   <figcaption>HRnVm Setting</figcaption>
 </figure>
 
