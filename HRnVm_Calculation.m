@@ -79,7 +79,7 @@ handles.output = hObject;
 %% Compiler
 HRnV_path = fileparts(which('HRnVm_Calculation.m'));
 cd(HRnV_path)
-if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 || exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
+if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 && exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
     msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
     warndlg(msg,"Denpendencies Not Found")
     return;
