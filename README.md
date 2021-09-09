@@ -61,7 +61,9 @@ The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for u
 
 <p align="center">
   <img src="./figs/Data_loader.png" />
-  <em>Data Loader</em>
+</p>
+<p align="center">
+  Data Loader
 </p>
 <figure class="image" align="center">
   <img src="./figs/Data_loader.png" >
