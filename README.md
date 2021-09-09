@@ -71,6 +71,7 @@ All conventional HRV methods and metrics can then be applied to the new RR<sub>n
 
 ### Methods and Metrics Documentations
 A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by HRnV-Calc can be found in the list below. 
+<div align = "center">
 | Metrics                           | Units | Description                                                                             |
 |-----------------------------------|-------|-----------------------------------------------------------------------------------------|
 | Tiem Domain                       |       |                                                                                         |
@@ -95,10 +96,8 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 | Poincare SD1 and SD2              | ms    | The width and length of the eclipse fitted in the Poincare plot                         |
 | App_Ent                           | -     | Approximate entropy                                                                     |
 | Sam_Ent                           | -     | Sample entropy                                                                          |
-| DFA                               | -     | Short-term and long-term fluctuations of detrended fluctuation analysis (DFA)           |
-| and                               |       |                                                                                         |
-|                                   |       |                                                                                         |
-
+| DFA &alpha;<sub>1</sub> and &alpha;<sub>2</sub>                              | -     | Short-term and long-term fluctuations of detrended fluctuation analysis (DFA)           | 
+</div>
 
 ## HRnV-Calc Tutorial
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hr_nv_m-setting-viewer), and (4) HR<sub>n</sub>V<sub>m</sub> Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
