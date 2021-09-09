@@ -149,7 +149,7 @@ To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ butt
 #### Saving Peak Annotation and Proceed
 Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to $HR_nV_m$  Setting viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
 
-### $HR_{n}V_{m}$ Setting Viewer
+### $`HR_{n}V_{m}`$ Setting Viewer
 $HR_nV_m$ analyses are configured in the $HR_nV_m$ Setting viewer. In the '$HR_nV_m$' section, users may choose to perform a single $HR_nV_m$ analysis by choosing the option **‘Single’** and specifying the desired $n$ and $m$ values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform $HR_nV$ (or $HR_nV_n$) analysis on the input depending on the specified $n$. By default, HRnV-Calc will perform the conventional HRV analysis with $n = 1$ and $m = 1$. 
 
 <p align="center">
