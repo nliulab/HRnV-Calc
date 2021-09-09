@@ -49,31 +49,56 @@ If you are using HRnV-Calc, please cite PCST and other related papers:
 - Nan Liu (Email: <liu.nan@duke-nus.edu.sg>)
 
 ## HRnV/HRV Methods and Metrics 
-### HRnV Method
-To use HRnV-Calc, it is important to know how the HRnV method. Here, we will give a simple explaination of the method.
+### The HRnV Method
+To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method.
 
-HRnV is a method applied on RRI. Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
+HRnV is a method applied on RRIs (i.e., R to R peak intervals). Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI is obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
 
-There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >=1) given that (*m*<=*n*). To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed),<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of lenght *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
+There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >= 1) given that *m* <= *n*. To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed),<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of length *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
 <p align = "center">
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;Y_{i}&space;=&space;\sum_{j&space;=&space;1}^{n}{X_{(i-1)*m&plus;j}}&space;(j&space;=&space;1,2,3,...,M)" title="\bg_white Y_{i} = \sum_{j = 1}^{n}{X_{(i-1)*m+j}} (j = 1,2,3,...,M)" />
 </p>
 
-The length of the new series, *M*, is given by <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;M&space;=&space;\left\lfloor\frac{N-n&plus;1}{m}\right\rfloor" title="\bg_white \inline M = \left\lfloor\frac{N-n+1}{m}\right\rfloor" />, where <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;\left\lfloor&space;\cdot\right\rfloor" title="\bg_white \inline \left\lfloor \cdot\right\rfloor" /> represents the floor function. The figure below illustrates a toy example of generating RR<sub>3</sub>I<sub>2</sub> from a RRI series of lenght 9. 
+The length of the new series, *M*, is given by <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;M&space;=&space;\left\lfloor\frac{N-n&plus;1}{m}\right\rfloor" title="\bg_white \inline M = \left\lfloor\frac{N-n+1}{m}\right\rfloor" />, where <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;\left\lfloor&space;\cdot\right\rfloor" title="\bg_white \inline \left\lfloor \cdot\right\rfloor" /> represents the floor function. The figure below illustrates a toy example of generating RR<sub>3</sub>I<sub>2</sub> from a RRI series of length 9. 
 <p align = "center">
 <img src = "./figs/rrni.png">
 </p>
-
 <p align = "center">
-Generation of RR<sub>n</sub>I<sub>m</sub>
+Generation of RR<sub>n</sub>I<sub>m</sub> Toy Example
 </p>
 
+All conventional HRV methods and metrics can then be applied to the new RR<sub>n</sub>I<sub>m</sub> intervals. Such metrics, namely HR<sub>n</sub>V<sub>m</sub> metrics, provide additional insights to the conventional HRV. 
+
 ### Methods and Metrics Documentations
+A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by HRnV-Calc can be found in the list below. 
+| Metrics                           | Units | Description                                                                             |
+|-----------------------------------|-------|-----------------------------------------------------------------------------------------|
+| Tiem Domain                       |       |                                                                                         |
+| Average RR                        | ms    | The mean of RR intervals                                                                |
+| SDRR                              | ms    | The standard deviation of RR intervals                                                  |
+| Average HR                        | 1/min | The mean of heart rate                                                                  |
+| SDHR                              | 1/min | The standard deviation of heart rate                                                    |
+| RMSSD                             | ms    | Square root of the mean squared differences between successive RR intervals             |
+| NN50                              | count | Numbers of RR intervals differ more than 50 ms from the previous intervals              |
+| pNN50                             | %     | Percentage of NN50 intervals within the entire RR intervals                             |
+| RR Skewness                       | -     | The skewness of the RR intervals distribution                                           |
+| RR Kurtosis                       | -     | The kurtosis of the RR intervals distribution                                           |
+| RR Triangular Index               | -     | The integral of the RR intervals histogram divided by the height of the histogram       |
+| Frequency Domain                  |       |                                                                                         |
+| VLF, LF, and HF Peak frequencies  | Hz    | The peak frequencies in the power spectral distribution (PSD) for VLF, LF, and HF bands |
+| VLF, LF, and HF Powers            |       | Absolute powers of VLF, LF, and HF bands                                                |
+| VLF, LF, and HF Power Percentages | %     | The percentage for powers of VLF, LF, and HF bands within the overall spectrum          |
+| LF and HF Normalized Powers       | n.u.  | Normalized powers for LF and HF bands                                                   |
+| Total Power                       |       | The overall power of the PSD                                                            |
+| LF/HF                             | -     | The ratio between the powers of LF and HF bands                                         |
+| Nolinear Domain                   |       |                                                                                         |
+| Poincare SD1 and SD2              | ms    | The width and length of the eclipse fitted in the Poincare plot                         |
+| App_Ent                           | -     | Approximate entropy                                                                     |
+| Sam_Ent                           | -     | Sample entropy                                                                          |
+| DFA                               | -     | Short-term and long-term fluctuations of detrended fluctuation analysis (DFA)           |
+| and                               |       |                                                                                         |
+|                                   |       |                                                                                         |
 
-
-For a simple demonstration of how the HRnV method work, please check the documentation of HRnV.
-
-A brief description of all HRV/HRnV metrics provided by HRnV-Calc can be found in the list below. 
 
 ## HRnV-Calc Tutorial
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hr_nv_m-setting-viewer), and (4) HR<sub>n</sub>V<sub>m</sub> Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
