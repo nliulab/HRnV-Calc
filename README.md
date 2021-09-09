@@ -56,7 +56,7 @@ HRnV is a method applied on RRI. Therefore, the extraction of RRI from ECG for H
 
 There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >=1) given that (*m*<=*n*). To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed),<img src="https://latex.codecogs.com/svg.image?\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\inline X_{i} (i = 1,2,3,...,N)" /> of lenght *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
 <p align = "center">
-<img src="https://latex.codecogs.com/svg.image?Y_{i}&space;&space;=&space;\sum_{j&space;=&space;1}^{n}{X_{(i-1)*m&plus;j}}&space;(j&space;=&space;1,2,3,...,M)" title="Y_{i} = \sum_{j = 1}^{n}{X_{(i-1)*m+j}} (j = 1,2,3,...,M)" />
+<img src="https://latex.codecogs.com/svg.image?\bg_white&space;Y_{i}&space;&space;=&space;\sum_{j&space;=&space;1}^{n}{X_{(i-1)*m&plus;j}}&space;(j&space;=&space;1,2,3,...,M)" title="\bg_white Y_{i} = \sum_{j = 1}^{n}{X_{(i-1)*m+j}} (j = 1,2,3,...,M)" />
 </p>
 ### Methods and Metrics Documentations
 
