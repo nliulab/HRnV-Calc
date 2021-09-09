@@ -59,6 +59,10 @@ HRnV-Calc is primarily operated using its step-by-step GUIs, which include four 
 ### Data Loader
 The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
+<p align="center">
+  <img src="./figs/Data_loader.png" />
+  <em>Data Loader</em>
+</p>
 <figure class="image" align="center">
   <img src="./figs/Data_loader.png" >
   <figcaption>Data Loader</figcaption>
