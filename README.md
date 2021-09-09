@@ -56,6 +56,8 @@ A brief description of all HRV/HRnV metrics provided by HRnV-Calc can be found i
 
 ## HRnV-Calc Tutorial
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hr_nv_m-setting-viewer), and (4) HR<sub>n</sub>V<sub>m</sub> Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
+
+In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
 ### Data Loader
 The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
@@ -67,7 +69,7 @@ The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for u
 </p>
 
 #### Data Type and Formats
-Currently, HRnV-Calc accepts five different input types, which include:
+Currently, HRnV-Calc accepts five different data types, which include:
 
 - Raw ECG (*.txt, *.csv)
 - IBI (*.txt, *.csv)
@@ -76,16 +78,16 @@ Currently, HRnV-Calc accepts five different input types, which include:
 - ECG PC -- ECG singal with peak positions (*.csv) saved by HRnV-Calc. 
 
 #### Single/Batch Processing
-**Single File** lets users to conduct HRV/HRnV analysis on one single input file at a time. This option supports all data types. Once the data type is configured, users may click on the 'Open File/Folder' button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
+**Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the 'Open File/Folder' button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
 
 
-**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the same format (either *.txt or *.mat) and saved under the same directory. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. 
+**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. 
 
 #### Adult/Infant Processing Profile
 Since infant ECG and RRI signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
 #### Sampling Rate
-For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choos: 125Hz or 250Hz. If the signal is sampled using other rates, users may choose the 'Others' option and type in the sampling rate. 
+For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: 125Hz or 250Hz. If the signal is sampled using other rates, users may choose the 'Others' option and type in the sampling rate. 
 
 For RRI inputs, this section will not be avaible, as the sampling rate does not affect the analysis on RRI. HRnV-Calc will assign one of the default rates to the input. 
 
@@ -94,7 +96,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the QRS Detection and Edits (QDE) Viewer for ECG inputs or HR<sub>n</sub>V<sub>m</sub>  Setting viewer for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrsubnsubvsubmsub-setting-viewer) viewer for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
@@ -135,19 +137,19 @@ As shown in the figure below, to select the starting point of the segment, click
 
 #### Noise Removal and Local Checkup
 
-The baseline drift in the ECG signal can be removed by checking the 'Baseline Drfit Removal' option. 
+Baseline drifts in the ECG signal can be removed by checking the 'Baseline Drfit Removal' option. 
 
-Although the *jqrs* algorithm used in HRnV-Calc is one of the most robust and well-regarded QRS detection methods, it may sometimes yield unexpected annotation results, especially when taking ECG inputs with downwards R peaks (i.e., R peak being the local minimum of the signal). Therefore, HRnV-Calc performs **additional check on the *jqrs* output to modify the annotation to the local maximum** within a small region (10 samples before and after the original *jqrs* peak annotation, regardless of the sampling rate). If the input has downwards R peaks, the **‘Downwards QRS Peak’ option in the QDE viewer enables HRnV-Calc to modify the annotation to the local minimum**. If such a modification is deemed unnecessary, users may **uncheck the ‘Modify to local supremum’ option in the QDE viewer to skip the additional check**. 
+Although the *jqrs* algorithm used in HRnV-Calc is one of the most robust and well-regarded QRS detection methods, it may sometimes yield unexpected annotation results, especially when taking ECG inputs with downwards R peaks (i.e., R peak being the local minimum of the signal). Therefore, HRnV-Calc performs **an additional check on the *jqrs* output to modify the annotation to the local maximum** within a small region (10 samples before and after the original *jqrs* peak annotation, regardless of the sampling rate). If the input has downwards R peaks, the **‘Downwards QRS Peak’ option in the QDE viewer enables HRnV-Calc to modify the annotation to the local minimum**. If such a modification is deemed unnecessary, users may **uncheck the ‘Modify to local supremum’ option skip the additional check**. 
 
 #### Peak Detection and Editing
-The 'QRS Peak Detection' button lets users to perform QRS detection on the selected ECG segment. The peak annotations will be plotted in the 'Denoised ECG Plot' as red dots. 
+The 'QRS Peak Detection' button lets users perform QRS detection on the selected ECG segment. The peak annotations will be plotted in the 'Denoised ECG Plot' as red dots. 
 
-Manual correction of R peaks can be done in the ‘Denoised ECG Plot’ . users may first remove the incorrect R peaks by clicking on the ‘Remove Peak’ button and then **double click on the marked peak annotations to remove them**. Removal of the R peaks can be **stopped by a single right click**. Since HRnV-Calc performs checks to verify if there are two R peaks too close to each other, it is advised to always **remove the undesired R peaks before adding new ones**. All R peaks editing can be reversed by performing the QRS detection again.
+Manual correction of R peaks can be done in the ‘Denoised ECG Plot’. users may first remove the incorrect R peaks by clicking on the ‘Remove Peak’ button and then **double click on the marked peak annotations to remove them**. Removal of the R peaks can be **stopped by a single right click**. Since HRnV-Calc performs checks to verify if there are two R peaks too close to each other, it is advised to always **remove the undesired R peaks before adding new ones**. All R peaks editing can be reversed by performing the QRS detection again.
 
-To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if ‘Downwards QRS Peak’ is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the ‘Add Peak’ button will only allow users to add one peak to the signal. 
+To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if ‘Downwards QRS Peak’ is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the ‘Add Peak’ button will only allow users to add one peak to the signal at a time. 
 
 #### Saving Peak Annotation and Proceed
-Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to HR<sub>n</sub>V<sub>m</sub>  Setting viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
+Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrsubnsubvsubmsub-setting-viewer) viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Setting Viewer
 HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>m</sub>  Setting viewer. In the 'HR<sub>n</sub>V<sub>m</sub> ' section, users may choose to perform a single HR<sub>n</sub>V<sub>m</sub>  analysis by choosing the option **‘Single’** and specifying the desired *n* and *m* values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform HR<sub>n</sub>V (or HR<sub>n</sub>V<sub>n</sub>) analysis on the input depending on the specified *n*. By default, HRnV-Calc will perform the conventional HRV analysis with *n = 1* and *m = 1*. 
