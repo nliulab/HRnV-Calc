@@ -12,8 +12,8 @@
 - **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
   - [Data Loader](#data-loader)
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
-  - [$HR_nV_m$  Setting viewer](#hr_nv_m-setting-viewer)
-  - $HR_nV_m$ Results Display
+  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hr_nv_m-setting-viewer)
+  - HR<sub>n</sub>V<sub>m</sub>  Results Display
 
 
 ## HRnV-Calc Introduction
@@ -55,7 +55,7 @@ For a simple demonstration of how the HRnV method work, please check the documen
 A brief description of all HRV/HRnV metrics provided by HRnV-Calc can be found in the list below. 
 
 ## HRnV-Calc Tutorial
-HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [$HR_nV_m$  Setting viewer](#hr_nv_m-setting-viewer), and (4) $HR_nV_m$ Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
+HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hr_nv_m-setting-viewer), and (4) HR<sub>n</sub>V<sub>m</sub> Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 ### Data Loader
 The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
@@ -94,7 +94,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the QRS Detection and Edits (QDE) Viewer for ECG inputs or $HR_nV_m$  Setting viewer for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the QRS Detection and Edits (QDE) Viewer for ECG inputs or HR<sub>n</sub>V<sub>m</sub>  Setting viewer for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
@@ -147,22 +147,22 @@ Manual correction of R peaks can be done in the ‘Denoised ECG Plot’ . users 
 To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if ‘Downwards QRS Peak’ is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the ‘Add Peak’ button will only allow users to add one peak to the signal. 
 
 #### Saving Peak Annotation and Proceed
-Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to $HR_nV_m$  Setting viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
+Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to HR<sub>n</sub>V<sub>m</sub>  Setting viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Setting Viewer
-$HR_nV_m$ analyses are configured in the $HR_nV_m$ Setting viewer. In the '$HR_nV_m$' section, users may choose to perform a single $HR_nV_m$ analysis by choosing the option **‘Single’** and specifying the desired $n$ and $m$ values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform $HR_nV$ (or $HR_nV_n$) analysis on the input depending on the specified $n$. By default, HRnV-Calc will perform the conventional HRV analysis with $n = 1$ and $m = 1$. 
+HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>m</sub>  Setting viewer. In the 'HR<sub>n</sub>V<sub>m</sub> ' section, users may choose to perform a single HR<sub>n</sub>V<sub>m</sub>  analysis by choosing the option **‘Single’** and specifying the desired *n* and *m* values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform HR<sub>n</sub>V (or HR<sub>n</sub>V<sub>n</sub>) analysis on the input depending on the specified *n*. By default, HRnV-Calc will perform the conventional HRV analysis with *n = 1* and *m = 1*. 
 
 <p align="center">
   <img src="./figs/HRnVm_setting.png" />
 </p>
 <p align="center">
-  HRnVm Setting
+  HR<sub>n</sub>V<sub>m</sub> Setting
 </p>
 
 
-The option **‘All’** lets users perform all $HR_nV_m$ analyses with $n$ and $m$ no greater than the specified $n$. For example, if $n$ is set to be 2, HRnV-Calc will conduct $HR_1V$ (i.e., conventional HRV), $HR_2V_1$, and $HR_2V$ analyses on the input signal altogether. The default value of n for this option is 1, indicating only the conventional HRV analysis to be performed. Note that the results generated using this option will not be shown in the $HR_nV_m$ Display, even when n is set to 1. Users may check the stored Excel sheets for detailed results. 
+The option **‘All’** lets users perform all HR<sub>n</sub>V<sub>m</sub> analyses with *n* and *m* no greater than the specified *n*. For example, if *n* is set to be 2, HRnV-Calc will conduct HR<sub>1</sub>V (i.e., conventional HRV), HR<sub>2</sub>V<sub>1</sub>, and HR<sub>2</sub>V analyses on the input signal altogether. The default value of *n* for this option is 1, indicating only the conventional HRV analysis to be performed. Note that the results generated using this option will not be shown in the HR<sub>n</sub>V<sub>m</sub> Display, even when *n* is set to be 1. Users may check the stored Excel sheets for detailed results. 
 
-The **Ectopic Beats** section lets users allows users to specify the threshold (default: 20%) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will only be conducted on the original RRI. All $RR_nI_m$ intervals will be generated from the processed RRI intervals without further processing. 
+The **Ectopic Beats** section lets users allows users to specify the threshold (default: 20%) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will only be conducted on the original RRI. All RR<sub>n</sub>I<sub>m</sub> intervals will be generated from the processed RRI intervals without further processing. 
 
 In the **Frequency Domain** section, user may choose one of the four PSD methods (default: Lomb) provided in PCST. For details of each PSD estimate method, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
