@@ -13,7 +13,7 @@
 - **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
   - [Data Loader](#data-loader)
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
-  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hrnvm-setting-viewer)
+  - [HR<sub>n</sub>V<sub>m</sub>   Setting Viewer](#hrnvm-setting-viewer)
   - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrnvm-results-display)
 
 
@@ -103,7 +103,7 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 
 
 ## HRnV-Calc Tutorial
-HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hrnvm-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-setting-viewer). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
+HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer](#hrnvm-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-setting-viewer). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 
 In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](./Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
 ### Data Loader
@@ -145,7 +145,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrnvm-setting-viewer) viewer for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
