@@ -8,11 +8,12 @@
       - [Citation](#citation)
       - [Contact](#contact)
 - **[HRnV/HRV Methods and Metrics](#hrnvhrv-methods-and-metrics)**
-  - [Methods and Metrics Documentation](#methods-and-metrics-documentations) 
+  - [The HRnV Method](#the-hrnv-method)
+  - [Metrics Descriptions](#metrics-descriptions)
 - **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
   - [Data Loader](#data-loader)
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
-  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hr_nv_m-setting-viewer)
+  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hrsubnsubvsubmsub-setting-viewer)
   - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrsubnsubvsubmsub-results-display)
 
 
@@ -20,12 +21,12 @@
 ### Description
 The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [HRnV method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis. 
 
-### Installation
-The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license. 
+The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
+### Installation
 To begin, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Neural Network Toolbox, and Image Processing Toolbox)
 
-Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
+Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
 
 Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that the name of the folder containing PCST should not be changed, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
 
@@ -52,9 +53,11 @@ If you are using HRnV-Calc, please cite PCST and other related papers:
 ### The HRnV Method
 To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method.
 
-HRnV is a method applied on RRIs (i.e., R to R peak intervals). Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI is obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
+HRnV is a method applied to RRIs (i.e., R to R peak intervals). Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI is obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
 
-There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >= 1) given that *m* <= *n*. To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed),<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of length *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
+There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >= 1) given that *m* <= *n*. 
+
+To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed), <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of length *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
 <p align = "center">
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;Y_{i}&space;=&space;\sum_{j&space;=&space;1}^{n}{X_{(i-1)*m&plus;j}}&space;(j&space;=&space;1,2,3,...,M)" title="\bg_white Y_{i} = \sum_{j = 1}^{n}{X_{(i-1)*m+j}} (j = 1,2,3,...,M)" />
 </p>
@@ -67,10 +70,10 @@ The length of the new series, *M*, is given by <img src="https://latex.codecogs.
 Generation of RR<sub>n</sub>I<sub>m</sub> Toy Example
 </p>
 
-All conventional HRV methods and metrics can then be applied to the new RR<sub>n</sub>I<sub>m</sub> intervals. Such metrics, namely HR<sub>n</sub>V<sub>m</sub> metrics, provide additional insights to the conventional HRV. 
+All conventional HRV methods and metrics can then be applied to the new RR<sub>n</sub>I<sub>m</sub> intervals (i.e., feed RR<sub>n</sub>I<sub>m</sub> into conventional HRV analysis as normal RRI). Such metrics, namely HR<sub>n</sub>V<sub>m</sub> metrics, provide additional insights to the conventional HRV. 
 
-### Methods and Metrics Documentations
-A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by HRnV-Calc can be found in the list below. 
+### Metrics Descriptions
+A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by HRnV-Calc can be found in the table below. 
 
 | Metrics                           | Units | Description                                                                             |
 |-----------------------------------|-------|-----------------------------------------------------------------------------------------|
@@ -100,11 +103,11 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 
 
 ## HRnV-Calc Tutorial
-HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hr_nv_m-setting-viewer), and (4) HR<sub>n</sub>V<sub>m</sub> Results Display. Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
+HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hrsubnsubvsubmsub-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrsubnsubvsubmsub-results-display). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 
-In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
+In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](./Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
 ### Data Loader
-The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
+The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
 <p align="center">
   <img src="./figs/Data_loader.png" />
@@ -126,7 +129,8 @@ Currently, HRnV-Calc accepts five different data types, which include:
 **Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the 'Open File/Folder' button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
 
 
-**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. 
+**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
+
 
 #### Adult/Infant Processing Profile
 Since infant ECG and RRI signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
@@ -197,6 +201,8 @@ To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ butt
 Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrsubnsubvsubmsub-setting-viewer) viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Setting Viewer
+Before using HR<sub>n</sub>V<sub>m</sub> analysis, we recommend reading [the explaination of the HRnV method](#the-hrnv-method). 
+
 HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>m</sub>  Setting viewer. In the 'HR<sub>n</sub>V<sub>m</sub> ' section, users may choose to perform a single HR<sub>n</sub>V<sub>m</sub>  analysis by choosing the option **‘Single’** and specifying the desired *n* and *m* values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform HR<sub>n</sub>V (or HR<sub>n</sub>V<sub>n</sub>) analysis on the input depending on the specified *n*. By default, HRnV-Calc will perform the conventional HRV analysis with *n = 1* and *m = 1*. 
 
 <p align="center">
