@@ -77,7 +77,7 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 
 | Metrics                           | Units | Description                                                                             |
 |-----------------------------------|-------|-----------------------------------------------------------------------------------------|
-| Tiem Domain                       |       |                                                                                         |
+| **Tiem Domain**                       |       |                                                                                         |
 | Average RR                        | ms    | The mean of RR intervals                                                                |
 | SDRR                              | ms    | The standard deviation of RR intervals                                                  |
 | Average HR                        | 1/min | The mean of heart rate                                                                  |
@@ -88,14 +88,14 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 | RR Skewness                       | -     | The skewness of the RR intervals distribution                                           |
 | RR Kurtosis                       | -     | The kurtosis of the RR intervals distribution                                           |
 | RR Triangular Index               | -     | The integral of the RR intervals histogram divided by the height of the histogram       |
-| Frequency Domain                  |       |                                                                                         |
+| **Frequency Domain**                  |       |      For more detailed documentations of the frequency domain metrics, check out [here](https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox#frequency-domain-measures-of-hrv-default-using-lomb-periodogram-method).                                                                                   |
 | VLF, LF, and HF Peak frequencies  | Hz    | The peak frequencies in the power spectral distribution (PSD) for VLF, LF, and HF bands |
 | VLF, LF, and HF Powers            |       | Absolute powers of VLF, LF, and HF bands                                                |
 | VLF, LF, and HF Power Percentages | %     | The percentage for powers of VLF, LF, and HF bands within the overall spectrum          |
 | LF and HF Normalized Powers       | n.u.  | Normalized powers for LF and HF bands                                                   |
 | Total Power                       |       | The overall power of the PSD                                                            |
 | LF/HF                             | -     | The ratio between the powers of LF and HF bands                                         |
-| Nolinear Domain                   |       |                                                                                         |
+| **Nolinear Domain**                   |       |                                                                                         |
 | Poincare SD1 and SD2              | ms    | The width and length of the eclipse fitted in the Poincare plot                         |
 | App_Ent                           | -     | Approximate entropy                                                                     |
 | Sam_Ent                           | -     | Sample entropy                                                                          |
