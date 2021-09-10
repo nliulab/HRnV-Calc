@@ -13,8 +13,8 @@
 - **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
   - [Data Loader](#data-loader)
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
-  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hrsubnsubvsubmsub-setting-viewer)
-  - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrsubnsubvsubmsub-results-display)
+  - [HR<sub>n</sub>V<sub>m</sub>   Setting viewer](#hrnvm-setting-viewer)
+  - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrnvm-results-display)
 
 
 ## HRnV-Calc Introduction
@@ -57,7 +57,7 @@ HRnV is a method applied to RRIs (i.e., R to R peak intervals). Therefore, the e
 
 There are two parameters to be specified for the HRnV method: the summation parameter *n* and the stride parameter *m*. Both *n* and *m* can take any positive integer (i.e., *n, m* >= 1) given that *m* <= *n*. 
 
-To fully describe the process of RR<sub>n</sub>I<sub>m</sub>, consider a series clean RRI (i.e., all outliers and non-sinus beats are removed or processed), <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of length *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
+To fully describe the process of RR<sub>n</sub>I<sub>m</sub> generation, consider a series of clean RRI (i.e., all outliers and non-sinus beats are removed or processed), <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;X_{i}&space;(i&space;=&space;1,2,3,...,N)" title="\bg_white \inline X_{i} (i = 1,2,3,...,N)" /> of length *N*. With specified *n* and *m*, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;Y_{i}&space;(i&space;=&space;1,2,3,...,M)" title="\bg_white \inline Y_{i} (i = 1,2,3,...,M)" /> of length *M* can be expressed as:
 <p align = "center">
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;Y_{i}&space;=&space;\sum_{j&space;=&space;1}^{n}{X_{(i-1)*m&plus;j}}&space;(j&space;=&space;1,2,3,...,M)" title="\bg_white Y_{i} = \sum_{j = 1}^{n}{X_{(i-1)*m+j}} (j = 1,2,3,...,M)" />
 </p>
@@ -103,7 +103,7 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 
 
 ## HRnV-Calc Tutorial
-HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hrsubnsubvsubmsub-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrsubnsubvsubmsub-results-display). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
+HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting viewer](#hrnvm-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-setting-viewer). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 
 In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](./Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
 ### Data Loader
@@ -129,7 +129,7 @@ Currently, HRnV-Calc accepts five different data types, which include:
 **Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the 'Open File/Folder' button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
 
 
-**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
+**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
 
 
 #### Adult/Infant Processing Profile
@@ -145,7 +145,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrsubnsubvsubmsub-setting-viewer) viewer for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrnvm-setting-viewer) viewer for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
@@ -198,7 +198,7 @@ Manual correction of R peaks can be done in the ‘Denoised ECG Plot’. users m
 To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if ‘Downwards QRS Peak’ is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the ‘Add Peak’ button will only allow users to add one peak to the signal at a time. 
 
 #### Saving Peak Annotation and Proceed
-Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrsubnsubvsubmsub-setting-viewer) viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
+Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrnvm-setting-viewer) viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Setting Viewer
 Before using HR<sub>n</sub>V<sub>m</sub> analysis, we recommend reading [the explaination of the HRnV method](#the-hrnv-method). 
@@ -222,7 +222,7 @@ In the **Frequency Domain** section, user may choose one of the four PSD methods
 The **Use Kubios Preset** option lets users modify the settings of some nonlinear methods used in HRnV-Calc according to the [published documentations of Kubios HRV](https://doi.org/10.1016/j.cmpb.2013.07.024). Note that the preset will not yield identiacal results to the ones generated by Kubios HRV, as the exact processing methods used in Kubios HRV are proprietary. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Results Display
-HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis (e.g., HR<sub>2</sub>V<sub>1</sub>) in the HR<sub>n</sub>V<sub>m</sub> Results Display window. Note the display window will **not** be activated if users choose to perform multiple HR<sub>n</sub>V<sub>m</sub> analyses (by choosing option 'All' in [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrsubnsubvsubmsub-setting-viewer)) or to conduct [batch processing on multiple input files](#singlebatch-processing). 
+HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis (e.g., HR<sub>2</sub>V<sub>1</sub>) in the HR<sub>n</sub>V<sub>m</sub> Results Display window. Note the display window will **not** be activated if users choose to perform multiple HR<sub>n</sub>V<sub>m</sub> analyses (by choosing option 'All' in [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer)) or to conduct [batch processing on multiple input files](#singlebatch-processing). 
 
 <p align="center">
   <img src="./figs/Results.png" />
