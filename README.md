@@ -19,7 +19,7 @@
 
 ## HRnV-Calc Introduction
 ### Description
-The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [HRnV method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis. 
+The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [Heart Rate n-Variability (HRnV) method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis. 
 
 The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
@@ -51,7 +51,7 @@ If you are using HRnV-Calc, please cite PCST and other related papers:
 
 ## HRnV/HRV Methods and Metrics 
 ### The HRnV Method
-To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method.
+To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method. We recommend reading this section with white background (i.e., light mode), as GitHub currently does not support native Latex rendering. 
 
 HRnV is a method applied to RRIs (i.e., R to R peak intervals). Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI is obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
 
