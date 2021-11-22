@@ -634,16 +634,15 @@ while bcycle==1
                     test = 1;
                end
             end
-           
-           if size(peakseg,1)<size(peakseg,2)
-               peakseg = peakseg';
-           end
-
-           if size(peakpos,1)<size(peakpos,2)
-               peakpos = peakpos';
-           end  
-               
            if ~isempty(peakseg)
+               if size(peakseg,1)<size(peakseg,2)
+                   peakseg = peakseg';
+               end
+
+               if size(peakpos,1)<size(peakpos,2)
+                   peakpos = peakpos';
+               end  
+               
                insertpos = length(find(peakseg < (pointpos-seg*(sliderpos-1)*fs)));%Insert pos
            else
                %special case
@@ -653,18 +652,13 @@ while bcycle==1
           
             if insertpos == 0%Insert to 1st position
                 if ~isempty(peakseg)
-                    peakseg = cat(1,pointpos-seg*(sliderpos-1)*fs,peakseg(1:length(peakseg)));
+                    peakseg=cat(1,pointpos-seg*(sliderpos-1)*fs,peakseg(1:length(peakseg)));
                 else
-                    peakseg = pointpos-seg*(sliderpos-1)*fs;
                 end
                 if sliderpos == 1 %means first overall QRS peak
                    peakpos = cat(1,pointpos,peakpos);
                 else
-                   if prepeaknums == length(peakpos) %%Special case, that all behind signals are noise and does not have peaks
-                        peakpos = cat(1,peakpos(1:prepeaknums),pointpos);
-                   else
-                        peakpos = cat(1,peakpos(1:prepeaknums),pointpos,peakpos(prepeaknums+1:length(peakpos)));
-                   end
+                   peakpos = cat(1,peakpos(1:prepeaknums),pointpos,peakpos(prepeaknums+1:length(peakpos)));
                 end
             else
                 if insertpos == length(peakseg) %Insert to last position
@@ -674,7 +668,7 @@ while bcycle==1
                     else
                         %%peakseg already add 1, therefore the position
                         %%need to minus one
-                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)-1),pointpos,peakpos(prepeaknums+length(peakseg):length(peakpos)));
+                        peakpos = cat(1,peakpos(1:prepeaknums+length(peakseg)-1),pointpos,peakpos(prepeaknums+length(peakseg)+1:length(peakpos)));
                     end
                 else %Insert to middle
                     peakseg = cat(1,peakseg(1:insertpos),pointpos-seg*(sliderpos-1)*fs,peakseg(insertpos+1:length(peakseg)));
