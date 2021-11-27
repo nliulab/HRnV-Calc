@@ -1,4 +1,4 @@
-# HRnV-Calc: A Software Package for Heart Rate n-Variability and Heart Rate Variability Analysis
+# HRnV-Calc: A Software for Heart Rate n-Variability and Heart Rate Variability Analysis
 
  - **[HRnV-Calc Introduction](#hrnv-calc-introduction)**
       - [Description](#description)
