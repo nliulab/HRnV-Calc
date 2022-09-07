@@ -22,7 +22,7 @@ The HRnV-Calc software is a heart rate variability (HRV) analysis software with 
 The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
 ### Installation
-To begin, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Neural Network Toolbox, and Image Processing Toolbox)
+To begin, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Deep Learning Toolbox, and Image Processing Toolbox)
 
 Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
 
@@ -213,7 +213,7 @@ HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>
 
 The option **‘All’** lets users perform all HR<sub>n</sub>V<sub>m</sub> analyses with *n* and *m* no greater than the specified *n*. For example, if *n* is set to be 2, HRnV-Calc will conduct HR<sub>1</sub>V (i.e., conventional HRV), HR<sub>2</sub>V<sub>1</sub>, and HR<sub>2</sub>V analyses on the input signal altogether. The default value of *n* for this option is 1, indicating only the conventional HRV analysis to be performed. Note that the results generated using this option will not be shown in the HR<sub>n</sub>V<sub>m</sub> Display, even when *n* is set to be 1. Users may check the stored Excel sheets for detailed results. 
 
-The **Ectopic Beats** section lets users allows users to specify the threshold (default: 20%) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will **only be conducted on the original RRI**. All RR<sub>n</sub>I<sub>m</sub> intervals will be generated from the processed RRI intervals without further processing. 
+The **Ectopic Beats** section allows users to specify the threshold (default: 20%) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will **only be conducted on the original RRI**. All RR<sub>n</sub>I<sub>m</sub> intervals will be generated from the processed RRI intervals without further processing. 
 
 In the **Frequency Domain** section, user may choose one of the four PSD methods (default: Lomb) provided in PCST. For details of each PSD estimate method, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
