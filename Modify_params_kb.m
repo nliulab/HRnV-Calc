@@ -1,5 +1,7 @@
 function HRVparams_kb = Modify_params_kb(HRVparams)
 %% Modify the software profile according to the default settings of Kubios
+%
+%
 %   Cite Kubios HRV:
 %       Tarvainen, M. P., Niskanen, J. P., Lipponen, J. A., Ranta-Aho, P. O., & Karjalainen, P. A. (2014). 
 %       Kubios HRV--heart rate variability analysis software. 
@@ -7,11 +9,16 @@ function HRVparams_kb = Modify_params_kb(HRVparams)
 %
 %   DEPENDENCIES & LIBRARIES:
 %       PhysioNet Cardiovascular Signal Toolbox
+%       https://physionet.org/content/pcst/1.0.0/
 %       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
 %
 %   REFERENCE: 
 %   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
 %   and heart rate variability analysis
+%
+%   Vest, A. N., Da Poian, G., Li, Q., Liu, C., Nemati, S., Shah, A. J., & Clifford, G. D. (2018). 
+%   An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
+%   Physiological measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
 %
 %   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
 %   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
@@ -19,13 +26,13 @@ function HRVparams_kb = Modify_params_kb(HRVparams)
 %	REPO:       
 %       https://github.com/nliulab/HRnV-Calc
 %   ORIGINAL SOURCE AND AUTHORS:     
-%       Written by: 
+%       Written by 
 %       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
 %       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
 %       Nan Liu (liu.nan@duke-nus.edu.sg) in 2021
 %   
-%	COPYRIGHT (C) 2021 
-
+%	COPYRIGHT (C) 2022 
+%
 %   LICENSE:    
 %       This software is offered freely and without warranty under 
 %       the GNU (v3 or later) public license. See license file for

@@ -21,24 +21,36 @@ function HRnVOutput = Main_HRnVm_Analysis(NN,tNN,sqi,HRVparams,WinIdxs,hrnv)
 %       subID       - subject ID, string to identify current subject
 
 %   DEPENDENCIES & LIBRARIES:
-%       HRV Toolbox for PhysioNet Cardiovascular Signal Toolbox
+%       PhysioNet Cardiovascular Signal Toolbox
+%       https://physionet.org/content/pcst/1.0.0/
 %       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
 %
 %   REFERENCE: 
-%   Vest et al. "An Open Source Benchmarked HRV Toolbox for Cardiovascular 
-%   Waveform and Interval Analysis" Physiological Measurement (In Press), 2018. 
+%   Chenglin Niu, Dagang Guo et al. HRnV-Calc: A software for heart rate n-variability
+%   and heart rate variability analysis
+%
+%   Vest, A. N., Da Poian, G., Li, Q., Liu, C., Nemati, S., Shah, A. J., & Clifford, G. D. (2018). 
+%   An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
+%   Physiological measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
+%
+%   Written by: Dagang Guo(guo.dagang@duke-nus.edu.sg), Chenglin Niu
+%   (chenglin.niu@u.duke.nus.edu), Nan Liu(chenglin.niu@u.duke.nus.edu)
 %
 %	REPO:       
-%       https://github.com/cliffordlab/PhysioNet-Cardiovascular-Signal-Toolbox
+%       https://github.com/nliulab/HRnV-Calc
 %   ORIGINAL SOURCE AND AUTHORS:     
-%       This script written by Giulia Da Poian
-%       Dependent scripts written by various authors 
-%       (see functions for details)       
-%	COPYRIGHT (C) 2018 
+%       Written by 
+%       Dagang Guo(guo.dagang@duke-nus.edu.sg), 
+%       Chenglin Niu (chenglin.niu@u.duke.nus.edu),
+%       Nan Liu (liu.nan@duke-nus.edu.sg) in 2021
+%   
+%	COPYRIGHT (C) 2022 
+%
 %   LICENSE:    
 %       This software is offered freely and without warranty under 
 %       the GNU (v3 or later) public license. See license file for
 %       more information
+
 
 % 2. Calculate time domain HRV metrics - Using HRV Toolbox for PhysioNet 
 %    Cardiovascular Signal Toolbox Toolbox Functions        

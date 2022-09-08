@@ -1,3 +1,4 @@
+% Modified by DUKE-NUS Team
 function [alpha1, alpha2] = EvalDFA_Revised(NN,tNN,sqi,HRVparams,windows_all)
 
 % [alpha1, alpha2] = EvalDFA(NN,tNN,sqi,HRVparams,windows_all)
