@@ -49,7 +49,8 @@ If you are using HRnV-Calc, please cite PCST and other related papers:
 
 ## HRnV/HRV Methods and Metrics 
 ### The HRnV Method
-To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method. We recommend reading this section with white background (i.e., light mode), as GitHub currently does not support native Latex rendering. 
+To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method. 
+
 
 HRnV is a method applied to RRIs (i.e., R to R peak intervals). Therefore, the extraction of RRI from ECG for HRnV is exactly the same as conventional HRV. Once the original RRI is obtained, HRnV will generate new intervals called RR<sub>n</sub>I<sub>m</sub>, which is similar to RRI. 
 
