@@ -145,7 +145,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Next` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Confirm` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
