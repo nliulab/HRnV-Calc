@@ -59,7 +59,7 @@ There are two parameters to be specified for the HRnV method: the summation para
 To fully describe the process of RR<sub>n</sub>I<sub>m</sub> generation, consider a series of clean RRI (i.e., all outliers and non-sinus beats are removed or processed), $X_i(i=1,2,3, \ldots, N)$ of length $N$. With specified $n$ and $m$, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, $Y_i(i=1,2,3, \ldots, M)$ of length $M$ can be expressed as:
 
 $$
-Y_i=\sum_{j=1}^n X_{(i-1) * m+j}(j=1,2,3, \ldots, M)
+Y_i=\sum_{j=1}^n X_{(i-1) * m+j} (j=1,2,3, \ldots, M)
 $$
 
 The length of the new series, $M$, is given by $M=\left\lfloor\frac{N-n+1}{m}\right\rfloor$, where $\lfloor\cdot\rfloor$ represents the floor function. The figure below illustrates a toy example of generating RR<sub>3</sub>I<sub>2</sub> from a RRI series of length 9. 
