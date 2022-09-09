@@ -136,7 +136,7 @@ Currently, HRnV-Calc accepts five different data types, which include:
 Since infant ECG and RRI signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
 #### Sampling Rate
-For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: 125Hz or 250Hz. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. 
+For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: `125Hz` or `250Hz`. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. 
 
 For RRI inputs, this section will not be avaible, as the sampling rate does not affect the analysis on RRI. HRnV-Calc will assign one of the default rates to the input. 
 
