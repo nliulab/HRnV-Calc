@@ -129,14 +129,14 @@ Currently, HRnV-Calc accepts five different data types, which include:
 **Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the `Open File/Folder` button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
 
 
-**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use 'Open File/Folder' button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
+**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use `Open File/Folder` button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
 
 
 #### Adult/Infant Processing Profile
 Since infant ECG and RRI signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
 #### Sampling Rate
-For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: 125Hz or 250Hz. If the signal is sampled using other rates, users may choose the 'Others' option and type in the sampling rate. 
+For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: 125Hz or 250Hz. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. 
 
 For RRI inputs, this section will not be avaible, as the sampling rate does not affect the analysis on RRI. HRnV-Calc will assign one of the default rates to the input. 
 
@@ -145,7 +145,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
-Once the input files and all settings in the Data Loader are properly configured, users may click on 'Next' to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking 'Back' will bring up the Data Loader agian. The 'Next' button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
+Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Next` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
 
 <p align="center">
   <img src="./figs/Confirmation.png" />
@@ -167,13 +167,13 @@ The QDE viewer is designed to configure and inspect QRS detection on **ECG signa
 
 
 #### Segmentation of ECG
-The ‘Signal Type’ section allows users to choose whether the full ECG or a segment of it should be analyzed. 
+The `Signal Type` section allows users to choose whether the full ECG or a segment of it should be analyzed. 
 
-If the 'Segment' option is selected, the 'Display settings & ECG Segment Selection' section will be availabe to users to navigate and select the desired segment. 
+If the `Segment` option is selected, the `Display settings & ECG Segment Selection` section will be availabe to users to navigate and select the desired segment. 
 
-There are three choices of segment length can be selected in the segmentation subsection: 5 min, 10 min, and 15 min. Users may change ‘Display Duration’ and ‘Display overlay’ to better navigate and locate the desired part of the ECG signal for segmentation.
+There are three choices of segment length can be selected in the segmentation subsection: `5 min`, `10 min`, and `15 min`. Users may change `Display Duration` and `Display overlay` to better navigate and locate the desired part of the ECG signal for segmentation.
 
-As shown in the figure below, to select the starting point of the segment, click the ‘Select start point’ button, and then choose the starting point by clicking on the ECG plot displayed in the middle of the QDE viewer. Single clicks will be plotted on the ECG plot as crossing marks for reference. To avoid unintended inputs, such clicks are not stored as the actual starting points. Users may **finalize the choice of the starting point by double clicking** on the desired point in the ECG plot. Alternatively, right clicking will also finalize the starting point as the last single click position.  It is worth noting that only the horizontal position (i.e., the X-axis coordinate) of the click will be used to locate the starting point of the segment. Once the starting point is finalized, the **end point of the segment with specified length will be automatically displayed** on the ECG plot as a green dot. Users may finalize the choice of the end point by clicking the ‘Confirm End Point’ button and thus confirm the segmentation of the ECG signal.
+As shown in the figure below, to select the starting point of the segment, click the `Select start point` button, and then choose the starting point by clicking on the ECG plot displayed in the middle of the QDE viewer. Single clicks will be plotted on the ECG plot as crossing marks for reference. To avoid unintended inputs, such clicks are not stored as the actual starting points. Users may **finalize the choice of the starting point by double clicking** on the desired point in the ECG plot. Alternatively, right clicking will also finalize the starting point as the last single click position.  It is worth noting that only the horizontal position (i.e., the X-axis coordinate) of the click will be used to locate the starting point of the segment. Once the starting point is finalized, the **end point of the segment with specified length will be automatically displayed** on the ECG plot as a green dot. Users may finalize the choice of the end point by clicking the `Confirm End Point` button and thus confirm the segmentation of the ECG signal.
 
 
 <p align="center">
@@ -186,24 +186,24 @@ As shown in the figure below, to select the starting point of the segment, click
 
 #### Noise Removal and Local Checkup
 
-Baseline drifts in the ECG signal can be removed by checking the 'Baseline Drfit Removal' option. 
+Baseline drifts in the ECG signal can be removed by checking the `Baseline Drfit Removal` option. 
 
-Although the *jqrs* algorithm used in HRnV-Calc is one of the most robust and well-regarded QRS detection methods, it may sometimes yield unexpected annotation results, especially when taking ECG inputs with downwards R peaks (i.e., R peak being the local minimum of the signal). Therefore, HRnV-Calc performs **an additional check on the *jqrs* output to modify the annotation to the local maximum** within a small region (10 samples before and after the original *jqrs* peak annotation, regardless of the sampling rate). If the input has downwards R peaks, the **‘Downwards QRS Peak’ option in the QDE viewer enables HRnV-Calc to modify the annotation to the local minimum**. If such a modification is deemed unnecessary, users may **uncheck the ‘Modify to local supremum’ option skip the additional check**. 
+Although the *jqrs* algorithm used in HRnV-Calc is one of the most robust and well-regarded QRS detection methods, it may sometimes yield unexpected annotation results, especially when taking ECG inputs with downwards R peaks (i.e., R peak being the local minimum of the signal). Therefore, HRnV-Calc performs **an additional check on the *jqrs* output to modify the annotation to the local maximum** within a small region (10 samples before and after the original *jqrs* peak annotation, regardless of the sampling rate). If the input has downwards R peaks, the **`Downwards QRS Peak` option in the QDE viewer enables HRnV-Calc to modify the annotation to the local minimum**. If such a modification is deemed unnecessary, users may **uncheck the `Modify to local supremum` option to skip the additional check**. 
 
 #### Peak Detection and Editing
-The 'QRS Peak Detection' button lets users perform QRS detection on the selected ECG segment. The peak annotations will be plotted in the 'Denoised ECG Plot' as red dots. 
+The `QRS Peak Detection` button lets users perform QRS detection on the selected ECG segment. The peak annotations will be plotted in the `Denoised ECG Plot` as red dots. 
 
-Manual correction of R peaks can be done in the ‘Denoised ECG Plot’. users may first remove the incorrect R peaks by clicking on the ‘Remove Peak’ button and then **double click on the marked peak annotations to remove them**. Removal of the R peaks can be **stopped by a single right click**. Since HRnV-Calc performs checks to verify if there are two R peaks too close to each other, it is advised to always **remove the undesired R peaks before adding new ones**. All R peaks editing can be reversed by performing the QRS detection again.
+Manual correction of R peaks can be done in the `Denoised ECG Plot`. users may first remove the incorrect R peaks by clicking on the `Remove Peak` button and then **double click on the marked peak annotations to remove them**. Removal of the R peaks can be **stopped by a single right click**. Since HRnV-Calc performs checks to verify if there are two R peaks too close to each other, it is advised to always **remove the undesired R peaks before adding new ones**. All R peaks editing can be reversed by performing the QRS detection again.
 
-To add a new peak annotation to the ECG signal, click on the ‘Add Peak’ button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if ‘Downwards QRS Peak’ is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the ‘Add Peak’ button will only allow users to add one peak to the signal at a time. 
+To add a new peak annotation to the ECG signal, click on the `Add Peak` button and **double click on the point where the new annotation will be added**. HRnV-Calc will **automatically mark the local maximum** (or minimum if `Downwards QRS Peak` is selected) within a small region surrounding the selected point as the new R peak, since manual positioning of the exact R peak can be erroneous. Please note that clicking on the `Add Peak` button will only allow users to add one peak to the signal at a time. 
 
 #### Saving Peak Annotation and Proceed
-Mannual edits of the peak annotations can be saved by clicking 'New QRS Manual Edit' button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrnvm-setting-viewer) viewer for downstream analysis by clicking on 'HRnVm Calculation'. 
+Mannual edits of the peak annotations can be saved by clicking `New QRS Manual Edit` button. Once the QRS detection is finalized, users may proceed to [HR<sub>n</sub>V<sub>m</sub>  Setting](#hrnvm-setting-viewer) viewer for downstream analysis by clicking on `HRnVm Calculation`. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Setting Viewer
 Before using HR<sub>n</sub>V<sub>m</sub> analysis, we recommend reading [the explaination of the HRnV method](#the-hrnv-method). 
 
-HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>m</sub>  Setting viewer. In the 'HR<sub>n</sub>V<sub>m</sub> ' section, users may choose to perform a single HR<sub>n</sub>V<sub>m</sub>  analysis by choosing the option **‘Single’** and specifying the desired *n* and *m* values. When choosing the option ‘HRnV (m = n)’, HRnV-Calc will perform HR<sub>n</sub>V (or HR<sub>n</sub>V<sub>n</sub>) analysis on the input depending on the specified *n*. By default, HRnV-Calc will perform the conventional HRV analysis with *n = 1* and *m = 1*. 
+HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>m</sub>  Setting viewer. In the 'HR<sub>n</sub>V<sub>m</sub> ' section, users may choose to perform a single HR<sub>n</sub>V<sub>m</sub>  analysis by choosing the option **`Single`** and specifying the desired `n` and `m` values. When choosing the option `HRnV (m = n)`, HRnV-Calc will perform HR<sub>n</sub>V (or HR<sub>n</sub>V<sub>n</sub>) analysis on the input depending on the specified `n`. By default, HRnV-Calc will perform the conventional HRV analysis with `n = 1` and `m = 1`. 
 
 <p align="center">
   <img src="./figs/HRnVm_setting.png" />
@@ -213,16 +213,16 @@ HR<sub>n</sub>V<sub>m</sub>  analyses are configured in the HR<sub>n</sub>V<sub>
 </p>
 
 
-The option **‘All’** lets users perform all HR<sub>n</sub>V<sub>m</sub> analyses with *n* and *m* no greater than the specified *n*. For example, if *n* is set to be 2, HRnV-Calc will conduct HR<sub>1</sub>V (i.e., conventional HRV), HR<sub>2</sub>V<sub>1</sub>, and HR<sub>2</sub>V analyses on the input signal altogether. The default value of *n* for this option is 1, indicating only the conventional HRV analysis to be performed. Note that the results generated using this option will not be shown in the HR<sub>n</sub>V<sub>m</sub> Display, even when *n* is set to be 1. Users may check the stored Excel sheets for detailed results. 
+The option **`All`** lets users perform all HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` no greater than the specified `n`. For example, if `n` is set to be 2, HRnV-Calc will conduct HR<sub>1</sub>V (i.e., conventional HRV), HR<sub>2</sub>V<sub>1</sub>, and HR<sub>2</sub>V analyses on the input signal altogether. The default value of *n* for this option is 1, indicating only the conventional HRV analysis to be performed. Note that the results generated using this option will not be shown in the HR<sub>n</sub>V<sub>m</sub> Display, even when *n* is set to be 1. Users may check the stored Excel sheets for detailed results. 
 
-The **Ectopic Beats** section allows users to specify the threshold (default: 20%) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will **only be conducted on the original RRI**. All RR<sub>n</sub>I<sub>m</sub> intervals will be generated from the processed RRI intervals without further processing. 
+The **`Ectopic Beats`** section allows users to specify the threshold (default: `20%`) for a beat to be considered as an outlier and to select how outliers should be processed (default: remove). It should be noted that the detection and processing of ectopic beats will **only be conducted on the original RRI**. All RR<sub>n</sub>I<sub>m</sub> intervals will be generated from the processed RRI intervals without further processing. 
 
-In the **Frequency Domain** section, user may choose one of the four PSD methods (default: Lomb) provided in PCST. For details of each PSD estimate method, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
+In the **`Frequency Domain`** section, user may choose one of the four PSD methods (default: `Lomb`) provided in PCST. For details of each PSD estimate method, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
 
-The **Use Kubios Preset** option lets users modify the settings of some nonlinear methods used in HRnV-Calc according to the [published documentations of Kubios HRV](https://doi.org/10.1016/j.cmpb.2013.07.024). Note that the preset will not yield identiacal results to the ones generated by Kubios HRV, as the exact processing methods used in Kubios HRV are proprietary. 
+The **`Use Kubios Preset`** option lets users modify the settings of some nonlinear methods used in HRnV-Calc according to the [published documentations of Kubios HRV](https://doi.org/10.1016/j.cmpb.2013.07.024). Note that the preset will not yield identiacal results to the ones generated by Kubios HRV, as the exact processing methods used in Kubios HRV are proprietary. 
 
 ### HR<sub>n</sub>V<sub>m</sub> Results Display
-HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis (e.g., HR<sub>2</sub>V<sub>1</sub>) in the HR<sub>n</sub>V<sub>m</sub> Results Display window. Note the display window will **not** be activated if users choose to perform multiple HR<sub>n</sub>V<sub>m</sub> analyses (by choosing option 'All' in [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer)) or to conduct [batch processing on multiple input files](#singlebatch-processing). 
+HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis (e.g., HR<sub>2</sub>V<sub>1</sub>) in the HR<sub>n</sub>V<sub>m</sub> Results Display window. Note the display window will **not** be activated if users choose to perform multiple HR<sub>n</sub>V<sub>m</sub> analyses (by choosing option `All` in [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer)) or to conduct [batch processing on multiple input files](#singlebatch-processing). 
 
 <p align="center">
   <img src="./figs/Results.png" />
@@ -231,7 +231,7 @@ HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis 
   HR<sub>n</sub>V<sub>m</sub> Results Display
 </p>
 
-As shown in figure above, the HR<sub>n</sub>V<sub>m</sub> Results Display viewer provides a comprehensive overview of the HR<sub>n</sub>V<sub>m</sub>  analysis. If the conventional HRV (or HR<sub>1</sub>V) analysis is performed, the ‘IBI Statistics’ section provides an overview of the abnormal beats presented in the original RRI and the percentage of clean beats in the entire input. For HR<sub>n</sub>V<sub>m</sub>  analyses other than conventional HRV (e.g., HR<sub>2</sub>V<sub>1</sub>), the ‘IBI Statistics’ section will only display the number of beats in the corresponding RR<sub>n</sub>I<sub>m</sub>  intervals, as preprocessing is only performed on the original RRI before converting to RR<sub>n</sub>I<sub>m</sub>  intervals.
+As shown in figure above, the HR<sub>n</sub>V<sub>m</sub> Results Display viewer provides a comprehensive overview of the HR<sub>n</sub>V<sub>m</sub>  analysis. If the conventional HRV (or HR<sub>1</sub>V) analysis is performed, the `IBI Statistics` section provides an overview of the abnormal beats presented in the original RRI and the percentage of clean beats in the entire input. For HR<sub>n</sub>V<sub>m</sub>  analyses other than conventional HRV (e.g., HR<sub>2</sub>V<sub>1</sub>), the `IBI Statistics` section will only display the number of beats in the corresponding RR<sub>n</sub>I<sub>m</sub>  intervals, as preprocessing is only performed on the original RRI before converting to RR<sub>n</sub>I<sub>m</sub>  intervals.
 
 
 
