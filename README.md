@@ -56,7 +56,7 @@ HRnV is a method applied to RRIs (i.e., R to R peak intervals). Therefore, the e
 
 There are two parameters to be specified for the HRnV method: the summation parameter $n$ and the stride parameter $m$. Both $n$ and $m$ can take any positive integer (i.e., $n, m \geqslant 1$) given that $m \leqslant n$. 
 
-To fully describe the process of RR<sub>n</sub>I<sub>m</sub> generation, consider a series of clean RRI (i.e., all outliers and non-sinus beats are removed or processed), $X_i(i=1,2,3, \ldots, N)$ of length $N$. With specified $n$ and $m$, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, $Y_i(i=1,2,3, \ldots, M)$ of length $M$ can be expressed as:
+To fully describe the process of RR<sub>n</sub>I<sub>m</sub> generation, consider a series of clean RRI (i.e., all outliers and non-sinus beats are removed or processed), $X_i\ \ (i=1,2,3, \ldots, N)$ of length $N$. With specified $n$ and $m$, the RR<sub>n</sub>I<sub>m</sub> generated from the input RRI, $Y_i\ \ (i=1,2,3, \ldots, M)$ of length $M$ can be expressed as:
 
 $$
 Y_i = \sum_{j=1}^n X_{(i-1) * m+j}\ \ (j = 1,2,3, \ldots, M)
