@@ -120,8 +120,6 @@ Currently, HRnV-Calc accepts five different data types, which include:
 
 - Raw ECG (*.txt, *.csv)
 - IBI (*.txt, *.csv)
-- Kubios ECG files (*.mat) saved by [Kubios HRV](https://www.kubios.com/)
-- Kubios IBI (*.mat)
 - ECG PC -- ECG singal with peak positions (*.csv) saved by HRnV-Calc. 
 
 #### Single/Batch Processing
@@ -131,8 +129,8 @@ Currently, HRnV-Calc accepts five different data types, which include:
 **Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use `Open File/Folder` button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
 
 
-#### Adult/Infant Processing Profile
-Since infant ECG and RRI signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021).
+#### Fetal ECG Processing Profile
+Since fetal ECG signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021). Note this processing profile is only valid for **ECG inputs**.
 
 #### Sampling Rate
 For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: `125Hz` or `250Hz`. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. 
@@ -140,8 +138,8 @@ For ECG inputs, users need to specify the sampling rate of the signal. There are
 For RRI inputs, this section will not be avaible, as the sampling rate does not affect the analysis on RRI. HRnV-Calc will assign one of the default rates to the input. 
 
 
-#### Record ID Extraction
-By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as record ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, record ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
+#### Patient ID Extraction
+By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as patient ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, patient ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
 Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Confirm` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
