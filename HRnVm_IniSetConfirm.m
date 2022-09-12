@@ -126,7 +126,8 @@ if ~isempty(hhrnvmcal)
         otherwise
             set(handles.txtdatatype,'String','ECG PC (with Peak Positions)');
     end
-
+    
+    
     if handles.filetype == 1 %Single File
         handles.patientID = dhhrnvmcal.patientID;
         set(handles.txtpatientID,'String',handles.patientID);
@@ -143,6 +144,7 @@ if ~isempty(hhrnvmcal)
         %build array of full file paths    
         fpaths=string(fnames);
         %%Extract recordid from prefix and postfix
+        wrong_id = 0;
         if handles.prefix == ""
             if handles.postfix ~= ""
                 fileID = extractBefore(fpaths(1),handles.postfix);
@@ -158,14 +160,21 @@ if ~isempty(hhrnvmcal)
                 fileID = extractBetween(fpaths(1),handles.prefix,handles.postfix);
             end
         end
-        if isempty(fileID) %%Wrong input of prefix and postfix lead to fail extraction
+        if isempty(fileID) || ismissing(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
             fileID = fpaths(1);
+            wrong_id = 1;
         else
             if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
                 fileID = fileID{1};
             end
         end
         set(handles.txtpatientID,'String',fileID+'  etc.,.');
+        if wrong_id
+            handles.prefix = "";
+            handles.postfix = "";
+            msg = sprintf('       Invalid Prefix or Postfix Specified!\nPatient ID has been reset to original file name');
+            waitfor(warndlg(msg,"Invalid Prefix or Postfix"));
+        end
     end
        
 end
@@ -176,11 +185,13 @@ end
 txtHand = findall(handles.HRnVm_IniSetConfirm, '-property', 'FontUnits'); 
 set(txtHand, 'FontUnits', 'normalized')
 %%
+
 % Choose default command line output for hrnvm_inisetconfirm
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
+
 
 % UIWAIT makes hrnvm_inisetconfirm wait for user response (see UIRESUME)
 % uiwait(handles.HRnVm_IniSetConfirm);

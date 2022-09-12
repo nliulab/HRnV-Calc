@@ -106,6 +106,7 @@ handles.fs = 250;
 set(handles.rb250,'Value',1);
 set(handles.edprefix,'String','');
 set(handles.edpostfix,'String','');
+set(handles.edfs,'Enable','off');
 
 
 %handles.fs = 125; %Initialize sampling rate
@@ -253,6 +254,7 @@ handles.HRVParams = HRVParams;
 % Update handles structure
 guidata(hObject, handles);
 
+wrong_id = 0;
 if handles.filetype == 2 %Batch file
     %HRnVm_Settings;
     HRnVm_IniSetConfirm;
@@ -271,8 +273,9 @@ else %Single file
             fileID = extractBetween(handles.filename,handles.prefix,handles.postfix);
         end
     end
-    if isempty(fileID) %%Wrong input of prefix and postfix lead to fail extraction
+    if isempty(fileID) || ismissing(fileID) %%Wrong input of prefix and postfix lead to fail extraction
         fileID = handles.filename;
+        wrong_id = 1;
     else
         if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
             fileID = fileID{1};
@@ -289,6 +292,10 @@ else %Single file
 %     else %%ECG Raw
 %         PreProcess;
 %     end
+    if wrong_id
+        msg = sprintf('       Invalid Prefix or Postfix Specified!\nPatient ID has been reset to original file name');
+        waitfor(warndlg(msg,"Invalid Prefix or Postfix"));
+    end
     HRnVm_IniSetConfirm;
 end
 
@@ -385,21 +392,6 @@ function edprefix_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edprefix as text
 %        str2double(get(hObject,'String')) returns contents of edprefix as a double
 
-
-% --- Executes during object creation, after setting all properties.
-function edprefix_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edprefix (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
 function edpostfix_Callback(hObject, eventdata, handles)
 % hObject    handle to edpostfix (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -411,6 +403,17 @@ function edpostfix_Callback(hObject, eventdata, handles)
 
 % --- Executes during object creation, after setting all properties.
 function edpostfix_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edpostfix (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+function edprefix_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edpostfix (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
@@ -435,7 +438,6 @@ if get(handles.rbbatch,'Value') == 1
     set(handles.rbecg,'Enable','off');
     %%Temporary
     %%set(handles.rbecg,'Enable','on');  
-    set(handles.rbkecg,'Enable','off');
     set(handles.rbibi,'Value',1);
     set(handles.edpos,'String','');
 %% chenglin mod, disable fs for RRIs
@@ -443,6 +445,9 @@ if get(handles.rbbatch,'Value') == 1
     set(handles.rb250,'Enable','off');
     set(handles.rbothers,'Enable','off');
     set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'off');
+    set(handles.rbadult, 'Enable', 'off');
+    set(handles.rbadult, 'Value', 1);
 %%
 end
 
@@ -457,13 +462,16 @@ function rbsingle_Callback(hObject, eventdata, handles)
 if get(handles.rbsingle,'Value') == 1
     set(handles.rbecgpc,'Enable','on');
     set(handles.rbecg,'Enable','on');
-    set(handles.rbkecg,'Enable','on');
     set(handles.rbecg,'Value',1);
     set(handles.edpos,'String','');
     set(handles.rb125,'Enable','on');
     set(handles.rb250,'Enable','on');
+    set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
-    set(handles.edfs,'Enable','on');
+    set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'on');
+    set(handles.rbadult, 'Enable', 'on');
+    set(handles.rbadult, 'Value', 1);
 end
 
 
@@ -486,7 +494,7 @@ function edfs_CreateFcn(hObject, eventdata, handles)
 % Hint: edit controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
+    set(hObject,'BackgroundColor','grey');
 end
 
 
@@ -539,6 +547,9 @@ if get(handles.rbibi,'Value')==1
     set(handles.rb250,'Enable','off');
     set(handles.rbothers,'Enable','off');
     set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'off');
+    set(handles.rbadult, 'Enable', 'off');
+    set(handles.rbadult, 'Value', 1);
 end
     
 
@@ -556,6 +567,9 @@ if get(handles.rbkibi,'Value')==1
     set(handles.rb250,'Enable','off');
     set(handles.rbothers,'Enable','off');
     set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'off');
+    set(handles.rbadult, 'Enable', 'off');
+    set(handles.rbadult, 'Value', 1);
 end
     
 
@@ -570,8 +584,9 @@ function rbecg_Callback(hObject, eventdata, handles)
 if get(handles.rbecg,'Value')==1
     set(handles.rb125,'Enable','on');
     set(handles.rb250,'Enable','on');
+    set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
-    set(handles.edfs,'Enable','on');
+    set(handles.edfs,'Enable','off');
 end
 
 
@@ -585,8 +600,9 @@ function rbkecg_Callback(hObject, eventdata, handles)
 if get(handles.rbkecg,'Value')==1
     set(handles.rb125,'Enable','on');
     set(handles.rb250,'Enable','on');
+    set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
-    set(handles.edfs,'Enable','on');
+    set(handles.edfs,'Enable','off');
 end
 
 
@@ -600,6 +616,7 @@ function rbecgpc_Callback(hObject, eventdata, handles)
 if get(handles.rbecgpc,'Value')==1
     set(handles.rb125,'Enable','on');
     set(handles.rb250,'Enable','on');
+    set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
-    set(handles.edfs,'Enable','on');
+    set(handles.edfs,'Enable','off');
 end

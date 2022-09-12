@@ -531,7 +531,7 @@ for fileindex=1:length(fnames)
             fileID = extractBetween(fpaths(fileindex),handles.prefix,handles.postfix);
         end
     end
-    if isempty(fileID) %%Wrong input of prefix and postfix lead to fail extraction
+    if isempty(fileID) || ismissing(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
         fileID = fpaths(fileindex);
     else
         if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
