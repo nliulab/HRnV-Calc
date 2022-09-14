@@ -120,7 +120,7 @@ Currently, HRnV-Calc accepts five different data types, which include:
 
 - Raw ECG (*.txt, *.csv)
 - IBI (*.txt, *.csv)
-- ECG PC -- ECG singal with peak positions (*.csv) saved by HRnV-Calc. 
+- ECG PC -- ECG signal with peak positions (*.csv) saved by HRnV-Calc. 
 
 #### Single/Batch Processing
 **Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the `Open File/Folder` button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
