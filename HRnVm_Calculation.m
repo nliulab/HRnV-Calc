@@ -47,7 +47,22 @@ function varargout = HRnVm_Calculation(varargin)
 %       more information
 
 
-% Begin initialization code - DO NOT EDIT
+% Begin initialization code - DO NOT EDIT 
+
+% Include current working directory and its sub-directories to PATH
+HRnV_path = fileparts(which('HRnVm_Calculation.m'));
+cd(HRnV_path)
+if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 && exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
+    msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
+    warndlg(msg,"Denpendencies Not Found")
+    hhrnvmcal = findobj('Tag','HRnVmCal');
+    if ~isempty(hhrnvmcal)
+        close(hhrnvmcal);
+    end
+    return;
+end
+addpath(genpath(HRnV_path));
+
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -78,22 +93,7 @@ function HRnVm_Calculation_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for HRnVm_Calculation
 handles.output = hObject;
 
-%% Chenglin mod 
-% Include current working directory and its sub-directories to PATH
-%% --Need to comment when generate installable .exe file using Application
-%% Compiler
-HRnV_path = fileparts(which('HRnVm_Calculation.m'));
-cd(HRnV_path)
-if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 && exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
-    msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
-    warndlg(msg,"Denpendencies Not Found")
-    hhrnvmcal = findobj('Tag','HRnVmCal');
-    if ~isempty(hhrnvmcal)
-        close(hhrnvmcal);
-    end
-    return;
-end
-addpath(genpath(HRnV_path));
+
 % resize font for gui
 txtHand = findall(handles.HRnVmCal, '-property', 'FontUnits'); 
 set(txtHand, 'FontUnits', 'normalized')
