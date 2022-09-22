@@ -1,19 +1,19 @@
 function varargout = HRnV_Calc(varargin)
-%   HRNVM_CALCULATION MATLAB code for HRnVm_Calculation.fig
-%      HRNVM_CALCULATION, by itself, creates a new HRNVM_CALCULATION or raises the existing
+%   HRNV_CALC MATLAB code for HRnV_Calc.fig
+%      HRNV_CALC, by itself, creates a new HRNV_CALC or raises the existing
 %      singleton*.
 %
-%      H = HRNVM_CALCULATION returns the handle to a new HRNVM_CALCULATION or the handle to
+%      H = HRNV_CALC returns the handle to a new HRNV_CALC or the handle to
 %      the existing singleton*.
 %
-%      HRNVM_CALCULATION('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in HRNVM_CALCULATION.M with the given input arguments.
+%      HRNV_CALC('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in HRNV_CALC.M with the given input arguments.
 %
-%      HRNVM_CALCULATION('Property','Value',...) creates a new HRNVM_CALCULATION or raises the
+%      HRNV_CALC('Property','Value',...) creates a new HRNV_CALC or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before HRnVm_Calculation_OpeningFcn gets called.  An
+%      applied to the GUI before HRnV_Calc_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to HRnVm_Calculation_OpeningFcn via varargin.
+%      stop.  All inputs are passed to HRnV_Calc_OpeningFcn via varargin.
 %
 %   DEPENDENCIES & LIBRARIES:
 %       PhysioNet Cardiovascular Signal Toolbox
@@ -82,15 +82,15 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before HRnVm_Calculation is made visible.
+% --- Executes just before HRnV_Calc is made visible.
 function HRnV_Calc_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to HRnVm_Calculation (see VARARGIN)
+% varargin   command line arguments to HRnV_Calc (see VARARGIN)
 
-% Choose default command line output for HRnVm_Calculation
+% Choose default command line output for HRnV_Calc
 handles.output = hObject;
 
 
