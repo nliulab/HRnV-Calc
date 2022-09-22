@@ -1,4 +1,4 @@
-function varargout = HRnVm_Calculation(varargin)
+function varargout = HRnV_Calc(varargin)
 %   HRNVM_CALCULATION MATLAB code for HRnVm_Calculation.fig
 %      HRNVM_CALCULATION, by itself, creates a new HRNVM_CALCULATION or raises the existing
 %      singleton*.
@@ -50,7 +50,7 @@ function varargout = HRnVm_Calculation(varargin)
 % Begin initialization code - DO NOT EDIT 
 
 % Include current working directory and its sub-directories to PATH
-HRnV_path = fileparts(which('HRnVm_Calculation.m'));
+HRnV_path = fileparts(which('HRnV_Calc.m'));
 cd(HRnV_path)
 if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') ~= 7 && exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') ~= 7
     msg = sprintf('PhysioNet-Cardiovascular-Signal-Toolbox Not Installed!\n                  Please Install the toolbox first');
@@ -66,8 +66,8 @@ addpath(genpath(HRnV_path));
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @HRnVm_Calculation_OpeningFcn, ...
-                   'gui_OutputFcn',  @HRnVm_Calculation_OutputFcn, ...
+                   'gui_OpeningFcn', @HRnV_Calc_OpeningFcn, ...
+                   'gui_OutputFcn',  @HRnV_Calc_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -83,7 +83,7 @@ end
 
 
 % --- Executes just before HRnVm_Calculation is made visible.
-function HRnVm_Calculation_OpeningFcn(hObject, eventdata, handles, varargin)
+function HRnV_Calc_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -140,7 +140,7 @@ end
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = HRnVm_Calculation_OutputFcn(hObject, eventdata, handles) 
+function varargout = HRnV_Calc_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB

@@ -36,7 +36,7 @@
 % Image Processing Toolbox is needed for ECG segment selection
 
 % By default, this script will install the toolbox under the HRnV-Calc directory
-HRnV_path = fileparts(which('HRnVm_Calculation.m'));
+HRnV_path = fileparts(which('HRnV_Calc.m'));
 cd(HRnV_path)
 if exist('PhysioNet-Cardiovascular-Signal-Toolbox-master', 'dir') == 7 || exist('PhysioNet-Cardiovascular-Signal-Toolbox', 'dir') == 7
     disp('PhysioNet Toolbox Directory Already Exists');
@@ -65,4 +65,4 @@ clear fieldest HRnV_path pcst_url savefilename
 clc;
 disp('Installation Finished');
 disp('Welcome!')
-HRnVm_Calculation;
+HRnV_Calc;
