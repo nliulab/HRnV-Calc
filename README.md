@@ -1,13 +1,13 @@
 # HRnV-Calc: A Software for Heart Rate n-Variability and Heart Rate Variability Analysis [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue)](https://www.gnu.org/licenses/gpl-3.0.html)
  - **[HRnV-Calc Introduction](#hrnv-calc-introduction)**
       - [Description](#description)
-      - [Installation](#installation)
       - [Citation](#citation)
       - [Contact](#contact)
+- **[Installation](#installation)**
 - **[HRnV/HRV Methods and Metrics](#hrnvhrv-methods-and-metrics)**
   - [The HRnV Method](#the-hrnv-method)
   - [Metrics Descriptions](#metrics-descriptions)
-- **[HRnV-Calc Tutorial](#hrnv-calc-tutorial)**
+- **[Running HRnV-Calc](#running-hrnv-calc)**
   - [Data Loader](#data-loader)
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
   - [HR<sub>n</sub>V<sub>m</sub>   Setting Viewer](#hrnvm-setting-viewer)
@@ -20,12 +20,6 @@ The HRnV-Calc software is a heart rate variability (HRV) analysis software with 
 
 The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
-### Installation
-To begin, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Deep Learning Toolbox, and Image Processing Toolbox)
-
-Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
-
-Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that the name of the folder containing PCST should not be changed, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
 
 ### Citation
 If you are using HRnV-Calc, please cite PCST and other related papers:
@@ -45,6 +39,19 @@ If you are using HRnV-Calc, please cite PCST and other related papers:
 - Dagang Guo (Email: <guo.dagang@duke-nus.edu.sg>)
 - Chenglin Niu (Email: <chenglin.niu@u.duke.nus.edu>)
 - Nan Liu (Email: <liu.nan@duke-nus.edu.sg>)
+
+
+## Installation
+To install HRnV-Calc, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Deep Learning Toolbox, and Image Processing Toolbox)
+
+Source code of HRnV-Calc and its GUIs can be downloaded from this GitHub repository using the following command:
+```
+git clone https://github.com/nliulab/HRnV-Calc.git
+```
+
+Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
+
+Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that the name of the folder containing PCST should not be changed, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
 
 ## HRnV/HRV Methods and Metrics 
 ### The HRnV Method
@@ -101,7 +108,7 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 | DFA &alpha;<sub>1</sub> and &alpha;<sub>2</sub>                              | -     | Short-term and long-term fluctuations of detrended fluctuation analysis (DFA)           | 
 
 
-## HRnV-Calc Tutorial
+## Running HRnV-Calc
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer](#hrnvm-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-setting-viewer). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 
 In this tutorial, we use the demo ECG input [Demo_NSR16786.txt](./Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
