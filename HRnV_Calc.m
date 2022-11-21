@@ -273,12 +273,17 @@ else %Single file
             fileID = extractBetween(handles.filename,handles.prefix,handles.postfix);
         end
     end
-    if isempty(fileID) || ismissing(fileID) %%Wrong input of prefix and postfix lead to fail extraction
+    if isempty(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
         fileID = handles.filename;
         wrong_id = 1;
     else
-        if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
-            fileID = fileID{1};
+        if ismissing(fileID)
+            fileID = handles.filename;
+            wrong_id = 1;
+        else
+            if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
+                fileID = fileID{1};
+            end
         end
     end
     handles.patientID = fileID;
