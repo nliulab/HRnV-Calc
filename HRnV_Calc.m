@@ -121,7 +121,7 @@ handles.patientID = "";
 % Update handles structure
 guidata(hObject, handles);
 
-%%Close old HRnVm_Result or Preprocess figure once this HRnVm_Calculation is
+%%Close old HRnVm_Result or Preprocess figure once this HRnVm_Calc is
 %%calling from them
 hhrnvmresult = findobj('Tag','hrnvmresult');
 % if exists (not empty)
@@ -135,7 +135,7 @@ if ~isempty(hhrnvpreprocess)
     close(hhrnvpreprocess);
 end
 
-% UIWAIT makes HRnVm_Calculation wait for user response (see UIRESUME)
+% UIWAIT makes HRnVm_Calc wait for user response (see UIRESUME)
 % uiwait(handles.HRnVmCal);
 
 
@@ -190,6 +190,13 @@ else
         end
     end
 end
+
+% Check valid fs is specified
+if handles.datatype == 1 && isnan(handles.fs)
+    handles.fs = 125;
+    msg = sprintf('     Invalid Sampling Rate Specified!\nSampling Rate has been reset to 125Hz');
+        waitfor(warndlg(msg,"Invalid Sampling Rate"));
+    end
 
 handles.prefix = get(handles.edprefix,'String');
 handles.postfix = get(handles.edpostfix,'String');
