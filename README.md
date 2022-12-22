@@ -16,7 +16,7 @@
 
 ## HRnV-Calc Introduction
 ### Description
-The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [Heart Rate n-Variability (HRnV) method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis. 
+The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [Heart Rate n-Variability (HRnV) method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis with no programming knowledge required. 
 
 The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
@@ -51,7 +51,7 @@ git clone https://github.com/nliulab/HRnV-Calc.git
 
 Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkits that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST. 
 
-Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that the name of the folder containing PCST should not be changed, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
+Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that **the name of the folder containing PCST should not be changed**, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
 
 ## HRnV/HRV Methods and Metrics 
 ### The HRnV Method
@@ -111,7 +111,7 @@ A brief description of all HRV/HR<sub>n</sub>V<sub>m</sub> metrics provided by H
 ## Running HRnV-Calc
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) [Data Loader](#data-loader), (2) [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer), (3) [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer](#hrnvm-setting-viewer), and (4) [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-setting-viewer). Each of these interfaces will be presented one at a time for every step of HRnV and HRV analysis. 
 
-We use the demo ECG input [Demo_NSR16786.txt](./Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
+We use the demo ECG input [Demo_NSR16786.txt](./Demo/Demo_Data/Demo_NSR16786.txt) to illustrate functionalities of HRnV-Calc. The demo input is a 10 min ECG recording (sampling rate: 128Hz) randomly sampled from patient #16786 in the [MIT-BIH Normal Sinus Rhythm Database](https://physionet.org/content/nsrdb/1.0.0/).
 ### Data Loader
 The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch processing. It is noteworthy that the current version of HRnV-Calc supports **only batch processing on RRI (IBI) inputs**, which do not require manual QRS inspection to complete the HRV/HRnV analysis. 
 
@@ -123,21 +123,23 @@ The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for u
 </p>
 
 #### Data Type and Formats
-Currently, HRnV-Calc accepts five different data types, which include:
+Currently, HRnV-Calc accepts three different data types, which include:
 
 - Raw ECG (*.txt, *.csv)
 - IBI (*.txt, *.csv)
 - ECG PC -- ECG signal with peak positions (*.csv) saved by HRnV-Calc. 
 
+The reference format of input files can be found in the [Demo_Data](./Demo/Demo_Data/) directory. Currently, HRnV-Calc only supports **single channel** ECG and RRI signals. One input file should only contain a single signal stored in one row or one column in the supported format. 
+
 #### Single/Batch Processing
-**Single File** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the `Open File/Folder` button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
+**`Single File`** lets users conduct HRV/HRnV analysis on one single input file at a time. This option supports [all data types](#data-type-and-formats). Once the data type is configured, users may click on the `Open File/Folder` button to navigate and locate the input file. Note that HRnV-Calc will only display files in supported formats for the specified data type.
 
 
-**Batch Files** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use `Open File/Folder` button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
+**`Batch Files`** allows users to conduct HRV/HRnV analyses on **multiple RRI input files** simultaneously. To conduct batch processing, all input RRI files have to be in the **same format** (either *.txt or *.mat) and saved under **the same directory**. Users may use `Open File/Folder` button to navigate and locate the input directory, and HRnV-Calc will automatically analyze all supported files in the directory. HRnV-Calc includes three demo [RRI input files](./Demo_Data/Demo_RRI/) from the [Normal Sinus Rhythm RR Interval Database](https://physionet.org/content/nsr2db/1.0.0/) for users to try batch processing.
 
 
 #### Fetal ECG Processing Profile
-Since fetal ECG signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021). Note this processing profile is only valid for **ECG inputs**.
+Since fetal ECG signals have distinct features to the ones from adults, HRnV-Calc has two processing profiles for users to choose from for downstream analysis. For more details about the profiles, please refer to the [PCST paper](https://iopscience.iop.org/article/10.1088/1361-6579/aae021). Note this processing profile is **only effective for ECG inputs**.
 
 #### Sampling Rate
 For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: `125Hz` or `250Hz`. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. 
@@ -146,7 +148,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 
 
 #### Patient ID Extraction
-By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as patient ID to store and display analysis results. Users may customize the ID extraction by specifying the prefix and postfix of the input file. For example, as shown in the figure above and all subsequent figures, patient ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
+By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as patient ID to store and display analysis results. Users may customize the ID extraction by specifying the `prefix` and `postfix` of the input file. For example, as shown in the figure above and all subsequent figures, patient ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
 Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Confirm` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
@@ -175,7 +177,7 @@ The `Signal Type` section allows users to choose whether the full ECG or a segme
 
 If the `Segment` option is selected, the `Display settings & ECG Segment Selection` section will be availabe to users to navigate and select the desired segment. 
 
-There are three choices of segment length can be selected in the segmentation subsection: `5 min`, `10 min`, and `15 min`. Users may change `Display Duration` and `Display overlay` to better navigate and locate the desired part of the ECG signal for segmentation.
+For segmentation of ECG signals, there are three choices of segment length can be selected in the segmentation subsection: `5 min`, `10 min`, and `15 min`. Users may change `Display Duration` and `Display overlay` to better navigate and locate the desired part of the ECG signal for segmentation.
 
 As shown in the figure below, to select the starting point of the segment, click the `Select start point` button, and then choose the starting point by clicking on the ECG plot displayed in the middle of the QDE viewer. Single clicks will be plotted on the ECG plot as crossing marks for reference. To avoid unintended inputs, such clicks are not stored as the actual starting points. Users may **finalize the choice of the starting point by double clicking** on the desired point in the ECG plot. Alternatively, right clicking will also finalize the starting point as the last single click position.  It is worth noting that only the horizontal position (i.e., the X-axis coordinate) of the click will be used to locate the starting point of the segment. Once the starting point is finalized, the **end point of the segment with specified length will be automatically displayed** on the ECG plot as a green dot. Users may finalize the choice of the end point by clicking the `Confirm End Point` button and thus confirm the segmentation of the ECG signal.
 
