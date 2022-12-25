@@ -22,7 +22,7 @@ The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or l
 
 
 ### Citation
-If you are using HRnV-Calc, please cite PCST and other related papers:
+If you are using HRnV-Calc, please cite the original HRnV and PCST papers:
 
 ```
 [1] Liu N, Guo D, Koh ZX, Ho AFW, Xie F, Tagami T, Sakamoto JT, Pek PP, Chakraborty B, Lim SH, Tan J & Ong MEH (2020).
