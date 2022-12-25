@@ -25,15 +25,13 @@ The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or l
 If you are using HRnV-Calc, please cite PCST and other related papers:
 
 ```
-[1] Vest, A. N., Da Poian, G., Li, Q., Liu, C., Nemati, S., Shah, A. J., & Clifford, G. D. (2018). 
-    An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
-    Physiological measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
-
-[2] Liu, N., Guo, D., Koh, Z. X., Ho, A., Xie, F., Tagami, T., Sakamoto, J. T., 
-    Pek, P. P., Chakraborty, B., Lim, S. H., Tan, J., & Ong, M. (2020).
+[1] Liu N, Guo D, Koh ZX, Ho AFW, Xie F, Tagami T, Sakamoto JT, Pek PP, Chakraborty B, Lim SH, Tan J & Ong MEH (2020).
     Heart rate n-variability (HRnV) and its application to risk stratification of chest pain patients in the emergency department. 
-    BMC cardiovascular disorders, 20(1), 168. https://doi.org/10.1186/s12872-020-01455-8
- 
+    BMC Cardiovascular Disorders, 20(1), 168. https://doi.org/10.1186/s12872-020-01455-8
+
+[2] Vest AN, Da Poian G, Li Q, Liu C, Nemati S, Shah AJ & Clifford GD (2018). 
+    An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
+    Physiological Measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
 ```  
 ### Contact
 - Dagang Guo (Email: <guo.dagang@duke-nus.edu.sg>)
