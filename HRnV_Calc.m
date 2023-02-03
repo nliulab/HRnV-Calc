@@ -599,6 +599,9 @@ if get(handles.rbecg,'Value')==1
     set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
     set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'on');
+    set(handles.rbadult, 'Enable', 'on');
+    set(handles.rbadult, 'Value', 1);
 end
 
 
@@ -631,4 +634,7 @@ if get(handles.rbecgpc,'Value')==1
     set(handles.rb250,'Value',1);
     set(handles.rbothers,'Enable','on');
     set(handles.edfs,'Enable','off');
+    set(handles.rbinfant, 'Enable', 'on');
+    set(handles.rbadult, 'Enable', 'on');
+    set(handles.rbadult, 'Value', 1);
 end
