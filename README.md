@@ -14,6 +14,7 @@
   - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrnvm-results-display)
 - **[Additional Example and Results Verification](#additional-example-and-results-verification)**
   - [Batch Processing](#example-batch-processing)
+  - [Results Verification](#results-verification)
 
 
 ## HRnV-Calc Introduction
@@ -244,8 +245,8 @@ As shown in figure above, the HR<sub>n</sub>V<sub>m</sub> Results Display viewer
 
 ### Example: Batch Processing
 
-HRnV-Calc supports analyzing multiple RRI signals simultaneously as batch processing.  [Three demo RRI inputs]((./Demo_Data/Demo_RRI/)) are provided in this repository. To start, check the `Batch Files` option in [Data Loader](#data-loader) as shown in the figure below. The `Prefix` and `Postfix` sections can be specified for [patient ID extractions](#patient-id-extraction). 
-
+HRnV-Calc supports analyzing multiple RRI signals simultaneously as batch processing.  [Three demo RRI inputs]((./Demo_Data/Demo_RRI/)) are provided in this repository. To start, check the `Batch Files` option in [Data Loader](#data-loader) as shown in the figure below. The `Prefix` and `Postfix` sections can be specified for [patient ID extractions](#patient-id-extraction). Do note that the 
+[HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-results-display) will not be displayed for batch processing. 
 <p align="center">
   <img src="./figs/Batch_processing_data_loader.png" />
 </p>
@@ -269,9 +270,14 @@ In this example, we choose `n` number to be 3, meaning all HR<sub>n</sub>V<sub>m
 
 To help users determine the integrity of their installation, we provide some HR<sub>n</sub>V<sub>m</sub> [results](Demo/Demo_Results/) using the [demo data](Demo/Demo_Data/) included in this repository. 
 
-The [ECG results](/Demo/Demo_Results/ECG_Results/) are obtained using the [single demo ECG file](Demo/Demo_Data/Demo_ECG/Demo_NSR16786.txt) (sampling rate: 128Hz). There are four files under the this folder:
+The [ECG results](/Demo/Demo_Results/ECG_Results/) were obtained using the [single demo ECG file](Demo/Demo_Data/Demo_ECG/Demo_NSR16786.txt) (sampling rate: 128Hz). There are four files under the this folder:
 
   - [NSR16786_10mins_ECG&Peakpos.csv](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ECG%26Peakpos.csv) contains the ECG signal (first column) and binary R peak positions (second column) obtained using the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer). The entirety (10 minutes) of the demo ECG input was analyzed to obtained this file without any manual R peak edit. All settings were set to default in the process. Patient ID was extracted as shown in the [Patient ID Extraction](#patient-id-extraction) section. 
   - [NSR16786_10mins_ibi.csv](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) contains the RRI sequence derived from the [peak positions](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ECG%26Peakpos.csv) obtained using the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer). All settings were set to default in the process. 
-  - [NSR16786-HRV.xls](Demo/Demo_Results/ECG_Results/NSR16786-HRV.xls) contains the results of a single HRV analysis performed on the [RRI sequence](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) derived from the demo ECG input. This file was obtained by setting all the settings in the [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer) to default. Results in this file are also shown in the figure under the [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-results-display) section.
+  - [NSR16786-HRV.xls](Demo/Demo_Results/ECG_Results/NSR16786-HRV.xls) contains the results of a single HRV analysis performed on the [RRI sequence](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) derived from the demo ECG input. This file was obtained by leaving all the settings in the [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer) to default. Results in this file are also shown in the figure under the [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-results-display) section.
   - [NSR16786-HR3V-all.xls](Demo/Demo_Results/ECG_Results/NSR16786-HR3V-all.xls) contains the results of 6 different HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` no greater than 3 peformed on the [RRI sequence](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) derived from the demo ECG input. This file was obtained by choosing the `All` option in the [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer) and specifying `n` to be 3. All other settings were set to default. 
+  
+The [RRI results](Demo/Demo_Results/RRI_Results/) were obtained using the [three RRI demo inputs](Demo/Demo_Data/Demo_RRI/) as [batch processing](#example-batch-processing). There are two files under this folder:
+
+  - [HRV-BatchResults.xls](Demo/Demo_Results/RRI_Results/HRV-BatchResults.xls) contains the HRV analysis results of the three demo inputs. The `Batch Files` was chose in the [Data Loader](#data-loader) with `Prefix` and `Postfix` set as shown in the [batch processing example](#example-batch-processing) section. All other settings were set to default. 
+  - [HR3V-all-BatchResults.xls](Demo/Demo_Results/RRI_Results/HR3V-all-BatchResults.xls) contains the results of 6 different HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` no greater than 3 peformed on the three demo RRI inputs. The settings and configurations made to obtain this file are shown in the [batch processing example](#example-batch-processing) section.
