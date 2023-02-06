@@ -76,9 +76,11 @@ The HRnV method [22] for alternative RRI representation is a unique and the main
 
 HRnV-Calc is primarily operated using its step-by-step GUIs, which include four main interfaces: (1) Data Loader, (2) QRS Detection & Edits (QDE) viewer, (3) $HR_{n}V_{m}$ 
 Setting viewer, and (4) $HR_{n}V_{m}$ Results Display. A typical workflow using HRnV-Calc is illustrated in \autoref{fig:workflow}.
+
 ![Typical workflow of HRnV-Calc \label{fig:workflow}](HRnV-Calc_workflow.png)
 
 The initial GUI of HRnV-Calc is Data Loader (\autoref{fig:dataloader}), which provides basic settings for users to begin HRV/HRnV analysis, such as the data type of the input and the sampling rate of the signal. Users may choose to perform analysis on a single file or multiple files as batch-processing. Currently, HRnV-Calc supports ECG and RRI inputs in the format of text and CSV. 
+
 ![Data Loader \label{fig:dataloader}](../figs/Data_loader.png)
 
 Since the QRS peak detection of ECG is crucial for subsequent HRnV and HRV analysis, especially in clinical settings, the QDE viewer (\autoref{fig:QDE}) is designed to configure and inspect QRS detection on ECG inputs interactively. All settings and tools for QRS detection and inspection can be found in the setting section at the top. Manual adjustments of QRS peaks annotation can be made after the initial automatic QRS detection provided by *jqrs* [30, 31].
