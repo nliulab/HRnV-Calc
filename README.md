@@ -12,6 +12,8 @@
   - [QRS Detection & Edits viewer](#qrs-detection-and-edits-qde-viewer)
   - [HR<sub>n</sub>V<sub>m</sub>   Setting Viewer](#hrnvm-setting-viewer)
   - [HR<sub>n</sub>V<sub>m</sub>  Results Display](#hrnvm-results-display)
+- **[Additional Example and Results Verification](#additional-example-and-results-verification)**
+  - [Batch Processing](#example-batch-processing)
 
 
 ## HRnV-Calc Introduction
@@ -51,6 +53,7 @@ Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to ins
 
 Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that **the name of the folder containing PCST should not be changed**, as HRnV-Calc will check the existence of the original PCST folder before the software starts. 
 
+Usually, there is no calibration or check needed before running HRnV-Calc. However, users may refer to the [Results Verification](#results-verification) section to compare their results and verify the integrity of their HRnV-Calc installations. 
 ## HRnV/HRV Methods and Metrics 
 ### The HRnV Method
 To use HRnV-Calc, it is important to know how the HRnV method works. Here we will give a simple explaination of the method. 
@@ -146,7 +149,7 @@ For RRI inputs, this section will not be avaible, as the sampling rate does not 
 
 
 #### Patient ID Extraction
-By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input as patient ID to store and display analysis results. Users may customize the ID extraction by specifying the `prefix` and `postfix` of the input file. For example, as shown in the figure above and all subsequent figures, patient ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
+By default, HRnV-Calc will use the full file name (e.g., Demo_NSR16786.txt) of the input file as patient ID to store and display analysis results. Users may customize the ID extraction by specifying the `Prefix` and `Postfix` of the input file. For example, as shown in the figure above and all subsequent figures, patient ID 'NSR16786' can be extracted from the file name by specifying the prefix to be 'Demo_' and postfix to be '.txt'. 
 
 #### Cofirmation Window
 Once the input files and all settings in the Data Loader are properly configured, users may click on `Next` to proceed to the next step. A confirmation window will be displayed to let users double check on the settings made in the Data Loader. If it is necessary to change any setting, clicking `Back` will bring up the Data Loader agian. The `Confirm` button will bring up the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer) for ECG inputs or [HR<sub>n</sub>V<sub>m</sub>  Setting Viewer ](#hrnvm-setting-viewer) for RRI inputs. 
@@ -237,5 +240,38 @@ HRnV-Calc will display results of a single HR<sub>n</sub>V<sub>m</sub> analysis 
 
 As shown in figure above, the HR<sub>n</sub>V<sub>m</sub> Results Display viewer provides a comprehensive overview of the HR<sub>n</sub>V<sub>m</sub>  analysis. If the conventional HRV (or HR<sub>1</sub>V) analysis is performed, the `IBI Statistics` section provides an overview of the abnormal beats presented in the original RRI and the percentage of clean beats in the entire input. For HR<sub>n</sub>V<sub>m</sub>  analyses other than conventional HRV (e.g., HR<sub>2</sub>V<sub>1</sub>), the `IBI Statistics` section will only display the number of beats in the corresponding RR<sub>n</sub>I<sub>m</sub>  intervals, as preprocessing is only performed on the original RRI before converting to RR<sub>n</sub>I<sub>m</sub>  intervals.
 
+## Additional Example and Results Verification
+
+### Example: Batch Processing
+
+HRnV-Calc supports analyzing multiple RRI signals simultaneously as batch processing.  [Three demo RRI inputs]((./Demo_Data/Demo_RRI/)) are provided in this repository. To start, check the `Batch Files` option in [Data Loader](#data-loader) as shown in the figure below. The `Prefix` and `Postfix` sections can be specified for [patient ID extractions](#patient-id-extraction). 
+
+<p align="center">
+  <img src="./figs/Batch_processing_data_loader.png" />
+</p>
+<p align="center">
+  Data Loader Settings for Batch Processing
+</p>
+
+The configuration of a single HR<sub>n</sub>V<sub>m</sub> of all the input RRI files is the same as mentioned in [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer). Here, we show the settings of multiple HR<sub>n</sub>V<sub>m</sub> analyses by choosing the option `All` in the figure below. 
+
+<p align="center">
+  <img src="./figs/Batch_processing_hrnvm_settings.png" />
+</p>
+<p align="center">
+  HR<sub>n</sub>V<sub>m</sub> Setting for Batch Processing of Multiple HR<sub>n</sub>V<sub>m</sub> Analyses
+</p>
 
 
+In this example, we choose `n` number to be 3, meaning all HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` number no greater than 3 will be performed (6 different analyses in total). All other settings, such  as `Ectopic Beats` and `Frequency Domain` settings are set to default. The reults of these anlyses can be found in the [demo results folder](Demo/Demo_Results/RRI_Results/).
+
+## Results Verification 
+
+To help users determine the integrity of their installation, we provide some HR<sub>n</sub>V<sub>m</sub> [results](Demo/Demo_Results/) using the [demo data](Demo/Demo_Data/) included in this repository. 
+
+The [ECG results](/Demo/Demo_Results/ECG_Results/) are obtained using the [single demo ECG file](Demo/Demo_Data/Demo_ECG/Demo_NSR16786.txt) (sampling rate: 128Hz). There are four files under the this folder:
+
+  - [NSR16786_10mins_ECG&Peakpos.csv](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ECG%26Peakpos.csv) contains the ECG signal (first column) and binary R peak positions (second column) obtained using the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer). The entirety (10 minutes) of the demo ECG input was analyzed to obtained this file without any manual R peak edit. All settings were set to default in the process. Patient ID was extracted as shown in the [Patient ID Extraction](#patient-id-extraction) section. 
+  - [NSR16786_10mins_ibi.csv](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) contains the RRI sequence derived from the [peak positions](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ECG%26Peakpos.csv) obtained using the [QRS Detection and Edits (QDE) Viewer](#qrs-detection-and-edits-qde-viewer). All settings were set to default in the process. 
+  - [NSR16786-HRV.xls](Demo/Demo_Results/ECG_Results/NSR16786-HRV.xls) contains the results of a single HRV analysis performed on the [RRI sequence](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) derived from the demo ECG input. This file was obtained by setting all the settings in the [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer) to default. Results in this file are also shown in the figure under the [HR<sub>n</sub>V<sub>m</sub> Results Display](#hrnvm-results-display) section.
+  - [NSR16786-HR3V-all.xls](Demo/Demo_Results/ECG_Results/NSR16786-HR3V-all.xls) contains the results of 6 different HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` no greater than 3 peformed on the [RRI sequence](Demo/Demo_Results/ECG_Results/NSR16786_10mins_ibi.csv) derived from the demo ECG input. This file was obtained by choosing the `All` option in the [HR<sub>n</sub>V<sub>m</sub> Setting Viewer](#hrnvm-setting-viewer) and specifying `n` to be 3. All other settings were set to default. 
