@@ -93,6 +93,6 @@ The $HR_{n}V_{m}$ Setting viewer (\autoref{fig:hrnvmsettings}) is used to config
 
 Once the HRnV or HRV analysis is configured, HRnV-Calc will automatically save all analysis results under the user-specified directory in the excel spread sheet format. In addition, HRnV-Calc will also display the results of a single $HR_{n}V_{m}$ analysis (e.g., $HR_{3}V_{2}$) in the $HR_{n}V_{m}$ Results Display window. As shown in \autoref{fig:results}, the $HR_{n}V_{m}$ Results Display viewer provides a comprehensive overview of the $HR_{n}V_{m}$  analysis. If the conventional HRV analysis is performed, the ‘IBI Statistics’ section provides an overview of the abnormal beats presented in the original RRI and the percentage of clean beats in the entire input. For $HR_{n}V_{m}$  analyses other than conventional HRV, the ‘IBI Statistics’ section will only display the number of beats in the corresponding $RR_{n}I_{m}$  intervals, as preprocessing is only performed on the original RRI before converting to $RR_{n}I_{m}$  intervals.
 
-![$HR_{n}V_{m}$ Parameters Setting \label{fig:results}](../figs/Results.png)
+![$HR_{n}V_{m}$ Results Display \label{fig:results}](../figs/Results.png)
 
 # References
