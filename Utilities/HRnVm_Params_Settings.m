@@ -105,10 +105,14 @@ if ~isempty(hhrnvminitset)
         handles.foldername = dhhrnvminitset.foldername;
     end
     
-    %%Close HRnVmCal window once parameters transferred
+    %%Close HRnVmConfirmation window once parameters transferred
     close(hhrnvminitset);
 end
 
+hhrnvmcal = findobj('Tag','HRnVmCal');
+if ~isempty(hhrnvmcal)
+    close(hhrnvmcal); %%Close HRnV-Calc main UI after settings transfer
+end
 %%Get Info from Preprocess
 % get the handle of HRnVmCal
 hhrnvpreprocess = findobj('Tag','HRnVmPreprocess');
