@@ -273,7 +273,7 @@ The configuration of a single HR<sub>n</sub>V<sub>m</sub> of all the input RRI f
 </p>
 
 
-In this example, we choose `n` number to be 3, meaning all HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` number no greater than 3 will be performed (6 different analyses in total). All other settings, such  as `Ectopic Beats` and `Frequency Domain` settings are set to default. The reults of these anlyses can be found in the [demo results folder](Demo/Demo_Results/RRI_Results/).
+In this example, we choose `n` number to be 3, meaning all HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` number smaller or equal to 3 will be performed (6 different analyses in total). All other settings, such  as `Ectopic Beats` and `Frequency Domain` settings are set to default. The reults of these anlyses can be found in the [demo results folder](Demo/Demo_Results/RRI_Results/).
 
 ## Results Verification 
 
