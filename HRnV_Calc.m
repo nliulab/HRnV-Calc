@@ -267,25 +267,26 @@ if handles.filetype == 2 %Batch file
     HRnVm_IniSetConfirm;
 else %Single file
     %%Extract patientid from prefix and postfix
+    [~,file_name,~] = fileparts(handles.filename);
     if handles.prefix == ""
         if handles.postfix ~= ""
-            fileID = extractBefore(handles.filename,handles.postfix);
+            fileID = extractBefore(file_name,handles.postfix);
         else
-            fileID = handles.filename; %%No prefix and postfix
+            fileID = file_name; %%No prefix and postfix
         end
     else
         if handles.postfix == ""
-            fileID = extractAfter(handles.filename,handles.prefix);
+            fileID = extractAfter(file_name,handles.prefix);
         else
-            fileID = extractBetween(handles.filename,handles.prefix,handles.postfix);
+            fileID = extractBetween(file_name,handles.prefix,handles.postfix);
         end
     end
     if isempty(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
-        fileID = handles.filename;
+        fileID = file_name;
         wrong_id = 1;
     else
         if ismissing(fileID)
-            fileID = handles.filename;
+            fileID = file_name;
             wrong_id = 1;
         else
             if iscell(fileID) %%Extractbetween seems generate the cell contains the chars

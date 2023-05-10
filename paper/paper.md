@@ -81,20 +81,12 @@ Setting viewer, and (4) $HR_{n}V_{m}$ Results Display. A typical workflow using 
 
 ![Typical workflow of HRnV-Calc \label{fig:workflow}](../figs/HRnV-Calc_workflow.png)
 
-The initial GUI of HRnV-Calc is Data Loader (\autoref{fig:dataloader}), which provides basic settings for users to begin HRV/HRnV analysis, such as the data type of the input and the sampling rate of the signal. Users may choose to perform analysis on a single file or multiple files as batch-processing. Currently, HRnV-Calc supports ECG and RRI inputs in the format of free text and CSV. 
+The initial GUI of HRnV-Calc is Data Loader, which provides basic settings for users to begin HRV/HRnV analysis. Users may choose to perform analysis on a single file or multiple files as batch-processing. Currently, HRnV-Calc supports ECG and RRI inputs in the format of free text and CSV.
 
-![Data Loader \label{fig:dataloader}](../figs/Data_loader.png)
+Since the QRS peak detection of ECG is crucial for subsequent HRnV and HRV analysis, especially in clinical settings, the QDE viewer is designed to configure and inspect QRS detection on ECG inputs interactively.
 
-Since the QRS peak detection of ECG is crucial for subsequent HRnV and HRV analysis, especially in clinical settings, the QDE viewer (\autoref{fig:QDE}) is designed to configure and inspect QRS detection on ECG inputs interactively. All settings and tools for QRS detection and inspection can be found in the setting section at the top of the QDE viewer. Manual adjustments of QRS peaks annotation can be made after the initial automatic QRS detection provided by *jqrs* [@RN7; @RN5].
+The $HR_{n}V_{m}$ Setting viewer  is used to configure HRnV and HRV analyses. Users may specify the $n$ and $m$ parameters for HRnV analysis and other confirgurations to process the input signal.
 
-![QDE Viewer \label{fig:QDE}](../figs/QDE_full.png)
-
-The $HR_{n}V_{m}$ Setting viewer (\autoref{fig:hrnvmsettings}) is used to configure HRnV and HRV analyses. Users may specify the $n$ and $m$ parameters for HRnV analysis in the ‘$HR_{n}V_{m}$’ section. The ‘Ectopic Beats’ section allows users to specify the threshold for a beat to be considered as an outlier and to select how outliers should be processed. It should be noted that the detection and processing of ectopic beats will only be conducted on the original RRI input signal. In the ‘Frequency Domain’ section, users may choose one of the four power spectral density (PSD) estimation methods provided in the PCST [@RN4]. The ‘Use Kubios Preset’ option allows users to modify the settings of some nonlinear methods used in HRnV-Calc according to the published documentations of Kubios HRV [@RN3]. Finally, the ‘Additional Metrics’ option allows users to calculate additional metrics for HRV or HRnV analyses. These metrics include median absolute deviation (MAD), Katz’s fractal dimension (KFD), Higuchi Fractal Dimension (HFD) [@RN99],  Huey’s index (HUEY), de Haan’s index (HANN), and Zugaib’s variability index (ZUG) [@RN100]. 
-
-![$HR_{n}V_{m}$ Parameters Setting \label{fig:hrnvmsettings}](../figs/HRnVm_setting.png)
-
-Once the HRnV or HRV analysis is configured, HRnV-Calc will automatically save all analysis results under the user-specified directory in the excel spread sheet format. In addition, HRnV-Calc will also display the results of a single $HR_{n}V_{m}$ analysis (e.g., $HR_{3}V_{2}$) in the $HR_{n}V_{m}$ Results Display window. As shown in \autoref{fig:results}, the $HR_{n}V_{m}$ Results Display viewer provides a comprehensive overview of the $HR_{n}V_{m}$  analysis. If the conventional HRV analysis is performed, the ‘IBI Statistics’ section provides an overview of the abnormal beats presented in the original RRI and the percentage of clean beats in the entire input. For $HR_{n}V_{m}$  analyses other than conventional HRV, the ‘IBI Statistics’ section will only display the number of beats in the corresponding $RR_{n}I_{m}$  intervals, as preprocessing is only performed on the original RRI before converting to $RR_{n}I_{m}$  intervals.
-
-![$HR_{n}V_{m}$ Results Display \label{fig:results}](../figs/Results.png)
+Once the HRnV or HRV analysis is configured, HRnV-Calc will automatically save all analysis results under the user-specified directory in the excel spread sheet format. In addition, HRnV-Calc will also display the results of a single $HR_{n}V_{m}$ analysis for rapid examniation of the analysis results.
 
 # References

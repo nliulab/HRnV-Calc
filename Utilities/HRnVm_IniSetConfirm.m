@@ -144,30 +144,37 @@ if ~isempty(hhrnvmcal)
         %build array of full file paths    
         fpaths=string(fnames);
         %%Extract recordid from prefix and postfix
+        [~, file_name, ~] = fileparts(fpaths(1));
         wrong_id = 0;
         if handles.prefix == ""
             if handles.postfix ~= ""
-                fileID = extractBefore(fpaths(1),handles.postfix);
+                fileID = extractBefore(file_name,handles.postfix);
             else
                 %% Chenglin mod
-                fileID = fpaths(1);%fpaths(fileindex); %%No prefix and postfix
+                fileID = file_name;%fpaths(fileindex); %%No prefix and postfix
                 %%
             end
         else
             if handles.postfix == ""
-                fileID = extractAfter(fpaths(1),handles.prefix);
+                fileID = extractAfter(file_name,handles.prefix);
             else
-                fileID = extractBetween(fpaths(1),handles.prefix,handles.postfix);
+                fileID = extractBetween(file_name,handles.prefix,handles.postfix);
             end
         end
-        if isempty(fileID) || ismissing(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
-            fileID = fpaths(1);
+        if isempty(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
+            fileID = file_name;
             wrong_id = 1;
         else
-            if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
-                fileID = fileID{1};
+            if ismissing(fileID)
+                fileID = file_name;
+                wrong_id = 1;
+            else
+                if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
+                    fileID = fileID{1};
+                end
             end
         end
+        
         set(handles.txtpatientID,'String',fileID+'  etc.,.');
         if wrong_id
             handles.prefix = "";

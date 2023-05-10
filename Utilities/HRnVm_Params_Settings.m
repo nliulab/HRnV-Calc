@@ -443,6 +443,10 @@ if get(handles.cbaddparam,'Value') == 1
 end
 
 foldername = handles.foldername;
+if endsWith(foldername, '/')==0
+    foldername = strcat(foldername,'/');
+end
+    
  %check input directory
 fileList = dir(foldername); %get list of files
 fileList(any([fileList.isdir],1))=[]; %remove folders/dir from the list
@@ -453,8 +457,8 @@ fpaths=string(fnames);
 for fileindex=1:length(fnames)
     ibidata = [];
     filename = strcat(foldername,fpaths(fileindex));
-    [filepath,name,ext] = fileparts(filename);
-    fpath = strcat(convertStringsToChars(foldername), '/',convertStringsToChars(fpaths(fileindex)));
+    [~,file_name,ext] = fileparts(filename);
+    fpath = strcat(convertStringsToChars(foldername), convertStringsToChars(fpaths(fileindex)));
   
     if (handles.datatype == 2)%IBI data
         if ext == '.txt'
@@ -524,22 +528,26 @@ for fileindex=1:length(fnames)
     %%Extract recordid from prefix and postfix
     if handles.prefix == ""
         if handles.postfix ~= ""
-            fileID = extractBefore(fpaths(fileindex),handles.postfix);
+            fileID = extractBefore(file_name,handles.postfix);
         else
-            fileID = fpaths(fileindex); %%No prefix and postfix
+            fileID = file_name; %%No prefix and postfix
         end
     else
         if handles.postfix == ""
-            fileID = extractAfter(fpaths(fileindex),handles.prefix);
+            fileID = extractAfter(file_name,handles.prefix);
         else
-            fileID = extractBetween(fpaths(fileindex),handles.prefix,handles.postfix);
+            fileID = extractBetween(file_name,handles.prefix,handles.postfix);
         end
     end
-    if isempty(fileID) || ismissing(fileID)  %%Wrong input of prefix and postfix lead to fail extraction
-        fileID = fpaths(fileindex);
+    if isempty(fileID)   %%Wrong input of prefix and postfix lead to fail extraction
+        fileID = file_name;
     else
-        if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
-            fileID = fileID{1};
+        if ismissing(fileID)
+            fileID = file_name;
+        else
+            if iscell(fileID) %%Extractbetween seems generate the cell contains the chars
+                fileID = fileID{1};
+            end
         end
     end
     
