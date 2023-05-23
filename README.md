@@ -1,5 +1,7 @@
 # HRnV-Calc: A Software for Heart Rate n-Variability and Heart Rate Variability Analysis 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![DOI](https://zenodo.org/badge/{github_id}.svg)](https://zenodo.org/badge/latestdoi/{github_id})
+
  - **[HRnV-Calc Introduction](#hrnv-calc-introduction)**
       - [Description](#description)
       - [Citation](#citation)
