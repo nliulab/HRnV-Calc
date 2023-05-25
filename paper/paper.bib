@@ -139,62 +139,6 @@ Reproducibility of Results},
    year = {2000}
 }
 
-@article{RN100,
-   author = {Czabanski, R. and Horoba, K. and Wrobel, J. and Matonia, A. and Martinek, R. and Kupka, T. and Jezewski, M. and Kahankova, R. and Jezewski, J. and Leski, J. M.},
-   title = {Detection of Atrial Fibrillation Episodes in Long-Term Heart Rhythm Signals Using a Support Vector Machine},
-   journal = {Sensors (Basel)},
-   volume = {20},
-   number = {3},
-   note = {Czabanski, Robert
-Horoba, Krzysztof
-Wrobel, Janusz
-Matonia, Adam
-Martinek, Radek
-Kupka, Tomasz
-Jezewski, Michal
-Kahankova, Radana
-Jezewski, Janusz
-Leski, Jacek M
-eng
-2017/27/B/ST6/01989/Narodowe Centrum Nauki
-STRATEGMED2/269343/18/ NCBR/2016/Narodowe Centrum Badan i Rozwoju
-Switzerland
-2020/02/06
-Sensors (Basel). 2020 Jan 30;20(3). pii: s20030765. doi: 10.3390/s20030765.},
-   abstract = {Atrial fibrillation (AF) is a serious heart arrhythmia leading to a significant increase of the risk for occurrence of ischemic stroke. Clinically, the AF episode is recognized in an electrocardiogram. However, detection of asymptomatic AF, which requires a long-term monitoring, is more efficient when based on irregularity of beat-to-beat intervals estimated by the heart rate (HR) features. Automated classification of heartbeats into AF and non-AF by means of the Lagrangian Support Vector Machine has been proposed. The classifier input vector consisted of sixteen features, including four coefficients very sensitive to beat-to-beat heart changes, taken from the fetal heart rate analysis in perinatal medicine. Effectiveness of the proposed classifier has been verified on the MIT-BIH Atrial Fibrillation Database. Designing of the LSVM classifier using very large number of feature vectors requires extreme computational efforts. Therefore, an original approach has been proposed to determine a training set of the smallest possible size that still would guarantee a high quality of AF detection. It enables to obtain satisfactory results using only 1.39% of all heartbeats as the training data. Post-processing stage based on aggregation of classified heartbeats into AF episodes has been applied to provide more reliable information on patient risk. Results obtained during the testing phase showed the sensitivity of 98.94%, positive predictive value of 98.39%, and classification accuracy of 98.86%.},
-   keywords = {Algorithms
-Atrial Fibrillation/*diagnosis/physiopathology
-Databases, Factual
-Diagnosis, Computer-Assisted
-Electrocardiography/*methods
-Heart Rate/*physiology
-Humans
-Signal Processing, Computer-Assisted
-Support Vector Machine
-AF detection
-HRV features
-atrial fibrillation (AF)
-heart rate variability (HRV)
-support vector machine (SVM)},
-   ISSN = {1424-8220 (Electronic)
-1424-8220 (Linking)},
-   DOI = {10.3390/s20030765},
-   url = {https://www.ncbi.nlm.nih.gov/pubmed/32019220},
-   year = {2020}
-}
-
-@article{RN99,
-   author = {David, Garner and Naiara, Souza and Luiz, Vanderlei},
-   title = {- Heart Rate Variability Analysis: Higuchi and Katz’s Fractal Dimensions in Subjects with Type 1 Diabetes Mellitus},
-   journal = {Romanian Journal of Diabetes Nutrition and Metabolic Diseases},
-   volume = {25},
-   number = {3},
-   pages = {289-295},
-   abstract = {- Abstract: Introduction: Statistical markers are valuable when assessing physiological status over periods of time and in certain disease states. We assess if type 1 diabetes mellitus promote modification in autonomic nervous system using the main two types of algorithms to estimate a Fractal Dimension: Higuchi and Katz. Methods: 46 adults were divided into two equal groups. The autonomic evaluation consisted of recording heart rate variability (HRV) for 30 minutes in supine position in absence of any other stimuli. Fractal dimensions ought then able to determine which series of interbeat intervals are derived from diabetics’ or not. We then equated results to observe which assessment gave the greatest significance by One-way analysis of variance (ANOVA1), Kruskal-Wallis technique and Cohen’s d effect sizes. Results: Katz’s fractal dimension is the most robust algorithm when assisted by a cubic spline interpolation (6 Hz) to increase the number of samples in the dataset. This was categorical after two tests for normality; then, ANOVA1, Kruskal-Wallis and Cohen’s d effect sizes (p≈0.01 and Cohen’s d=0.814143 –medium effect size). Conclusion: Diabetes significantly reduced the chaotic response as measured by Katz’s fractal dimension. Katz’s fractal dimension is a viable statistical marker for subjects with type 1 diabetes mellitus.},
-   url = {https://www.rjdnmd.org/index.php/RJDNMD/article/view/515},
-   year = {2018}
-}
-
 @article{RN90,
    author = {De Couck, M. and Gidron, Y.},
    title = {Norms of vagal nerve activity, indexed by Heart Rate Variability, in cancer patients},
@@ -251,41 +195,6 @@ sport},
 1872-7565},
    DOI = {10.1016/j.cmpb.2019.05.032},
    year = {2019}
-}
-
-@article{RN7,
-   author = {Johnson, A. E. and Behar, J. and Andreotti, F. and Clifford, G. D. and Oster, J.},
-   title = {Multimodal heart beat detection using signal quality indices},
-   journal = {Physiol Meas},
-   volume = {36},
-   number = {8},
-   pages = {1665-77},
-   note = {Johnson, Alistair E W
-Behar, Joachim
-Andreotti, Fernando
-Clifford, Gari D
-Oster, Julien
-eng
-Evaluation Study
-Research Support, Non-U.S. Gov't
-England
-Physiol Meas. 2015 Aug;36(8):1665-77. doi: 10.1088/0967-3334/36/8/1665. Epub 2015 Jul 28.},
-   abstract = {The electrocardiogram (ECG) is a well studied signal from which many clinically relevant parameters can be derived, such as heart rate. A key component in the estimation of these parameters is the accurate detection of the R peak in the QRS complex. While corruption of the ECG by movement artefact or sensor failure can result in poor delineation of the R peak, use of synchronously measured signals could allow for resolution of the R peak even scenarios with poor quality ECG recordings. Robust estimation of R peak locations from multimodal signals facilitates real time monitoring and is likely to reduce false alarms due to inaccurate derived parameters.We propose a method which fuses R peaks detected on the ECG using an energy detector with those detected on the arterial blood pressure (ABP) waveform using the length transform. A signal quality index (SQI) for the two signals is then derived. The ECG SQI is based upon the agreement between two distinct peak detectors. The ABP SQI estimates the blood pressure at various phases in the cardiac cycle and only accepts the signal as good quality if the values are physiologically plausible. Detections from these two signals were merged by selecting the R peak detections from the signal with a higher SQI. The approach presented in this paper was evaluated on datasets provided for the Physionet/Computing in Cardiology Challenge 2014. The algorithm achieved a sensitivity of 95.1% and positive predictive value of 89.3% on an external evaluation set, and achieved a score of 91.5%.The method here demonstrated excellent performance across a variety of signal morphologies collected during clinical practice. Fusion of R peaks from other signals has the potential to provide informed estimates of the R peak location in situations where the ECG is noisy or completely absent. Source code for the algorithm is made available freely online.},
-   keywords = {*Algorithms
-Arterial Pressure
-Blood Pressure Determination/*methods
-Databases, Factual
-Electrocardiography/*methods
-Heart/*physiology
-*Heart Rate/physiology
-Humans
-Sensitivity and Specificity
-*Signal Processing, Computer-Assisted},
-   ISSN = {1361-6579 (Electronic)
-0967-3334 (Linking)},
-   DOI = {10.1088/0967-3334/36/8/1665},
-   url = {https://www.ncbi.nlm.nih.gov/pubmed/26218060},
-   year = {2015}
 }
 
 @article{RN95,
