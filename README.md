@@ -45,8 +45,8 @@ If you are using HRnV-Calc, please cite the original HRnV and PCST papers:
 ```  
 ### Contact
 
-- Dagang Guo (Email: <guo.dagang@duke-nus.edu.sg>)
 - Chenglin Niu (Email: <chenglin.niu@u.duke.nus.edu>)
+- Dagang Guo (Email: <guo.dagang@duke-nus.edu.sg>)
 - Nan Liu (Email: <liu.nan@duke-nus.edu.sg>)
 
 
