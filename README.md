@@ -1,5 +1,5 @@
 # HRnV-Calc: A Software for Heart Rate n-Variability and Heart Rate Variability Analysis 
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20V3-blue)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![DOI](https://zenodo.org/badge/294055568.svg)](https://zenodo.org/badge/latestdoi/294055568)[![DOI](https://joss.theoj.org/papers/10.21105/joss.05391/status.svg)](https://doi.org/10.21105/joss.05391)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20V3-blue)](https://www.gnu.org/licenses/agpl-3.0.en.html) [![DOI](https://zenodo.org/badge/294055568.svg)](https://zenodo.org/badge/latestdoi/294055568) [![DOI](https://joss.theoj.org/papers/10.21105/joss.05391/status.svg)](https://doi.org/10.21105/joss.05391)
 
 
  - **[HRnV-Calc Introduction](#hrnv-calc-introduction)**
