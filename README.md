@@ -27,7 +27,7 @@
 
 The HRnV-Calc software is a heart rate variability (HRV) analysis software with the novel [Heart Rate n-Variability (HRnV) method](https://bmccardiovascdisord.biomedcentral.com/articles/10.1186/s12872-020-01455-8) built in. The software is built upon the core HRV analysis code provided by [PhysioNet Cardiovascular Signal Toolbox (PCST)](https://physionet.org/content/pcst/1.0.0/). In addition to the fully automated command-line HRV analysis process provided by PCST, HRnV-Calc offers the HRnV metrics to augment insights discovered by HRV as well as intuitive graphical user interfaces (GUIs) for every major step of HRV and HRnV analysis with no programming knowledge required. 
 
-The HRnV-Calc software is available freely on GitHub under the [GNU GPL (v3 or later)](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
+The HRnV-Calc software is available freely on GitHub under the [GNU Affero General Public License V3](https://www.gnu.org/licenses/agpl-3.0.en.html) license.
 
 
 ### Citation
