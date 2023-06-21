@@ -42,6 +42,10 @@ If you are using HRnV-Calc, please cite the original HRnV and PCST papers:
 [2] Vest AN, Da Poian G, Li Q, Liu C, Nemati S, Shah AJ & Clifford GD (2018). 
     An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
     Physiological Measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
+
+[3] Niu C, Guo D, Ong MEH, Koh ZX, Marie-Alix GAL, Ho AFW, Lin Z, Liu C, Clifford DG, Liu N (2023).
+    HRnV-Calc: A software for heart rate n-variability and heart rate variability analysis.
+    Journal of Open Source Software, 8(85): 5391. https://doi.org/10.21105/joss.05391
 ```  
 ### Contact
 
