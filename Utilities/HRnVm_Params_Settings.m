@@ -236,22 +236,24 @@ if get(handles.rbsingle,'Value') == 1 %Single HRnVm
     %%Set default file name
     defname = constructdeffilename(handles.filetype,1,handles.patientID,handles.hrnv,handles.hrnvm);
     %%File Saving 
-    [outputFileName,outputPathName] = uiputfile('*.xls',cat(2,'Save results to:'),defname);
+    [outputFileName,outputPathName] = uiputfile('*.csv',cat(2,'Save results to:'),defname);
     fullFileName = fullfile(outputPathName, outputFileName);
     
     header = constructheader(handles.hrnv,handles.hrnvm);
     header = cat(2,'patient_id',header);%%Add patient_id as first column
-    xlswrite(fullFileName,header,1);
+    writecell(header,fullFileName);
+    %xlswrite(fullFileName,header,1);
     
     %%Additional HRV Params Saving if checked
     if get(handles.cbaddparam,'Value') == 1
         defparamname = strcat(defname,'-AddParams');
-        [outputparamFileName,outputparamPathName] = uiputfile('*.xls',cat(2,'Save additional parameters results to:'),defparamname);
+        [outputparamFileName,outputparamPathName] = uiputfile('*.csv',cat(2,'Save additional parameters results to:'),defparamname);
         fullparamFileName = fullfile(outputparamPathName, outputparamFileName);
         
         paramheader = constructparamheader(handles.hrnv,handles.hrnvm);
         paramheader = cat(2,'patient_id',paramheader);%%Add patient_id as first column
-        xlswrite(fullparamFileName,paramheader,1);
+        writecell(paramheader,fullparamFileName);
+        %xlswrite(fullparamFileName,paramheader,1);
     end
     
     %hrnvmoverlap = handles.hrnv - handles.hrnvm;%% Chenglin mod, don't
@@ -263,12 +265,14 @@ if get(handles.rbsingle,'Value') == 1 %Single HRnVm
     end
     [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvmibi,handles.HRVParams,handles.hrnv);
     hrnvmoutput = cat(2,handles.patientID,hrnvmoutput);
-    xlsappend(convertStringsToChars(fullFileName),hrnvmoutput); 
+    writecell(hrnvmoutput,fullFileName,'WriteMode','append');
+    %xlsappend(convertStringsToChars(fullFileName),hrnvmoutput); 
     
     if get(handles.cbaddparam,'Value') == 1
         hrnvmparamoutput = hrnvmparamcal(hrnvmibi);
         hrnvmparamoutput = cat(2,handles.patientID,hrnvmparamoutput);
-        xlsappend(convertStringsToChars(fullparamFileName),hrnvmparamoutput);
+        writecell(hrnvmparamoutput,fullparamFileName,'WriteMode','append');
+        %xlsappend(convertStringsToChars(fullparamFileName),hrnvmparamoutput);
     end
     
     %%Save HRnVm name and result for display in HRnVm_Result
@@ -297,7 +301,7 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
     %%Set default file name
     defname = constructdeffilename(handles.filetype,2,handles.patientID,handles.hrnv,handles.hrnvm);
     %%File Saving 
-    [outputFileName,outputPathName] = uiputfile('*.xls',cat(2,'Save results to:'),defname);
+    [outputFileName,outputPathName] = uiputfile('*.csv',cat(2,'Save results to:'),defname);
     fullSingleAllName = fullfile(outputPathName, outputFileName);
     
     
@@ -308,7 +312,7 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
     %%Additional HRV Params Saving if checked
     if get(handles.cbaddparam,'Value') == 1
         defparamname = strcat(defname,'-AddParams');
-        [outputparamFileName,outputparamPathName] = uiputfile('*.xls',cat(2,'Save additional parameters results to:'),defparamname);
+        [outputparamFileName,outputparamPathName] = uiputfile('*.csv',cat(2,'Save additional parameters results to:'),defparamname);
         fullparamFileName = fullfile(outputparamPathName, outputparamFileName);
         
         paramheader = constructparamheader(handles.hrnv,handles.hrnvm);
@@ -366,15 +370,19 @@ else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2
     if isstring(fullSingleAllName)
         fullSingleAllName = convertStringsToChars(fullSingleAllName);
     end
-    xlswrite(fullSingleAllName,header,1);
-    xlsappend(fullSingleAllName,hrnvmoutput);
+    writecell(header,fullSingleAllName);
+    writecell(hrnvmoutput,fullSingleAllName,'WriteMode','append');
+    %xlswrite(fullSingleAllName,header,1);
+    %xlsappend(fullSingleAllName,hrnvmoutput);
     
     if get(handles.cbaddparam,'Value') == 1
         if isstring(fullparamFileName)
            fullparamFileName = convertStringsToChars(fullparamFileName);           
         end
-        xlswrite(fullparamFileName,paramheader,1);
-        xlsappend(fullparamFileName,hrnvmparamoutput);
+        writecell(paramheader,fullparamFileName);
+        writecell(hrnvmparamoutput,fullparamFileName,'WriteMode','append');
+        %xlswrite(fullparamFileName,paramheader,1);
+        %xlsappend(fullparamFileName,hrnvmparamoutput);
     end
     
     %%Create messagebox
@@ -432,13 +440,13 @@ else %All HRnVm batch
 end
 
 %%Normal HRV Params File Saving
-[outputFileName,outputPathName] = uiputfile('*.xls',cat(2,'Save results to:'),defname);
+[outputFileName,outputPathName] = uiputfile('*.csv',cat(2,'Save results to:'),defname);
 fullFileName = fullfile(outputPathName, outputFileName);
 
 %%Additional HRV Params Saving if checked
 if get(handles.cbaddparam,'Value') == 1
     defparamname = strcat(defname,'-AddParams');
-    [outputparamFileName,outputparamPathName] = uiputfile('*.xls',cat(2,'Save additional parameters results to:'),defparamname);
+    [outputparamFileName,outputparamPathName] = uiputfile('*.csv',cat(2,'Save additional parameters results to:'),defparamname);
     fullparamFileName = fullfile(outputparamPathName, outputparamFileName);
 end
 
@@ -470,7 +478,7 @@ for fileindex=1:length(fnames)
             end
         else
             if ext == '.csv'
-                ibidata = xlsread(fpath);
+                ibidata = csvread(fpath);
             end
         end
     else %Kubios IBI data
@@ -600,12 +608,14 @@ for fileindex=1:length(fnames)
         if fileindex == 1 %%Only write header the fist time
             header = constructheader(handles.hrnv,handles.hrnvm);
             header = cat(2,'patient_id',header);%%Add patient_id as first column
-            xlswrite(fullFileName,header,1);
+            writecell(header,fullFileName);
+            %xlswrite(fullFileName,header,1);
             
             if get(handles.cbaddparam,'Value') == 1
                 paramheader = constructparamheader(handles.hrnv,handles.hrnvm);
                 paramheader = cat(2,'patient_id',paramheader);%%Add patient_id as first column
-                xlswrite(fullparamFileName,paramheader,1);
+                writecell(paramheader,fullparamFileName);
+                %xlswrite(fullparamFileName,paramheader,1);
             end
             
         end
@@ -625,12 +635,14 @@ for fileindex=1:length(fnames)
         [HRnVOutput,hrnvmoutput] = hrnvmcalculation(hrnvmibi,handles.HRVParams,handles.hrnv);
 
         hrnvmoutput = cat(2,record_id,hrnvmoutput);
-        xlsappend(convertStringsToChars(fullFileName),hrnvmoutput); 
+        writecell(hrnvmoutput,fullFileName,'WriteMode','append');
+        %xlsappend(convertStringsToChars(fullFileName),hrnvmoutput); 
         
         if get(handles.cbaddparam,'Value') == 1
             hrnvmparamoutput = hrnvmparamcal(hrnvmibi);
             hrnvmparamoutput = cat(2,record_id,hrnvmparamoutput);
-            xlsappend(convertStringsToChars(fullparamFileName),hrnvmparamoutput);
+            writecell(hrnvmparamoutput,fullparamFileName,'WriteMode','append');
+            %xlsappend(convertStringsToChars(fullparamFileName),hrnvmparamoutput);
         end
         
     else %%HRnV,e.g.,HR3V include HRV, HR2v, HR2v1, HR3v,HR3v1,HR3v2 
@@ -697,15 +709,19 @@ for fileindex=1:length(fnames)
         end
         
         if fileindex == 1 %Only write header the fist time
-            xlswrite(fullFileName,header,1);
+            writecell(header,fullFileName);
+            %xlswrite(fullFileName,header,1);
         end
-        xlsappend(fullFileName,hrnvmoutput);
+        writecell(hrnvmparamoutput,fullFileName,'WriteMode','append');
+        %xlsappend(fullFileName,hrnvmoutput);
         
         if get(handles.cbaddparam,'Value') == 1
             if fileindex == 1 %Only write header the fist time
-                xlswrite(fullparamFileName,paramheader,1);
+                writecell(paramheader,fullparamFileName);
+                % xlswrite(fullparamFileName,paramheader,1);
             end
-            xlsappend(fullparamFileName,hrnvmparamoutput);
+            writecell(hrnvmparamoutput,fullparamFileName,'WriteMode','append');
+            % xlsappend(fullparamFileName,hrnvmparamoutput);
         end
     end
 
