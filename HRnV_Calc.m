@@ -179,17 +179,17 @@ else
     if get(handles.rbibi,'Value') == 1
         handles.datatype = 2;
     else
-        if get(handles.rbkecg,'Value') == 1
-            handles.datatype = 3;
-        else
-            if get(handles.rbkibi,'Value') == 1
-                handles.datatype = 4;
-            else
-                handles.datatype = 5;
-            end
-        end
-    end
-end
+        %if get(handles.rbkecg,'Value') == 1
+        %    handles.datatype = 3;
+        %else
+        %    if get(handles.rbkibi,'Value') == 1
+        %        handles.datatype = 4;
+        %    else
+        handles.datatype = 5;
+     end
+ end
+%end
+%end
 
 % Check valid fs is specified
 if handles.datatype == 1 && isnan(handles.fs)
@@ -326,17 +326,17 @@ else
     if (get(handles.rbibi,'Value')==1)
         handles.datatype = 2; %IBI
     else
-       if (get(handles.rbkecg,'Value')==1)
-            handles.datatype = 3;%% Kubios MAT ECG
-       else
-            if (get(handles.rbkibi,'Value')==1)
-                handles.datatype = 4;%% Kubios MAT IBI
-            else
-                handles.datatype = 5;%% ECG Peak Check (PC)
-            end
-       end
-    end
-end
+       %if (get(handles.rbkecg,'Value')==1)
+       %     handles.datatype = 3;%% Kubios MAT ECG
+       %else
+       %     if (get(handles.rbkibi,'Value')==1)
+       %         handles.datatype = 4;%% Kubios MAT IBI
+       %     else
+       handles.datatype = 5;%% ECG Peak Check (PC)
+     end
+ end
+%end
+%end
 
 if (get(handles.rbsingle,'Value')==1)
     handles.filetype = 1; %Single file
