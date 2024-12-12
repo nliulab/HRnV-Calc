@@ -216,7 +216,7 @@ if handles.filetype == 1
            data = signal{1};
         else
             if ext == '.csv'
-                data = xlsread([PathName '/' FileName]);
+                data = csvread([PathName '/' FileName]);
                 %%%If user open ECG&Peakpos file here
                 if size(data,2)==2
                     data = data(:,1);
@@ -230,7 +230,7 @@ if handles.filetype == 1
         %end
     else
         if (handles.datatype == 5)%%ECG PC data
-            ecgpc = xlsread([PathName '/' FileName]);
+            ecgpc = csvread([PathName '/' FileName]);
             handles.data = ecgpc(:,1); %ECG raw
             peakposcol = ecgpc(:,2); %Peak Pos
             handles.peakpos = find(peakposcol == 1);
