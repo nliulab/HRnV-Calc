@@ -32,20 +32,24 @@ The HRnV-Calc software is available freely on GitHub under the [GNU Affero Gener
 
 ### Citation
 
-If you are using HRnV-Calc, please cite the original HRnV and PCST papers:
+If you are using HRnV-Calc, please cite the following papers:
 
 ```
 [1] Liu N, Guo D, Koh ZX, Ho AFW, Xie F, Tagami T, Sakamoto JT, Pek PP, Chakraborty B, Lim SH, Tan J & Ong MEH (2020).
     Heart rate n-variability (HRnV) and its application to risk stratification of chest pain patients in the emergency department. 
     BMC Cardiovascular Disorders, 20(1), 168. https://doi.org/10.1186/s12872-020-01455-8
 
-[2] Vest AN, Da Poian G, Li Q, Liu C, Nemati S, Shah AJ & Clifford GD (2018). 
+[2] Niu C, Guo D, Ong MEH, Koh ZX, Marie-Alix GAL, Ho AFW, Lin Z, Liu C, Clifford DG, Liu N (2023).
+    HRnV-Calc: A software for heart rate n-variability and heart rate variability analysis.
+    Journal of Open Source Software, 8(85): 5391. https://doi.org/10.21105/joss.05391
+
+[3] Vest AN, Da Poian G, Li Q, Liu C, Nemati S, Shah AJ & Clifford GD (2018). 
     An open source benchmarked toolbox for cardiovascular waveform and interval analysis. 
     Physiological Measurement, 39(10), 105004. https://doi.org/10.1088/1361-6579/aae021
 
-[3] Niu C, Guo D, Ong MEH, Koh ZX, Marie-Alix GAL, Ho AFW, Lin Z, Liu C, Clifford DG, Liu N (2023).
-    HRnV-Calc: A software for heart rate n-variability and heart rate variability analysis.
-    Journal of Open Source Software, 8(85): 5391. https://doi.org/10.21105/joss.05391
+[4] Goldberger, A., Amaral, L., Glass, L., Hausdorff, J., Ivanov, P. C., Mark, R., ... & Stanley, H. E. (2000). 
+    PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research resource for complex physiologic signals. 
+    Circulation [Online]. 101 (23), pp. e215–e220.
 ```  
 ### Contact
 
@@ -56,7 +60,9 @@ If you are using HRnV-Calc, please cite the original HRnV and PCST papers:
 
 ## Installation
 
-To install HRnV-Calc, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: Signal Processing Toolbox, Statistics and Machine Learning Toolbox, Deep Learning Toolbox, and Image Processing Toolbox)
+To install HRnV-Calc, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: `Signal Processing Toolbox`, `Statistics and Machine Learning Toolbox`, `Deep Learning Toolbox`, and `Image Processing Toolbox`)
+
+**Important Note: For the best experience, we recommend running Matlab on Windows.** Performance on other systems is not always guaranteed. If you encounter any issues running HRnV-Calc, please feel free to submit an [issue on GitHub](https://github.com/nliulab/HRnV-Calc/issues).
 
 User may download the zip file containing the latest version of HRnV-Calc from the [release page](https://github.com/nliulab/HRnV-Calc/releases) of this repository.
 
@@ -65,9 +71,9 @@ Source code of HRnV-Calc and its GUIs can be cloned from this GitHub repository 
 git clone https://github.com/nliulab/HRnV-Calc.git
 ```
 
-Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install PCST for the core signal analysis and HRV toolkit that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install PCST.
+**Dependency Installation:** Before using the GUIs and HRnV analysis provided by HRnV-Calc, users need to install the PCST for the core signal analysis and HRV toolkit that HRnV-Calc depends on. Users may use the installation script – [‘Install_Dependency.m’](./Install_Dependency.m) included in HRnV-Calc to automatically download and install the PCST.
 
-Alternatively, PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Do note that **the name of the folder containing PCST should not be changed**, as HRnV-Calc will check the existence of the original PCST folder before the software starts.
+Alternatively, the PCST can be manually downloaded from [PhysioNet](https://physionet.org/content/pcst/1.0.0/PhysioNet-Cardiovascular-Signal-Toolbox.zip) and added to the directory containing HRnV-Calc code as a subdirectory. Please note that **the name of the folder containing the PCST should not be changed**, as HRnV-Calc will check the existence of the original PCST folder before the software starts.
 
 Usually, there is no calibration or check needed before running HRnV-Calc. However, users may refer to the [Results Verification](#results-verification) section to compare their results and verify the integrity of their HRnV-Calc installations.
 
@@ -178,7 +184,7 @@ Since fetal ECG signals have distinct features to the ones from adults, HRnV-Cal
 
 #### Sampling Rate
 
-For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: `125Hz` or `250Hz`. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate.
+For ECG inputs, users need to specify the sampling rate of the signal. There are two predetermined sampling rates to choose: `125Hz` or `250Hz`. If the signal is sampled using other rates, users may choose the `Others` option and type in the sampling rate. The example ECG data we used here has a sampling rate of `128`.
 
 For RRI inputs, this section will not be available, as the sampling rate does not affect the analysis on RRI. HRnV-Calc will assign one of the default rates to the input.
 
@@ -308,9 +314,11 @@ The configuration of a single HR<sub>n</sub>V<sub>m</sub> of all the input RRI f
 
 In this example, we choose `n` number to be 3, meaning all HR<sub>n</sub>V<sub>m</sub> analyses with `n` and `m` number smaller or equal to 3 will be performed (6 different analyses in total). All other settings, such  as `Ectopic Beats` and `Frequency Domain` settings are set to default. The results of these analyses can be found in the [demo results folder](Demo/Demo_Results/RRI_Results/).
 
-## Results Verification 
+## Results Verification
 
-To help users determine the integrity of their installation, we provide some HR<sub>n</sub>V<sub>m</sub> [results](Demo/Demo_Results/) using the [demo data](Demo/Demo_Data/) included in this repository. 
+To help users determine the integrity of their installation, we provide some HR<sub>n</sub>V<sub>m</sub> [results](Demo/Demo_Results/) using the [demo data](Demo/Demo_Data/) included in this repository.
+
+**Update: The latest release of HRnV-Calc will save all HRV and HRnV results in CSV files. The content in such files should be identical to the corresponding Excel sheets included in the [results folder](Demo/Demo_Results/).**
 
 The [ECG results](/Demo/Demo_Results/ECG_Results/) were obtained using the [single demo ECG file](Demo/Demo_Data/Demo_ECG/Demo_NSR16786.txt) (sampling rate: 128Hz). There are four files under the this folder:
 
