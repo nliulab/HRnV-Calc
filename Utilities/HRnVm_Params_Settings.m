@@ -712,7 +712,6 @@ for fileindex=1:length(fnames)
             writecell(header,fullFileName);
             %xlswrite(fullFileName,header,1);
         end
-        writecell(hrnvmparamoutput,fullFileName,'WriteMode','append');
         %xlsappend(fullFileName,hrnvmoutput);
         
         if get(handles.cbaddparam,'Value') == 1
