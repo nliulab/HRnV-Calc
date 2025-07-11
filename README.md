@@ -60,7 +60,7 @@ If you are using HRnV-Calc, please cite the following papers:
 
 ## Installation
 
-To install HRnV-Calc, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: `Signal Processing Toolbox`, `Statistics and Machine Learning Toolbox`, `Deep Learning Toolbox`, and `Image Processing Toolbox`)
+To install HRnV-Calc, please download and install [Matlab](https://www.mathworks.com/) (2017b or higher) (required Matlab Toolboxes: `Signal Processing Toolbox`, `Wavelet Toolbox`, `Statistics and Machine Learning Toolbox`, `Deep Learning Toolbox`, and `Image Processing Toolbox`)
 
 **Important Note: For the best experience, we recommend running Matlab on Windows.** Performance on other systems is not always guaranteed. If you encounter any issues running HRnV-Calc, please feel free to submit an [issue on GitHub](https://github.com/nliulab/HRnV-Calc/issues).
 
